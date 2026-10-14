@@ -113,7 +113,7 @@
       "emotions": ["happiness", "disgust"],
       "blendshapes": [
         { "shape": "cheekSquint", "weight": 1.0, "lateral": true },
-        { "shape": "eyeSquint", "weight": 0.35, "lateral": true }
+        { "shape": "eyeSquint", "weight": 0.55, "lateral": true }
       ],
       "notes": "Key marker of the Duchenne smile (AU6 + AU12) versus a posed/social smile (AU12 alone). Drives the AU6 crow's-feet wrinkle map."
     },
@@ -157,7 +157,7 @@
       "blendshapes": [
         { "shape": "noseSneer", "weight": 1.0, "lateral": true },
         { "shape": "mouthUpperUp", "weight": 0.2, "lateral": true },
-        { "shape": "browDown", "weight": 0.15, "lateral": true }
+        { "shape": "browDown", "weight": 0.3, "lateral": true }
       ],
       "notes": "AU9 also lifts the upper lip slightly and pulls down the medial brow. Drives the AU9 nose wrinkle normal map."
     },

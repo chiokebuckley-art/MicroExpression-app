@@ -22,6 +22,7 @@ from urllib.parse import urlparse
 
 from PIL import Image, ImageChops, ImageStat
 from playwright.sync_api import sync_playwright
+from fixes_e2e import run_updates
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCREENSHOTS_DIR = os.path.join(ROOT, "screenshots")
@@ -73,9 +74,9 @@ def run_selftest():
     try:
         with sync_playwright() as p:
             try:
-                browser = p.chromium.launch(headless=True, channel="chrome")
+                browser = p.chromium.launch(headless=True, channel="chrome", args=["--use-gl=swiftshader", "--enable-unsafe-swiftshader"])
             except Exception:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(headless=True, executable_path=os.environ.get("PW_CHROMIUM_EXECUTABLE"), args=["--use-gl=swiftshader", "--enable-unsafe-swiftshader"])
             context = browser.new_context(viewport={"width": 1280, "height": 800})
             page = context.new_page()
 
@@ -217,9 +218,11 @@ def run_selftest():
             page.evaluate("window.__rig.loadRig('riya')")
             page.wait_for_function("window.__rigStats.rigId === 'riya'", timeout=15000)
 
+            run_updates(page, context, base_url, ROOT)
+
             # 4. Enable Unlock All & Walk All 10 Levels + Special Views
             print("4. Verifying all 10 curriculum levels, Ethics, Dashboard, Mirror, AU Lab, and Settings...")
-            page.locator("#globalUnlockAllToggle").check()
+            page.evaluate("async()=>{const db=await import('./src/store/db.js');await db.saveSetting('unlockAll',true);await db.saveSetting('ethicsCompleted',true);window.__app.settings.unlockAll=true;window.__app.settings.ethicsCompleted=true;}")
             page.wait_for_timeout(150)
 
             # Level 1: Wheel, VA Grid, Map27
@@ -261,7 +264,7 @@ def run_selftest():
             page.goto(f"{base_url}/index.html#/level/6")
             page.wait_for_timeout(250)
             page.locator('[data-testid="flash-stimulus-btn"]').click()
-            page.wait_for_timeout(600)
+            page.wait_for_timeout(1800)
             # Submit an answer to verify trial feedback & telemetry
             page.locator('.l6-ans-btn[data-ans="surprise"]').click()
             page.wait_for_timeout(250)

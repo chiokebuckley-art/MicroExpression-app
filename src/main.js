@@ -1,4 +1,4 @@
-import { BeginnerJourney, stagePassed } from './train/journey.js?v=5';
+import { BeginnerJourney, stagePassed } from './train/journey.js?v=6';
 /**
  * Reading Faces — Main Application Router & Orchestrator.
  * Connects the realistic Three.js 3D FaceRig, 10-Level Curriculum, Ethics Gate,
@@ -18,12 +18,9 @@ import {
   getTrials,
   getStaircases,
   getAllSRSCards,
-  getAssessments,
-  saveAssessment
+  getAssessments
 } from './store/db.js';
 import { downloadBackupFile, importDatabaseJSON, resetAllProgress } from './store/export.js';
-import { generateBenchmarkItems, scoreAssessment, isAssessmentDue } from './train/assessment.js';
-import { CORE_EMOTIONS_7 } from './train/staircase.js';
 
 import { Level1LiteracyView } from './levels/L1-literacy.js';
 import { Level2AnatomyView } from './levels/L2-anatomy.js';
@@ -67,6 +64,7 @@ export class ReadingFacesApp {
   async init() {
     await runStartupMigrations();
     this.settings = await getAllSettings();
+    this.settings.beginnerMinimumFlash ??= true;
     const progList = await getLevelProgressMap();
     this.levelProgress = new Map(progList.map((p) => [Number(p.levelId), p]));
 
@@ -82,6 +80,7 @@ export class ReadingFacesApp {
       ethics,
       scenes,
       conversations,
+      lesson,
       registry,
       ...levels
     ] = await Promise.all([
@@ -95,6 +94,7 @@ export class ReadingFacesApp {
       fetch('./content/ethics.json').then((r) => r.json()),
       fetch('./content/scenes.json').then((r) => r.json()),
       fetch('./content/conversations.json').then((r) => r.json()),
+      fetch('./content/lesson.json').then((r) => r.json()),
       loadModelRegistry(),
       ...Array.from({ length: 10 }, (_, i) => fetch(`./content/levels/level${i + 1}.json`).then((r) => r.json()))
     ]);
@@ -109,7 +109,8 @@ export class ReadingFacesApp {
       anatomy,
       ethics,
       scenes,
-      conversations
+      conversations,
+      lesson
     };
     levels.forEach((lvl, idx) => {
       this.content[`level${idx + 1}`] = lvl;
@@ -124,6 +125,7 @@ export class ReadingFacesApp {
     // Initialize 3D FaceRig inside #rigCanvasMount
     const rigMount = document.getElementById('rigCanvasMount');
     try {
+      if (new URLSearchParams(location.search).has('nowebgl')) throw new Error('Reference card mode');
       this.rig = new FaceRig(rigMount, {
         quality: this.settings.quality || 'high',
         reducedMotion: Boolean(this.settings.reducedMotion)
@@ -136,6 +138,7 @@ export class ReadingFacesApp {
     }
     window.__rig = this.rig;
 
+    window.addEventListener('rig:change', () => this._syncRigToolbar());
     this._renderRigToolbar();
     this._renderTopNav();
 
@@ -181,7 +184,7 @@ export class ReadingFacesApp {
               <option value="${r.id}" ${this.rig.currentRigId === r.id ? 'selected' : ''}>${r.label}</option>
             `).join('')}
             ${includeDev ? `<option value="facecap" ${this.rig.currentRigId === 'facecap' ? 'selected' : ''}>FaceCap (Dev Reference Rig)</option>` : ''}
-          </select>
+          </select><span id="rigIdentityReason" role="status"></span>
         </label>
 
         <label class="rig-select-label">Camera:
@@ -197,27 +200,53 @@ export class ReadingFacesApp {
     `;
 
     bar.querySelector('#rigIdentitySelect')?.addEventListener('change', async (e) => {
-      await this.rig.loadRig(e.target.value);
+      const requested = e.target.value;
+      e.target.value = this.rig.currentRigId;
+      try { await this.rig.loadRig(requested); }
+      catch { this._syncRigToolbar(); }
     });
 
     bar.querySelector('#rigCameraPresetSelect')?.addEventListener('change', (e) => {
       this.rig.setCameraPreset(e.target.value);
     });
 
+    this._syncRigToolbar();
     bar.querySelector('#rigToolbarNeutralBtn')?.addEventListener('click', () => {
       this.rig.setOverlaysEnabled(false);
       this.rig.resetToNeutral();
     });
   }
 
+  _syncRigToolbar() {
+    if (!this.rig) return;
+    const identity = document.getElementById('rigIdentitySelect');
+    const reason = document.getElementById('rigIdentityReason');
+    if (identity) {
+      identity.value = this.rig.currentRigId;
+      identity.disabled = Boolean(this.rig.identityLock);
+      identity.title = this.rig.identityLock ? 'Identities rotate on purpose to prevent memorising one face.' : 'Choose your practice face';
+      identity.setAttribute('aria-describedby', 'rigIdentityReason');
+    }
+    if (reason) reason.textContent = this.rig.identityLock ? `· ${this.rig.identityLock}` : '';
+    const camera = document.getElementById('rigCameraPresetSelect');
+    if (camera) { camera.value = this.rig.currentPreset; camera.disabled = Boolean(this.rig.cameraLocked); }
+    const neutral = document.getElementById('rigToolbarNeutralBtn');
+    if (neutral) neutral.disabled = Boolean(this.rig.cameraLocked);
+  }
+
   async handleRoute(hash) {
+    const token = this._routeSeq = (this._routeSeq || 0) + 1;
     const cleanHash = hash || '#/home';
     this.currentRoute = cleanHash;
     const journey = await getRecord('progress', 'beginnerJourneyV2');
+    if (token !== this._routeSeq) return;
     this.referenceUnlocked = Boolean(journey && stagePassed(journey, 1));
+    this.beginnerQualified = Boolean(journey && stagePassed(journey, 5));
+    if (this.rig) this.rig.minimumFlashMs = this.settings.beginnerMinimumFlash !== false && !this.beginnerQualified ? 200 : 0;
 
     if (this.activeViewInstance && typeof this.activeViewInstance.dispose === 'function') {
-      this.activeViewInstance.dispose();
+      await this.activeViewInstance.dispose();
+      if (token !== this._routeSeq) return;
     }
     this.activeViewInstance = null;
 
@@ -238,7 +267,7 @@ export class ReadingFacesApp {
       this._renderTopNav();
     };
 
-    if (['#/home','#/review','#/finish'].includes(cleanHash) || cleanHash.startsWith('#/stage/')) {
+    if (['#/home','#/review','#/finish','#/lesson/look-for','#/assessment'].includes(cleanHash) || cleanHash.startsWith('#/stage/')) {
       this.activeViewInstance = new BeginnerJourney(workspaceEl, this, cleanHash); return;
     }
     if (!this.rig && (cleanHash.startsWith('#/level/') || ['#/assessment','#/au-lab','#/mirror'].includes(cleanHash))) {
@@ -367,11 +396,6 @@ export class ReadingFacesApp {
       return;
     }
 
-    if (cleanHash === '#/assessment') {
-      await this._renderAssessmentView(workspaceEl);
-      return;
-    }
-
     if (cleanHash === '#/au-lab') {
       this._renderAULabView(workspaceEl);
       return;
@@ -380,100 +404,6 @@ export class ReadingFacesApp {
     if (cleanHash === '#/settings') {
       await this._renderSettingsAndAboutView(workspaceEl);
     }
-  }
-
-  async _renderAssessmentView(containerEl) {
-    const pastAssessments = await getAssessments();
-    const dueInfo = isAssessmentDue(pastAssessments);
-    const items = generateBenchmarkItems({ includeExtended: false });
-    let currentIdx = 0;
-    const responses = [];
-    let itemStartMs = 0;
-
-    const renderStep = () => {
-      if (currentIdx >= items.length) {
-        const result = scoreAssessment(responses);
-        saveAssessment(result);
-        containerEl.innerHTML = `
-          <div class="level-view">
-            <header class="level-header">
-              <div>
-                <span class="level-kicker">STANDARDIZED 42-ITEM BENCHMARK COMPLETE</span>
-                <h2>Benchmark Score: ${result.overallAccuracy}% (${result.correctCount}/${result.totalItems})</h2>
-                <p class="muted-text">Mean Response Time: ${result.meanRtMs} ms &bull; Logged to longitudinal assessment store.</p>
-              </div>
-              <a href="#/dashboard" class="btn btn-primary">View Full Analytics Dashboard</a>
-            </header>
-            <div class="threshold-cards-grid">
-              ${Object.entries(result.byEmotion).map(([em, stat]) => `
-                <div class="threshold-card">
-                  <div class="threshold-emotion-label">${em.toUpperCase()}</div>
-                  <div class="threshold-ms-value">${stat.accuracy}%</div>
-                  <div class="threshold-meta">${stat.correct}/${stat.total} items</div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      const item = items[currentIdx];
-      containerEl.innerHTML = `
-        <div class="level-view">
-          <header class="level-header">
-            <div>
-              <span class="level-kicker">FIXED-SEED 42-ITEM STANDARDIZED BENCHMARK</span>
-              <h2>Item ${currentIdx + 1} of ${items.length} (${item.nominalMs} ms Flash)</h2>
-              <p class="muted-text">Status: ${dueInfo.reason === 'baseline' ? 'Baseline Onboarding Benchmark' : `Last taken ${dueInfo.daysSinceLast} days ago`} &bull; No feedback is shown during benchmark items so your score remains an uncontaminated baseline.</p>
-            </div>
-          </header>
-
-          <div class="drill-card">
-            <div class="progress-bar-track" style="margin-bottom:14px;">
-              <div class="progress-bar-fill" style="width:${Math.round((currentIdx / items.length) * 100)}%;"></div>
-            </div>
-            <div class="btn-row" style="margin-bottom:14px;">
-              <button type="button" class="btn btn-primary" id="benchFlashBtn">Flash Benchmark Item #${currentIdx + 1} (${item.nominalMs} ms)</button>
-            </div>
-            <div class="emotion-answer-grid">
-              ${CORE_EMOTIONS_7.map((em) => `
-                <button type="button" class="btn btn-secondary bench-ans-btn" data-ans="${em}">
-                  ${em.charAt(0).toUpperCase() + em.slice(1)}
-                </button>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-
-      const flashCurrent = async () => {
-        const expr = this.content.expressions?.core?.find((e) => e.id === item.emotion);
-        if (this.rig && expr) {
-          this.rig.setOverlaysEnabled(false);
-          itemStartMs = performance.now();
-          await this.rig.flashExpression(expr, item.nominalMs, { scale: item.scale || 1.0 });
-        }
-      };
-
-      containerEl.querySelector('#benchFlashBtn')?.addEventListener('click', flashCurrent);
-      containerEl.querySelectorAll('.bench-ans-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const chosen = btn.getAttribute('data-ans');
-          responses.push({
-            ...item,
-            chosenEmotion: chosen,
-            rtMs: Math.max(50, Math.round(performance.now() - (itemStartMs || performance.now())))
-          });
-          currentIdx++;
-          renderStep();
-        });
-      });
-
-      flashCurrent();
-    };
-
-    renderStep();
   }
 
   _renderAULabView(containerEl) {
@@ -640,6 +570,9 @@ export class ReadingFacesApp {
                 </label>
               </div>
               <div>
+                <label class="checkbox-pill"><input type="checkbox" id="settingsBeginnerMinimum" ${this.settings.beginnerMinimumFlash !== false ? 'checked' : ''}><span><strong>Beginner minimum flash: 200 ms</strong> · applies to practice until the 200 ms rung is passed. Benchmarks keep their original speeds.</span></label>
+              </div>
+              <div>
                 <label><strong>3D Rendering Quality:</strong>
                   <select id="settingsQualitySelect">
                     <option value="high" ${(this.settings.quality || 'high') === 'high' ? 'selected' : ''}>High (2K Soft Shadows + Full DPR)</option>
@@ -689,6 +622,12 @@ export class ReadingFacesApp {
       this.settings.reducedMotion = e.target.checked;
       await saveSetting('reducedMotion', this.settings.reducedMotion);
       if (this.rig) this.rig.setReducedMotion(this.settings.reducedMotion);
+    });
+
+    containerEl.querySelector('#settingsBeginnerMinimum')?.addEventListener('change', async e => {
+      this.settings.beginnerMinimumFlash = e.target.checked;
+      await saveSetting('beginnerMinimumFlash', e.target.checked);
+      if (this.rig) this.rig.minimumFlashMs = e.target.checked && !this.beginnerQualified ? 200 : 0;
     });
 
     containerEl.querySelector('#settingsQualitySelect')?.addEventListener('change', async (e) => {

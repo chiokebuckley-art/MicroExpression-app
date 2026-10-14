@@ -12,6 +12,19 @@ export function clamp01(v) {
   return Math.max(0, Math.min(1, Number(v) || 0));
 }
 
+// Applied once at the rendering boundary, after AU sums and correctives. Keeping
+// the input immutable lets sliders/timelines interpolate without compounding gains.
+export function applyRigGains(weights, rigMap = {}) {
+  const gains = rigMap?.gains || {};
+  const limits = rigMap?.maxInfluence || {};
+  return Object.fromEntries(Object.entries(weights).map(([name, value]) => {
+    const base = name.replace(/Left$|Right$/, '');
+    const gain = gains[name] ?? gains[base] ?? 1;
+    const limit = Math.min(1.3, limits[name] ?? limits[base] ?? 1);
+    return [name, Math.max(0, Math.min(limit, value * gain))];
+  }));
+}
+
 /**
  * Resolves a recipe or list of AU activations into canonical ARKit blendshapes,
  * wrinkle weights, head pose (pitch, yaw, roll in degrees), and gaze.
@@ -59,7 +72,7 @@ export function resolveExpressionState(input, auCatalog, options = {}) {
     const def = entriesById.get(auId);
     if (!def) continue;
 
-    for (const bs of def.blendshapes) {
+    for (const bs of options.rigMap?.entries?.[auId] || def.blendshapes) {
       const contrib = rawIntensity * bs.weight;
       if (bs.lateral) {
         if (side === 'both' || side === 'left') {

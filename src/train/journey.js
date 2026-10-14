@@ -1,3 +1,4 @@
+import { LookForLesson } from './lookFor.js';
 import {
   getRecord,
   putRecord,
@@ -49,10 +50,12 @@ export const blankJourney = () => ({
   baseline: null,
   final: null,
   recheck: null,
+  lessonLookForSeenAt: null,
+  baselineSkippedAt: null,
 });
 export function stagePassed(s, stage) {
   const good = s.rounds.filter(
-    (r) => r.stage === stage && r.passed && !r.supported,
+    (r) => r.stage === stage && r.passed && !r.supported && !r.preview,
   );
   if (stage === 0) return good.length > 0;
   if (stage === 1) return good.length >= 2;
@@ -103,12 +106,16 @@ export class BeginnerJourney {
     if (this.player) this.player.isPlaying = false;
     this.rig?.scheduler.cancelFlash();
     this.rig?.resetToNeutral();
+    this.lesson?.dispose();
+    return this.restoreRun();
   }
   async init() {
     this.state =
       (await getRecord("progress", "beginnerJourneyV2")) || blankJourney();
     if (this.dead) return;
     const n = Number(this.route.split("/")[2]);
+    if (this.route === "#/lesson/look-for") return this.lookFor();
+    if (this.route === "#/assessment") return !this.state.lessonLookForSeenAt ? this.lookFor(() => this.baselinePrompt()) : this.baselinePrompt();
     if (this.route === "#/review") return this.review();
     if (this.route === "#/finish") return this.finish();
     if (
@@ -148,10 +155,11 @@ export class BeginnerJourney {
     );
     const done = NAMES.filter((_, i) => stagePassed(this.state, i)).length;
     this.body(
-      `<p>${done}/8 stages · ${this.state.rounds.reduce((n, r) => n + (r.passed ? (r.supported ? 0.5 : 1) : 0), 0)} stars · ${this.state.days.length} practice days (breaks never erase progress)</p><progress max="8" value="${done}"></progress><div class="vocab-cards-grid">${NAMES.map((n, i) => `<a class="vocab-card" href="#/stage/${i}">${stagePassed(this.state, i) ? "★" : "○"} ${i} · ${n}</a>`).join("")}</div>${this.state.final ? `<p>30-day recheck: ${new Date(this.state.final.timestamp + 30 * DAY).toLocaleDateString()}.</p>` : ""}`,
+      `<p>${done}/8 stages · ${this.state.rounds.reduce((n, r) => n + (r.passed && !r.preview ? (r.supported ? 0.5 : 1) : 0), 0)} stars · ${this.state.days.length} practice days (breaks never erase progress)</p><progress max="8" value="${done}"></progress><div class="vocab-cards-grid">${NAMES.map((n, i) => `<a class="vocab-card" href="#/stage/${i}">${stagePassed(this.state, i) ? "★" : "○"} ${i} · ${n}</a>`).join("")}</div>${this.state.final ? `<p>30-day recheck: ${new Date(this.state.final.timestamp + 30 * DAY).toLocaleDateString()}.</p>` : ""}`,
     );
+    this.el.querySelector(".journey-body").insertAdjacentHTML("beforeend", `<p><a href="#/lesson/look-for">Review: What to look for</a></p>${!this.state.baseline ? '<aside class="baseline-banner">Baseline not taken yet · <a href="#/assessment">Take it now</a></aside>' : ""}`);
     const collected = [
-      ...new Set(this.state.rounds.flatMap((r) => r.cards || [])),
+      ...new Set(this.state.rounds.filter(r => !r.preview).flatMap((r) => r.cards || [])),
     ];
     if (collected.length)
       this.el
@@ -196,13 +204,16 @@ export class BeginnerJourney {
         () => (location.hash = "#/library"),
       );
   }
-  async stage(n) {
-    if (n > 0 && !stagePassed(this.state, n - 1)) {
+  async stage(n, { preview = false } = {}) {
+    this.preview = preview;
+    if (n > 1 && !preview && !stagePassed(this.state, n - 1)) {
       this.shell("One step at a time", `Finish ${NAMES[n - 1]} first.`);
-      this.button("Continue", () => (location.hash = `#/stage/${n - 1}`));
+      this.button(`Go to ${NAMES[n - 1]}`, () => (location.hash = `#/stage/${n - 1}`));
+      if (n < 7) this.button("Preview this stage", () => this.stage(n, { preview: true }));
       return;
     }
     if (n === 7) return this.finish();
+    if (n === 1 && !this.state.lessonLookForSeenAt) return this.lookFor(() => this.stage(1, { preview }));
     if (n > 0 && !this.rig) {
       this.shell(
         "3D display unavailable",
@@ -210,20 +221,14 @@ export class BeginnerJourney {
       );
       return;
     }
-    if (n === 1 && !this.state.baseline) {
-      this.shell(
-        "Your starting point",
-        "Take 42 brief trials. No passing score is needed. This gives you a baseline to compare later.",
-      );
-      this.button("Start baseline", () => this.assessment("baseline"));
-      return;
-    }
+    if (n === 1 && !preview && !this.state.baseline && !this.state.baselineSkippedAt) return this.baselinePrompt();
     this.shell(
       `${n} · ${NAMES[n]}`,
       n === 0
         ? "Notice patterns, consider context, and ask. Faces cannot establish honesty."
         : "Study the clue, then check your first answer. Hints earn practice credit; pass again without hints to unlock the next stage.",
     );
+    if (preview) this.el.querySelector(".journey-body").insertAdjacentHTML("beforebegin", '<p class="preview-badge">Preview · doesn’t count toward progress</p>');
     if (n === 0) {
       this.button("Check the three ideas", () =>
         this.round(0, "ethics", [
@@ -251,7 +256,7 @@ export class BeginnerJourney {
     }
     if (n === 1) {
       this.body(
-        `<p>Pass 6/7 twice, without hints.</p><div class="btn-row">${CORE.map((e) => `<button class="btn btn-secondary" data-learn="${e}">${e}</button>`).join("")}</div><p id="clue"></p>`,
+        `<p>Pass 6/7 twice, without hints. Practice flashes start at 500, then 300, then 200 ms.</p><p><a href="#/lesson/look-for">Review: What to look for</a></p><div class="btn-row">${CORE.map((e) => `<button class="btn btn-secondary" data-learn="${e}">${e}</button>`).join("")}</div><p id="clue"></p>`,
       );
       this.el.querySelectorAll("[data-learn]").forEach(
         (b) =>
@@ -340,7 +345,7 @@ export class BeginnerJourney {
       this.body(
         "<p>Start at 1 second; 3 seconds is a warm-up. Pass 70% for every emotion at 200 ms to advance.</p>",
       );
-      for (const ms of [3000, 1000, 500, 200, 100, 67])
+      for (const ms of [3000, 1000, 500, 300, 200, 100, 67])
         this.button(`${ms} ms`, () =>
           this.round(
             n,
@@ -419,12 +424,79 @@ export class BeginnerJourney {
       });
     return shuffle(items.filter((i) => i.answer && i.options?.length));
   }
-  async round(stage, group, items, assessment = null) {
+  async lookFor(after = null) {
+    const seen = async () => {
+      if (!this.state.lessonLookForSeenAt) { this.state.lessonLookForSeenAt = Date.now(); await this.save(); }
+    };
+    this.lesson = new LookForLesson({ mount: this.el, rig: this.rig, content: this.app.content,
+      onSeen: seen, continueLabel: this.state.baseline || this.state.baselineSkippedAt ? 'Continue to Stage 1' : 'Continue to baseline',
+      onDone: async () => {
+        await seen();
+        this.lesson.dispose(); this.lesson = null;
+        if (this.dead) return;
+        if (after) return after();
+        if (location.hash === '#/stage/1') return this.stage(1);
+        location.hash = '#/stage/1';
+      }
+    });
+    await this.lesson.render();
+  }
+  baselinePrompt() {
+    this.shell('Your starting point', 'Take 42 brief trials. No passing score is needed. Some faces will be very fast (50–100 ms). That’s expected; answer your best guess.');
+    this.body('<p>The baseline lets you compare your results after practice. You can learn now and take it later, before the final check.</p>');
+    if (!this.rig) { this.body('<p>A working 3D display is needed to take the baseline. You can still review the reference cards.</p>'); return; }
+    this.button('Practice 3 flashes (200 ms)', () => this.round('practice', 'warmup', ['happiness','fear','surprise'].map(e => ({ ...this.faceItem(e), ms:200 })), null, { practice:true }));
+    this.button('Start baseline', () => this.assessment('baseline'));
+    this.button('Skip for now', async () => { this.state.baselineSkippedAt = Date.now(); await this.save(); if (!this.dead) this.stage(1); });
+  }
+  restoreRun() {
+    if (this._restoring) return this._restoring;
+    const saved = this.runView;
+    if (!saved || !this.rig) return Promise.resolve();
+    this.runView = null;
+    this._restoring = (async () => {
+      try {
+        if (saved.locked && saved.identity !== this.rig.currentRigId) await this.rig.loadRig(saved.identity);
+      } finally {
+        this.rig.cameraLocked = false;
+        this.rig.controls && (this.rig.controls.enabled = saved.controls);
+        this.rig.setCameraPreset?.(saved.preset);
+        this.rig.unlockIdentity?.();
+        this.rig._notifyRig?.();
+      }
+    })().finally(() => { this._restoring = null; });
+    return this._restoring;
+  }
+  async round(stage, group, items, assessment = null, { preview = this.preview || false, practice = false } = {}) {
+    await this.restoreRun();
+    if (this.dead) return;
+    const locked = items.some(x => x.recipe || x.timeline);
+    if (this.rig && items.some(x => x.recipe || x.timeline)) {
+      this.runView = { identity:this.rig.currentRigId, preset:this.rig.currentPreset, controls:this.rig.controls?.enabled, locked };
+      if (locked) this.rig.lockIdentity?.(assessment ? 'set by test' : 'practice in progress');
+      this.rig.cameraLocked = true;
+      this.rig.setCameraPreset?.('front');
+      if (this.rig.controls) this.rig.controls.enabled = false;
+      this.rig._notifyRig?.();
+    }
+    if (stage === 1) {
+      const rounds = this.state.rounds.filter(r => r.stage === 1 && r.passed && !r.preview && !r.supported).length;
+      const ms = [500,300,200][Math.min(2,rounds)];
+      items = items.map(x => x.recipe && !x.ms ? { ...x,ms } : x);
+    }
+    if (this.rig) this.rig.minimumFlashMs = this.app.settings.beginnerMinimumFlash !== false && !stagePassed(this.state,5) ? 200 : 0;
+    if (!assessment) {
+      const floor = this.app.settings.beginnerMinimumFlash !== false && !stagePassed(this.state,5) ? 200 : 0;
+      items = items.map(x => x.ms ? { ...x, requestedMs:x.ms, ms:Math.max(floor,x.ms) } : x);
+    }
+
     this.run = {
       stage,
       group,
       items,
       assessment,
+      preview: !assessment && preview,
+      practice,
       index: 0,
       results: [],
       id: crypto.randomUUID(),
@@ -432,6 +504,10 @@ export class BeginnerJourney {
     return this.item();
   }
   async prepareFace() {
+    await this.rig.ready;
+    if (this.dead || this.rig.isReady === false) return false;
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    if (this.dead) return false;
     const mount = document.getElementById("rigCanvasMount");
     if (!mount) return !this.dead;
     mount.scrollIntoView({ block: "center", behavior: "instant" });
@@ -482,7 +558,7 @@ export class BeginnerJourney {
       run.assessment
         ? `${run.assessment} · ${run.index + 1}/42`
         : `${NAMES[run.stage] || "Review"} · ${run.index + 1}/${run.items.length}`,
-      x.prompt || "Which expression pattern is shown?",
+      `${run.preview ? "Preview · doesn’t count toward progress. " : ""}${x.prompt || "Which expression pattern is shown?"}`,
     );
     this.body(
       `<div class="q-options-grid">${shuffle(x.options)
@@ -521,6 +597,7 @@ export class BeginnerJourney {
         if (x.rigId && this.rig.currentRigId !== x.rigId)
           await this.rig.loadRig(x.rigId);
         if (this.dead) return;
+        this.rig.setCameraPreset?.(x.region === "upper" ? "eyeCloseup" : x.region === "lower" ? "mouthCloseup" : "front");
         this.rig.setOverlaysEnabled(false);
         if ((x.ms || x.timeline) && !(await this.prepareFace())) {
           shown = false;
@@ -548,6 +625,7 @@ export class BeginnerJourney {
             slow ? Math.max(1500, x.ms) : x.ms,
             {
               scale: x.scale || 1,
+              assessment: Boolean(run.assessment),
             },
           );
           if (x.mask && !this.dead)
@@ -560,6 +638,8 @@ export class BeginnerJourney {
           return;
         }
         shown = true;
+        const nextRig = run.items[run.index + 1]?.rigId;
+        if (nextRig) this.rig.preload?.(nextRig).catch(() => {});
         const cue = document.querySelector(".flash-cue");
         if (cue)
           cue.textContent = slow
@@ -617,13 +697,15 @@ export class BeginnerJourney {
         actualFrames: x.telemetry?.actualFrames,
         stage: run.stage,
         group: run.group,
+        preview: run.preview,
+        practice: run.practice,
         itemId: `${run.id}:${run.index}`,
         timestamp: Date.now(),
       };
       run.results.push(result);
-      if (!run.assessment) {
+      if (!run.assessment && !run.practice) {
         await logTrial(result);
-        if (x.srsKey || x.emotion) {
+        if (!run.preview && (x.srsKey || x.emotion)) {
           const key = x.srsKey || `emotion:${x.emotion}`;
           const old =
             (await getSRSCard(key)) ||
@@ -647,6 +729,13 @@ export class BeginnerJourney {
   }
   async end() {
     const r = this.run;
+    await this.restoreRun();
+    if (this.dead) return;
+    if (r.practice) {
+      this.shell('Practice flashes complete', 'These three flashes are not scored or saved as a baseline.');
+      this.button('Continue to baseline', () => this.baselinePrompt());
+      return;
+    }
     if (r.assessment) {
       const score = scoreAssessment(
         r.results.map((x) => ({ ...x, emotion: x.emotion, nominalMs: x.ms })),
@@ -703,7 +792,7 @@ export class BeginnerJourney {
         );
       });
     const supported =
-      r.results.some((x) => x.hintUsed) ||
+      r.results.some((x) => x.hintUsed || (x.requestedMs && x.ms > x.requestedMs)) ||
       (r.stage === 5 && this.app.settings.reducedMotion);
     this.state.rounds.push({
       stage: r.stage,
@@ -711,6 +800,7 @@ export class BeginnerJourney {
       score,
       passed: pass,
       supported,
+      preview: Boolean(r.preview),
       timestamp: Date.now(),
       cards:
         r.stage === 1
@@ -720,34 +810,34 @@ export class BeginnerJourney {
           : [],
     });
     const day = new Date().toLocaleDateString("en-CA");
-    if (!this.state.days.includes(day)) this.state.days.push(day);
+    if (!r.preview && !this.state.days.includes(day)) this.state.days.push(day);
     await this.save();
-    if (r.stage === 0 && pass && !supported) {
+    if (r.stage === 0 && pass && !supported && !r.preview) {
       await saveSetting("ethicsCompleted", true);
       this.app.settings.ethicsCompleted = true;
     }
     this.shell(
-      pass ? "Round passed" : "Keep practicing",
-      `${Math.round(score)}% · ${pass ? (supported ? "½ star — repeat without support to advance" : "★ First-answer star") : "No progress lost. Study the clues and try a new round."}`,
+      r.preview ? "Preview complete · doesn’t count toward progress" : pass ? "Round passed" : "Keep practicing",
+      r.preview ? `${Math.round(score)}% · Practice only; no progress earned.` : `${Math.round(score)}% · ${pass ? (supported ? "½ star — repeat without support to advance" : "★ First-answer star") : "No progress lost. Study the clues and try a new round."}`,
     );
-    if (r.stage === 1 && pass)
+    if (r.stage === 1 && pass && !r.preview)
       this.body(
         `<p>Face cards: ${r.results
           .filter((x) => x.correct)
           .map((x) => esc(x.emotion))
           .join(" · ")}</p>`,
       );
-    if (r.stage === 5 && pass && !supported)
+    if (r.stage === 5 && pass && !supported && !r.preview)
       this.body(`<p>Speed medal: ${r.group} ms</p>`);
     this.button("Back to path", () => (location.hash = "#/home"));
     this.button("Practice again", () =>
-      r.stage === "review" ? this.review() : this.stage(r.stage),
+      r.stage === "review" ? this.review() : this.stage(r.stage, { preview: r.preview }),
     );
   }
   async assessment(kind) {
     if (
       kind !== "baseline" &&
-      (!stagePassed(this.state, 6) || !this.state.baseline)
+      (!stagePassed(this.state, 0) || !stagePassed(this.state, 6) || !this.state.baseline)
     )
       return this.home();
     const items = generateBenchmarkItems({
@@ -818,8 +908,8 @@ export class BeginnerJourney {
       "Your recognition-training finish line",
       "Pass 75% at 200 ms and 60% at 100 ms. Recheck after 30 days, within 10 percentage points at each speed.",
     );
-    if (!stagePassed(this.state, 6) || !this.state.baseline) {
-      this.body("<p>Complete stages 0–6 and your baseline first.</p>");
+    if (!stagePassed(this.state, 0) || !stagePassed(this.state, 6) || !this.state.baseline) {
+      this.body('<p>Complete stages 0–6 and take a baseline before the final check. A baseline is needed for a valid before/after comparison.</p><a href="#/assessment">Take baseline</a>');
       return;
     }
     if (!this.state.final) {

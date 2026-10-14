@@ -1,8 +1,8 @@
-// Run after npm install --prefix /tmp/microexpression-test jsdom fake-indexeddb
+// Run after npm install --prefix ../test-deps jsdom fake-indexeddb
 import { createRequire } from "node:module";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-const require = createRequire("/tmp/microexpression-test/package.json");
+const require = createRequire(process.env.MICRO_TEST_DEPS || new URL("../../test-deps/package.json", import.meta.url));
 const { JSDOM } = require("jsdom");
 const { indexedDB } = require("fake-indexeddb");
 const dom = new JSDOM('<main id="test"></main>', {
@@ -13,6 +13,9 @@ Object.assign(globalThis, {
   document: dom.window.document,
   location: dom.window.location,
   indexedDB,
+  requestAnimationFrame: cb => { queueMicrotask(() => cb(750 * ++globalThis.testFrame)); return globalThis.testFrame; },
+  cancelAnimationFrame() {},
+  testFrame: 0,
 });
 const { BeginnerJourney, blankJourney, stagePassed, finalPass } =
   await import("../src/train/journey.js");
@@ -32,6 +35,7 @@ for (const f of [
   "ethics",
   "scenes",
   "conversations",
+  "lesson",
 ])
   content[f] = JSON.parse(
     fs.readFileSync(new URL(`../content/${f}.json`, import.meta.url)),
@@ -51,6 +55,10 @@ const app = {
     resetToNeutral() {},
     setExpressionFromRecipe() {},
     setOverlaysEnabled() {},
+    setCameraPreset() {},
+    controls: {enabled:true},
+    isReady:true,
+    ready:Promise.resolve(),
     async loadRig(id) {
       this.currentRigId = id;
     },
@@ -71,7 +79,7 @@ const button = (t) =>
   [...el.querySelectorAll("button")].find((b) => b.textContent === t);
 async function answer(value, { hint = false } = {}) {
   if (button("Show face") && !button("Show face").hidden)
-    await button("Show face").onclick();
+    await [...el.querySelectorAll("button")].find(b => b.textContent === "Show face" || b.textContent.startsWith("Show (")).onclick();
   const show = [...el.querySelectorAll("button")].find((b) =>
     b.textContent.startsWith("Show ("),
   );
@@ -127,7 +135,7 @@ for (let rep = 0; rep < 2; rep++) {
   );
   for (let i = 0; i < 7; i++) {
     const item = view.run.items[view.run.index];
-    await button("Show face").onclick();
+    await [...el.querySelectorAll("button")].find(b => b.textContent === "Show face" || b.textContent.startsWith("Show (")).onclick();
     const choice = [...el.querySelectorAll(".answer")].find(
       (b) => b.dataset.value === item.answer,
     );
@@ -203,6 +211,7 @@ mount.remove();app.rig.flashExpression=originalFlash;
 app.settings.reducedMotion=false;
 view.run={assessment:'final',results:all.map((x,i)=>({...x,ms:x.nominalMs,hintUsed:i===0})),items:all};
 await view.end();assert(!view.state.final);
+view.state.lessonLookForSeenAt=Date.now();
 // Baseline completion returns to Meet the 7 even when the URL is unchanged.
 view.state.rounds.push({stage:0,passed:true,supported:false});
 view.route='#/stage/1'; location.hash='#/stage/1';
@@ -218,6 +227,27 @@ assert(!button('Take 30-day recheck'));assert(!view.state.recheck);
 view.state.final.timestamp=Date.now()-31*86400000;
 view.run={assessment:'recheck',results:all.map(x=>({...x,ms:x.nominalMs})),items:all};
 await view.end();assert(view.state.recheck);view.finish();assert.match(el.textContent,/Retention check passed/);
+// Preview rounds stay separate from mastery, SRS and reward credit.
+view.state=blankJourney();
+await view.stage(2);
+assert(button('Preview this stage'));
+await button('Preview this stage').onclick();
+assert.match(el.textContent,/doesn’t count toward progress/);
+await button('upper face check').onclick();
+while(view.run.index < view.run.items.length) await answer(view.run.items[view.run.index].answer);
+assert.equal(view.state.rounds.at(-1).preview,true);
+assert.equal(stagePassed(view.state,2),false);
+assert.equal(view.state.days.length,0);
+// Baseline skip opens learning and leaves a persistent offer and final gate.
+view.state=blankJourney();view.state.lessonLookForSeenAt=Date.now();
+await view.stage(1);assert(button('Start baseline'));assert(button('Skip for now'));
+await button('Skip for now').onclick();assert.match(el.textContent,/Meet the 7/);
+assert(view.state.baselineSkippedAt);assert(!view.state.baseline);
+await view.home();assert.match(el.textContent,/Baseline not taken yet/);
+view.finish();assert.match(el.textContent,/baseline.*before.*comparison/s);
+// Beginner practice floor cannot manufacture a faster qualification.
+await view.round(5,'100',[{...view.faceItem('fear'),ms:100}]);
+assert.equal(view.run.items[0].ms,200);assert.equal(view.run.items[0].requestedMs,100);
 view.dispose();
 console.log(
   "PASS: 7 all-wrong stage gates; first-answer/double-click/hint rules; SRS; mixed content; benchmark; reduced motion; legacy migration.",

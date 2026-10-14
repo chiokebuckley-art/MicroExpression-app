@@ -39,7 +39,7 @@ export function upgradeSkinMaterial(origMat, wrinkleController, sssTexture = nul
     roughnessMap: origMat?.roughnessMap || null,
     roughness: 0.52,
     metalness: 0.0,
-    specularIntensity: 0.5,
+    specularIntensity: 0.32,
     specularColor: new THREE.Color(0xfff4ee),
     sheen: 0.15,
     sheenRoughness: 0.65,
@@ -70,10 +70,12 @@ export function upgradeSkinMaterial(origMat, wrinkleController, sssTexture = nul
       shader.uniforms.uWrinkleNormalMap = wrinkleController.uniforms.uWrinkleNormalMap;
       shader.uniforms.uHasWrinkleMap = wrinkleController.uniforms.uHasWrinkleMap;
       shader.uniforms.uWrinkleWeights = wrinkleController.uniforms.uWrinkleWeights;
+      shader.uniforms.uFaceRegions = wrinkleController.uniforms.uFaceRegions;
     } else {
       shader.uniforms.uWrinkleNormalMap = { value: null };
       shader.uniforms.uHasWrinkleMap = { value: 0.0 };
       shader.uniforms.uWrinkleWeights = { value: new THREE.Vector4(0, 0, 0, 0) };
+      shader.uniforms.uFaceRegions = { value: new THREE.Vector4(1.625, 1.608, 1.592, .046) };
     }
 
     // Pass local object-space position so we can compute anatomical region masks cleanly
@@ -98,7 +100,8 @@ export function upgradeSkinMaterial(origMat, wrinkleController, sssTexture = nul
       uniform float uSssStrength;
       uniform sampler2D uWrinkleNormalMap;
       uniform float uHasWrinkleMap;
-      uniform vec4 uWrinkleWeights;`
+      uniform vec4 uWrinkleWeights;
+      uniform vec4 uFaceRegions;`
     );
 
     // 1. Inject AU-driven per-region wrinkle normal blending + micro-furrows
@@ -110,15 +113,16 @@ export function upgradeSkinMaterial(origMat, wrinkleController, sssTexture = nul
         vec3 pMeters = abs(vLocalHeadPos.y) > 10.0 ? vLocalHeadPos * 0.01 : vLocalHeadPos;
         float hCoord = max(pMeters.y, pMeters.z);
         float xAbs = abs(pMeters.x);
-        float foreheadMask = smoothstep(1.625, 1.66, hCoord) * (1.0 - smoothstep(0.045, 0.075, xAbs));
-        float glabellaMask = exp(-pow((hCoord - 1.622) / 0.016, 2.0)) * exp(-pow(xAbs / 0.018, 2.0));
-        float crowsMask = exp(-pow((hCoord - 1.608) / 0.018, 2.0)) * exp(-pow((xAbs - 0.046) / 0.016, 2.0));
-        float noseMask = exp(-pow((hCoord - 1.592) / 0.018, 2.0)) * exp(-pow(xAbs / 0.016, 2.0));
+        float foreheadMask = smoothstep(uFaceRegions.x + 0.006, uFaceRegions.x + 0.04, hCoord) * (1.0 - smoothstep(0.045, 0.075, xAbs));
+        float glabellaMask = exp(-pow((hCoord - uFaceRegions.x) / 0.016, 2.0)) * exp(-pow(xAbs / 0.018, 2.0));
+        float crowsMask = exp(-pow((hCoord - uFaceRegions.y) / 0.018, 2.0)) * exp(-pow((xAbs - uFaceRegions.w) / 0.016, 2.0));
+        float noseMask = exp(-pow((hCoord - uFaceRegions.z) / 0.018, 2.0)) * exp(-pow(xAbs / 0.016, 2.0));
 
+        roughnessFactor = max(roughnessFactor, 0.45);
         float wTotal = clamp(
           foreheadMask * uWrinkleWeights.x +
           glabellaMask * uWrinkleWeights.y +
-          crowsMask * uWrinkleWeights.z +
+          crowsMask * uWrinkleWeights.z * 1.8 +
           noseMask * uWrinkleWeights.w,
           0.0, 1.0
         );
@@ -136,7 +140,7 @@ export function upgradeSkinMaterial(origMat, wrinkleController, sssTexture = nul
         float furrow = 0.0;
         furrow += foreheadMask * uWrinkleWeights.x * sin(hCoord * 950.0) * 0.16;
         furrow += glabellaMask * uWrinkleWeights.y * sin(pMeters.x * 1100.0) * 0.22;
-        furrow += crowsMask * uWrinkleWeights.z * sin((hCoord - 1.608) * 1250.0) * 0.24;
+        furrow += crowsMask * uWrinkleWeights.z * sin((hCoord - uFaceRegions.y) * 1250.0) * 0.43;
         furrow += noseMask * uWrinkleWeights.w * sin(hCoord * 1100.0) * 0.20;
         normal = normalize(normal + vec3(furrow * 0.5, furrow, 0.0));
       }`
@@ -164,7 +168,7 @@ export function upgradeSkinMaterial(origMat, wrinkleController, sssTexture = nul
     );
   };
 
-  mat.customProgramCacheKey = () => 'reading_faces_skin_sss_wrinkle_v2';
+  mat.customProgramCacheKey = () => 'reading_faces_skin_sss_wrinkle_v3';
   mat.userData.isSkinMaterial = true;
   mat.userData.sssUniforms = sssUniforms;
   return mat;

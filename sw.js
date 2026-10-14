@@ -4,7 +4,7 @@
  * and 3D head models for full offline execution after initial load.
  */
 
-const CACHE_NAME = 'reading-faces-cache-v5-replay';
+const CACHE_NAME = 'reading-faces-cache-v6-lesson';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -20,7 +20,17 @@ const CORE_ASSETS = [
   './content/anatomy.json',
   './content/ethics.json',
   './content/scenes.json',
-  './content/conversations.json'
+  './content/conversations.json',
+  './src/train/lookFor.js',
+  './src/face/landmarks.js',
+  './content/lesson.json',
+  './assets/teaching-cards/happiness.png',
+  './assets/teaching-cards/sadness.png',
+  './assets/teaching-cards/anger.png',
+  './assets/teaching-cards/fear.png',
+  './assets/teaching-cards/surprise.png',
+  './assets/teaching-cards/disgust.png',
+  './assets/teaching-cards/contempt.png'
 ];
 
 self.addEventListener('install', (event) => {

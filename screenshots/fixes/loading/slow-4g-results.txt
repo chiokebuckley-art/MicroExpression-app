@@ -1,0 +1,3 @@
+before {'centerStdDev': 0.0, 'headCount': 0}
+after {'centerStdDev': 42.010158355899044, 'headCount': 1}
+PASS: cold-cache Slow 4G atomic replacement

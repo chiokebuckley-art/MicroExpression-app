@@ -1,0 +1,32 @@
+1. Running browser unit tests (tests/unit.html)...
+   [PASS] Fear corrective clamps jawOpen <= 0.10 and activates mouthStretch (AU20) + browDown (AU4) (jawOpen=0.08, mouthStretchL=1.00)
+   [PASS] Surprise opens jaw (AU26 > 0.5) with zero browDown (AU4=0) and zero mouthStretch (AU20=0) (jawOpen=0.80)
+   [PASS] Duchenne Smile (AU6+12) activates cheekSquint + crowsFeet wrinkle weight, whereas Social Smile (AU12) has 0 cheekSquint and 0 crowsFeet (Duchenne crowsFeet=1, Social crowsFeet=0)
+   [PASS] Unilateral Contempt activates one side only (asymmetric mouthDimple / mouthSmile) (L=0.00, R=1.00)
+   [PASS] Mirror Mode AU estimator recovers AU6 and AU12 from Duchenne blendshapes (AU6=0.99, AU12=1.00)
+   [PASS] Frame snapping at 60 Hz & 120 Hz computes exact frame counts (60Hz@50ms=3f, 60Hz@200ms=12f, 120Hz@40ms=5f)
+   [PASS] 3-down / 1-up staircase steps shorter after 3 correct and longer after 1 miss (after 3 correct=133ms, after 1 miss=200ms, reversals=1)
+   [PASS] Simulated observer with true 120 ms threshold converges within [100, 150] ms after 40 trials (estimated threshold=100ms)
+   [PASS] SRS advances box on fast correct response and resets to box 0 on miss (box1=1, box2=2, afterMiss=0)
+   [PASS] SRS session mixer generates exact 20-item mix (60/25/15) ()
+   [PASS] Standardized 42-item benchmark is deterministic for a fixed seed and balanced across 7 emotions (items=42)
+   [PASS] Benchmark scorer computes 100% on perfect responses ()
+   [PASS] Confusion matrix row probabilities sum to 1.0 +/- 1e-6 (fearRowSum=1.000000)
+   [PASS] IndexedDB JSON export -> reset -> import round-trip restores all records losslessly (restoredTrials=1, restoredCards=1)
+2. Loading main application and realistic 3D head rig...
+   Loaded rig: {'rigId': 'riya', 'tier': 'realistic', 'morphCount': 175, 'missingCount': 0, 'glbUrl': 'models/riya/head.glb'}, missing ARKit channels: 0
+3. Capturing realistic 3D head expressions and camera angles...
+   Expression 'happiness' vs. Neutral mean pixel diff: 1.40
+   Expression 'sadness' vs. Neutral mean pixel diff: 7.38
+   Expression 'anger' vs. Neutral mean pixel diff: 5.75
+   Expression 'fear' vs. Neutral mean pixel diff: 2.95
+   Expression 'disgust' vs. Neutral mean pixel diff: 1.82
+   Expression 'surprise' vs. Neutral mean pixel diff: 6.42
+   Expression 'contempt' vs. Neutral mean pixel diff: 4.96
+3a. Checking per-identity cameras, expression regions, and load races...
+3b. Checking the lesson, annotations, fallback, preview and baseline skip...
+3c. Checking ten rotating trials, readiness and countdown pixels...
+4. Verifying all 10 curriculum levels, Ethics, Dashboard, Mirror, AU Lab, and Settings...
+   Verified ?rig=facecap developer fallback: {'rigId': 'facecap', 'tier': 'dev', 'morphCount': 52, 'missingCount': 0, 'glbUrl': 'models/dev/facecap.glb'}
+
+SELFTEST PASSED: 0 console errors, 0 page errors, 0 failed/external requests, all screenshots captured!

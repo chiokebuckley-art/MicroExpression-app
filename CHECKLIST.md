@@ -41,3 +41,15 @@
   - [x] 7×7 + "Not sure" Row-Normalized Confusion Matrix (`src/ui/dashboard.js`) with tap-cell targeted pair drill launcher.
   - [x] Offline MediaPipe Face Landmarker Mirror Mode (`src/ui/mirror.js`) with 3 s resting baseline calibration, AU bars, cosine similarity, live 3D head mirroring, and no-camera slider simulation fallback.
   - [x] IndexedDB persistence (`src/store/db.js`) + lossless JSON Export / Import / Reset (`src/store/export.js`).
+
+## Desktop handoff fixes and teaching lesson (2026-10-14)
+
+- [x] Fix 1: Per-identity landmark camera fitting; full-face trial framing; desktop/phone NDC checks and 25 camera views at each size.
+- [x] Fix 2: Rendered identity synchronization; trial locks/reasons; latest-request-wins loading; restore user identity/camera.
+- [x] Fix 3: Detached preparation, texture decode, shader compile, atomic swap, ready gating, next-identity preload and loading status.
+- [x] Fix 4: Stage previews excluded from earned progress; baseline skip/reminder; baseline still needed for final comparison.
+- [x] Fix 5: Bounded per-rig gains, stronger AU6/brows/disgust/contempt corner, aligned wrinkle masks, configurable beginner floor, unscored practice option and softer nose highlights.
+- [x] Lesson: Seven provided cards, live slider, projected annotations, AU chips, comparisons, cue text, keyboard controls and no-WebGL fallback.
+- [x] Relative static assets and service worker v6 cache, including lesson JSON, new modules and all seven reference PNGs.
+- [x] Final verification: complete self-test, offline and phone smoke checks, cold-cache Slow 4G before/after evidence, no console/page/failed/external requests.
+- [x] BUILD_LOG and this checklist record changes and reproducible checks.

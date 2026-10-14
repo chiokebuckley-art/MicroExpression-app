@@ -15,7 +15,8 @@ export class WrinkleController {
     this.uniforms = {
       uWrinkleNormalMap: { value: null },
       uHasWrinkleMap: { value: 0.0 },
-      uWrinkleWeights: { value: new THREE.Vector4(0, 0, 0, 0) }
+      uWrinkleWeights: { value: new THREE.Vector4(0, 0, 0, 0) },
+      uFaceRegions: { value: new THREE.Vector4(1.625, 1.608, 1.592, .046) }
     };
     this.textureLoader = new THREE.TextureLoader();
   }

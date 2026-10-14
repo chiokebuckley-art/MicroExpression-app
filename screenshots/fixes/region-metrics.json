@@ -1,0 +1,62 @@
+{
+  "riya": {
+    "happiness_eye": 5.9767510473830185,
+    "smile_eye_contrast": 5.927848586770519,
+    "sadness_brow": 14.03060392617231,
+    "fear_brow": 9.23089088893237,
+    "surprise_brow": 14.574007043631383,
+    "anger_brow": 9.952569621078718,
+    "contempt_upper": 0.0003750081523511381,
+    "contempt_corner_asymmetry": 14.353918007265179,
+    "happiness_eye_before": 2.9830845771144276,
+    "happiness_eye_gain": 2.003547299072693
+  },
+  "female_adult_08": {
+    "happiness_eye": 6.312683857821401,
+    "smile_eye_contrast": 6.2210742319227395,
+    "sadness_brow": 17.83671726131809,
+    "fear_brow": 9.430153098101057,
+    "surprise_brow": 16.683077074709246,
+    "anger_brow": 12.840708982193311,
+    "contempt_upper": 0.0005913660555884093,
+    "contempt_corner_asymmetry": 14.014357377616328,
+    "happiness_eye_before": 2.857676790178461,
+    "happiness_eye_gain": 2.209026534952253
+  },
+  "female_adult_12": {
+    "happiness_eye": 6.780342339118506,
+    "smile_eye_contrast": 6.7284994334108665,
+    "sadness_brow": 19.310000670960818,
+    "fear_brow": 8.784269323671497,
+    "surprise_brow": 11.346165458937199,
+    "anger_brow": 10.602489264626946,
+    "contempt_upper": 0.004847691894793344,
+    "contempt_corner_asymmetry": 12.839355089355092,
+    "happiness_eye_before": 2.9047841670562566,
+    "happiness_eye_gain": 2.3341983256503998
+  },
+  "male_adult_01": {
+    "happiness_eye": 4.9280716616465865,
+    "smile_eye_contrast": 4.888742469879518,
+    "sadness_brow": 24.803156672297295,
+    "fear_brow": 9.250563063063064,
+    "surprise_brow": 14.679018862612613,
+    "anger_brow": 11.793127111486486,
+    "contempt_upper": 0.0002287443693693694,
+    "contempt_corner_asymmetry": 12.646296296296295,
+    "happiness_eye_before": 1.6707688309759812,
+    "happiness_eye_gain": 2.949583192049285
+  },
+  "male_adult_06": {
+    "happiness_eye": 4.752860045760731,
+    "smile_eye_contrast": 4.712651402422439,
+    "sadness_brow": 22.71169376547863,
+    "fear_brow": 8.795215534259357,
+    "surprise_brow": 16.12149599799002,
+    "anger_brow": 10.750924231003912,
+    "contempt_upper": 0.0006101719249129608,
+    "contempt_corner_asymmetry": 14.510825281803543,
+    "happiness_eye_before": 1.5742767327315212,
+    "happiness_eye_gain": 3.0190753296048927
+  }
+}

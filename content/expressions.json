@@ -19,7 +19,7 @@
       "label": "Happiness (Duchenne Smile)",
       "emotion": "happiness",
       "aus": [
-        { "au": 6, "intensity": 0.8, "side": "both" },
+        { "au": 6, "intensity": 1.0, "side": "both" },
         { "au": 12, "intensity": 1.0, "side": "both" }
       ],
       "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },

@@ -16,7 +16,7 @@ import { OrbitControls } from '../../lib/addons/controls/OrbitControls.js';
 import { MeshoptDecoder } from '../../lib/addons/libs/meshopt_decoder.module.js';
 
 import { CANONICAL_ARKIT_52, loadAUsCatalog } from './auMap.js';
-import { resolveExpressionState, lerpExpressionState } from './resolver.js';
+import { resolveExpressionState, lerpExpressionState, applyRigGains } from './resolver.js';
 import { WrinkleController } from './wrinkles.js';
 import {
   loadSSSMap,
@@ -35,32 +35,14 @@ import {
 import { FrameCountingScheduler } from './scheduler.js';
 import { AUOverlayRenderer } from './overlays.js';
 
+import { detectFaceLandmarks } from './landmarks.js';
+
 export const CAMERA_PRESETS = {
-  front: {
-    label: 'Front (0°)',
-    position: [0.0, 1.595, 0.50],
-    target: [0.0, 1.585, 0.0]
-  },
-  left34: {
-    label: 'Left 3/4 (-32°)',
-    position: [-0.26, 1.595, 0.43],
-    target: [0.0, 1.585, 0.0]
-  },
-  right34: {
-    label: 'Right 3/4 (+32°)',
-    position: [0.26, 1.595, 0.43],
-    target: [0.0, 1.585, 0.0]
-  },
-  eyeCloseup: {
-    label: 'Upper Face / Eyes',
-    position: [0.0, 1.622, 0.28],
-    target: [0.0, 1.615, 0.02]
-  },
-  mouthCloseup: {
-    label: 'Lower Face / Mouth',
-    position: [0.0, 1.535, 0.29],
-    target: [0.0, 1.535, 0.02]
-  }
+  front: { label: 'Front (0°)', frame: ['browTop', 'chin'], yawDeg: 0, margin: 1.34 },
+  left34: { label: 'Left 3/4 (-32°)', frame: ['browTop', 'chin'], yawDeg: -32, margin: 1.40 },
+  right34: { label: 'Right 3/4 (+32°)', frame: ['browTop', 'chin'], yawDeg: 32, margin: 1.40 },
+  eyeCloseup: { label: 'Upper Face / Eyes', frame: ['browTop', 'noseBridge'], yawDeg: 0, margin: 1.35 },
+  mouthCloseup: { label: 'Lower Face / Mouth', frame: ['noseTip', 'chin'], yawDeg: 0, margin: 1.30 }
 };
 
 let registryCache = null;
@@ -153,6 +135,15 @@ export class FaceRig {
     this._rafId = null;
     this._disposed = false;
 
+    this._loadSeq = 0;
+    this._rigCache = new Map();
+    this.isReady = false;
+    this.ready = Promise.resolve();
+    this.loadingStatus = document.createElement('div');
+    this.loadingStatus.className = 'rig-loading-status';
+    this.loadingStatus.setAttribute('role', 'status');
+    this.loadingStatus.textContent = 'Loading face…';
+    this.containerEl.append(this.loadingStatus);
     this._setupLoaders();
     this._setupResizeObserver();
     this._setupPointerRaycast();
@@ -186,6 +177,7 @@ export class FaceRig {
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(w, h, false);
+      if (this.faceLandmarks) this.setCameraPreset(this.currentPreset);
     };
     updateSize();
     this._resizeObserver = new ResizeObserver(updateSize);
@@ -230,73 +222,110 @@ export class FaceRig {
     return this;
   }
 
-  async loadRig(rigId = 'riya') {
-    const registry = await loadModelRegistry();
-    let rigEntry = registry.rigs?.find((r) => r.id === rigId || r.rigId === rigId);
+  _notifyRig() {
+    window.dispatchEvent(new CustomEvent('rig:change', { detail: {
+      rigId: this.currentRigId, reason: this.identityLock, cameraLocked: this.cameraLocked
+    } }));
+  }
 
-    if (rigId === 'facecap') {
-      rigEntry = {
-        id: 'facecap',
-        rigId: 'facecap',
-        label: 'FaceCap Developer Reference Rig (?rig=facecap)',
-        glbUrl: 'models/dev/facecap.glb',
-        manifestUrl: 'models/dev/manifest.json',
-        tier: 'dev'
-      };
-    } else if (!rigEntry) {
-      rigEntry = registry.rigs?.[0] || {
-        id: 'riya',
-        rigId: 'riya',
-        label: 'Adult Female 01 (Primary Realistic Head)',
-        glbUrl: 'models/riya/head.glb',
-        wrinkleNormalUrl: 'models/riya/head_normal_wrinkle.jpg',
-        sssMapUrl: 'models/riya/head_sss.jpg',
-        tier: 'realistic'
-      };
-    }
+  lockIdentity(reason = 'set by test') {
+    this.identityLock = reason;
+    this._notifyRig();
+  }
+  unlockIdentity() {
+    this.identityLock = null;
+    this._notifyRig();
+  }
 
-    // Load manifest if available
-    let manifest = rigEntry;
-    const manifestPath = rigEntry.manifestUrl || rigEntry.glbUrl.replace(/head\.glb$/, 'manifest.json');
+  // This wrapper publishes the latest promise synchronously, including when two
+  // identity requests arrive before the registry fetch has completed.
+  loadRig(rigId = 'riya') {
+    const token = ++this._loadSeq;
+    this.isReady = false;
+    this.loadingStatus.textContent = 'Loading face…';
+    this.loadingStatus.hidden = false;
+    const pending = this._loadRig(rigId, token);
+    this.ready = pending;
+    return pending;
+  }
+
+  async _loadRig(rigId, token) {
     try {
-      const mRes = await fetch(`./${manifestPath}`);
-      if (mRes.ok) {
-        manifest = await mRes.json();
+      const prepared = await this.preload(rigId);
+      if (this._disposed || token !== this._loadSeq) return null;
+      const { root, manifest, rigEntry, morphMeshes, wrinkles, sssTex, auMap } = prepared;
+      // No await in the swap: the previous, fully textured face stays rendered
+      // throughout fetch, texture decode, material setup, and shader compilation.
+      for (const child of [...this.headOffsetGroup.children]) {
+        if (child !== this.hotspotGroup) this.headOffsetGroup.remove(child);
       }
-    } catch {
-      // Use rigEntry metadata fallback
-    }
-
-    this.currentRigId = rigEntry.id;
-    this.currentManifest = manifest;
-    this.morphAliases = manifest.aliases || {};
-
-    // Clear previous head meshes
-    for (const child of [...this.headOffsetGroup.children]) {
-      if (child !== this.hotspotGroup) {
-        this.headOffsetGroup.remove(child);
-      }
-    }
-    this.morphMeshes = [];
-
-    // Load wrinkle & SSS maps for realistic rigs
-    if (rigEntry.tier !== 'dev') {
-      const wrinkleUrl = manifest.wrinkleNormalUrl ? `./${manifest.wrinkleNormalUrl}` : null;
-      const sssUrl = manifest.sssMapUrl ? `./${manifest.sssMapUrl}` : null;
-      const [, sssTex] = await Promise.all([
-        this.wrinkleController.loadWrinkleMap(wrinkleUrl),
-        loadSSSMap(sssUrl)
-      ]);
+      this.headOffsetGroup.add(root);
+      this.currentRigId = rigEntry.id;
+      this.currentManifest = manifest;
+      this.morphAliases = prepared.aliases;
+      this.morphMeshes = morphMeshes;
+      this.wrinkleController = wrinkles;
       this._currentSssTex = sssTex;
-    } else {
-      await this.wrinkleController.loadWrinkleMap(null);
-      this._currentSssTex = null;
+      this.auMap = auMap;
+      this.resetToNeutral();
+      this.scene.updateMatrixWorld(true);
+      this._landmarkModel = detectFaceLandmarks(root, morphMeshes, this.morphAliases);
+      this.faceLandmarks = this._landmarkModel.points;
+      this.setCameraPreset(this.currentPreset);
+      this.lights.targetObj.position.copy(this.faceLandmarks.faceCenter);
+      const found = new Set(morphMeshes.flatMap(m => Object.keys(m.morphTargetDictionary)));
+      const missing = CANONICAL_ARKIT_52.filter(k => !found.has(k) && !found.has(this.morphAliases[k]));
+      window.__missing = missing;
+      window.__rigStats = { rigId: this.currentRigId, tier: rigEntry.tier || 'realistic',
+        morphCount: found.size, missingCount: missing.length, glbUrl: rigEntry.glbUrl };
+      this.renderer.render(this.scene, this.camera);
+      this.isReady = true;
+      this.loadingStatus.hidden = true;
+      this._notifyRig();
+      return manifest;
+    } catch (error) {
+      if (token === this._loadSeq) {
+        this.isReady = Boolean(this.currentRigId);
+        this.loadingStatus.textContent = 'Face could not load. Try choosing it again.';
+      }
+      throw error;
     }
+  }
 
-    const gltf = await new Promise((resolve, reject) => {
-      this.gltfLoader.load(`./${rigEntry.glbUrl}`, resolve, undefined, reject);
-    });
+  preload(rigId = 'riya') {
+    if (!this._rigCache.has(rigId)) {
+      const pending = this._prepareRig(rigId).catch(error => {
+        this._rigCache.delete(rigId);
+        throw error;
+      });
+      this._rigCache.set(rigId, pending);
+    }
+    return this._rigCache.get(rigId);
+  }
 
+  async _prepareRig(rigId) {
+    const registry = await loadModelRegistry();
+    const rigEntry = rigId === 'facecap' ? {
+      id: 'facecap', tier: 'dev', glbUrl: 'models/dev/facecap.glb', manifestUrl: 'models/dev/manifest.json'
+    } : registry.rigs.find(r => r.id === rigId || r.rigId === rigId) || registry.rigs[0];
+    const manifestUrl = rigEntry.manifestUrl || rigEntry.glbUrl.replace(/head\.glb$/, 'manifest.json');
+    const [manifest, auMap] = await Promise.all([
+      fetch(`./${manifestUrl}`).then(r => r.ok ? r.json() : rigEntry),
+      fetch(`./${rigEntry.glbUrl.replace(/[^/]+$/, 'au-map.json')}`).then(r => r.ok ? r.json() : {})
+    ]);
+    const aliases = { ...(manifest.aliases || {}) };
+    // Older manifests carry actual -> canonical aliases; accept both directions.
+    for (const [a, b] of Object.entries({ ...aliases, ...(auMap.aliases || {}) })) {
+      if (CANONICAL_ARKIT_52.includes(b)) aliases[b] = a;
+      else aliases[a] = b;
+    }
+    const wrinkles = new WrinkleController();
+    const [gltf, , sssTex] = await Promise.all([
+      this.gltfLoader.loadAsync(`./${rigEntry.glbUrl}`),
+      wrinkles.loadWrinkleMap(manifest.wrinkleNormalUrl ? `./${manifest.wrinkleNormalUrl}` : null),
+      loadSSSMap(manifest.sssMapUrl ? `./${manifest.sssMapUrl}` : null)
+    ]);
+    const morphMeshes = [];
     const root = gltf.scene;
     root.name = `Rig_${rigEntry.id}`;
 
@@ -326,8 +355,6 @@ export class FaceRig {
       root.scale.setScalar(0.01);
     }
 
-    const foundMorphNames = new Set();
-
     root.traverse((node) => {
       if (!node.isMesh) return;
       node.castShadow = true;
@@ -348,70 +375,93 @@ export class FaceRig {
           node.renderOrder = 1;
           node.castShadow = false;
         } else if (matName.includes('mouth')) {
-          node.material = upgradeMouthMaterial(node.material, this.wrinkleController, this._currentSssTex);
+          node.material = upgradeMouthMaterial(node.material, wrinkles, sssTex);
           node.renderOrder = 1;
         } else if (matName.includes('body')) {
           node.material = upgradeBodyMaterial(node.material);
           node.renderOrder = 1;
         } else {
-          node.material = upgradeSkinMaterial(node.material, this.wrinkleController, this._currentSssTex);
+          node.material = upgradeSkinMaterial(node.material, wrinkles, sssTex);
           node.renderOrder = 1;
         }
       }
 
       if (node.morphTargetDictionary && node.morphTargetInfluences) {
-        this.morphMeshes.push(node);
-        for (const k of Object.keys(node.morphTargetDictionary)) {
-          foundMorphNames.add(k);
-        }
+        morphMeshes.push(node);
       }
     });
 
-    this.headOffsetGroup.add(root);
 
-    // Compute missing ARKit blendshape names and expose on window.__missing
-    const missing = [];
-    for (const canonicalName of CANONICAL_ARKIT_52) {
-      const mappedName = this.morphAliases[canonicalName] || canonicalName;
-      if (!foundMorphNames.has(canonicalName) && !foundMorphNames.has(mappedName)) {
-        missing.push(canonicalName);
+    // Wait for image decoding too; the GLTF and TextureLoader promises establish
+    // image availability, and decode resolves browser-side JPEG/PNG work.
+    const images = new Set();
+    root.traverse(node => {
+      for (const mat of Array.isArray(node.material) ? node.material : [node.material]) {
+        if (mat) for (const value of Object.values(mat)) if (value?.isTexture && value.image) images.add(value.image);
       }
-    }
-    window.__missing = missing;
-    window.__rigStats = {
-      rigId: this.currentRigId,
-      tier: rigEntry.tier || 'realistic',
-      morphCount: foundMorphNames.size,
-      missingCount: missing.length,
-      glbUrl: rigEntry.glbUrl
-    };
-
-    // Re-apply current expression state
-    this.applyResolvedState(this.currentState);
-
-    // Pre-compile shaders & render 3 warmup frames so the first stimulus flash drops 0 frames (Section 4.6)
+    });
+    for (const tex of [sssTex, wrinkles.uniforms.uWrinkleNormalMap.value]) if (tex?.image) images.add(tex.image);
+    await Promise.all([...images].map(image => image.decode ? image.decode() : Promise.resolve()));
+    root.updateMatrixWorld(true);
+    const featurePoints = detectFaceLandmarks(root, morphMeshes, aliases).points;
+    wrinkles.uniforms.uFaceRegions.value.set(featurePoints.brow.y, featurePoints.eyeMid.y,
+      (featurePoints.noseL.y + featurePoints.noseR.y) / 2, featurePoints.eyeL.distanceTo(featurePoints.eyeR) * .72);
     try {
-      if (typeof this.renderer.compileAsync === 'function') {
-        await this.renderer.compileAsync(this.scene, this.camera);
-      } else {
-        this.renderer.compile(this.scene, this.camera);
-      }
-    } catch {
-      this.renderer.compile(this.scene, this.camera);
-    }
-    for (let i = 0; i < 3; i++) {
-      this.renderer.render(this.scene, this.camera);
-    }
+      if (this.renderer.compileAsync) await this.renderer.compileAsync(root, this.camera, this.scene);
+      else this.renderer.compile(root, this.camera, this.scene);
+    } catch { this.renderer.compile(root, this.camera, this.scene); }
+    return { root, manifest, rigEntry, morphMeshes, wrinkles, sssTex, aliases, auMap };
+  }
 
-    return manifest;
+  _disposeRoot(root, wrinkles, sssTex) {
+    const textures = new Set([sssTex, wrinkles?.uniforms.uWrinkleNormalMap.value]);
+    root.traverse(node => {
+      node.geometry?.dispose();
+      for (const mat of Array.isArray(node.material) ? node.material : [node.material]) {
+        if (!mat) continue;
+        for (const value of Object.values(mat)) if (value?.isTexture) textures.add(value);
+        mat.dispose();
+      }
+    });
+    textures.forEach(tex => tex?.dispose());
+  }
+
+  projectLandmark(name) {
+    const p = this._landmarkModel?.projectable(name);
+    if (!p) return null;
+    this.camera.updateMatrixWorld(true);
+    return p.project(this.camera);
   }
 
   setCameraPreset(presetName = 'front') {
     const preset = CAMERA_PRESETS[presetName] || CAMERA_PRESETS.front;
-    this.currentPreset = presetName;
-    this.camera.position.set(...preset.position);
-    this.controls.target.set(...preset.target);
+    this.currentPreset = CAMERA_PRESETS[presetName] ? presetName : 'front';
+    const lm = this.faceLandmarks;
+    if (!lm) {
+      this.camera.position.set(0, 1.6, .65);
+      this.controls.target.set(0, 1.6, 0);
+      this.controls.update();
+      return;
+    }
+    const top = lm[preset.frame[0]], bottom = lm[preset.frame[1]];
+    const target = top.clone().add(bottom).multiplyScalar(.5);
+    const height = top.distanceTo(bottom) * preset.margin;
+    const width = (presetName === 'mouthCloseup' ? lm.cornerL.distanceTo(lm.cornerR) * 1.5 : lm.faceWidth) * 1.15;
+    const tan = Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
+    const distance = Math.max(height / (2 * tan), width / (2 * tan * this.camera.aspect)) + lm.faceHeight * .14;
+    const yaw = THREE.MathUtils.degToRad(preset.yawDeg);
+    this.controls.minDistance = distance * .9;
+    this.controls.maxDistance = distance * 2.2;
+    this.camera.near = Math.max(.005, distance * .04);
+    this.camera.updateProjectionMatrix();
+    // Clear OrbitControls damping left over from a prior view.
+    const damping = this.controls.enableDamping;
+    this.controls.enableDamping = false;
+    this.controls.target.copy(target);
+    this.camera.position.copy(target).add(new THREE.Vector3(Math.sin(yaw) * distance, 0, Math.cos(yaw) * distance));
     this.controls.update();
+    this.controls.enableDamping = damping;
+    this._notifyRig();
   }
 
   setQuality(quality = 'high') {
@@ -427,8 +477,12 @@ export class FaceRig {
   /**
    * Resolves an AU list or expression recipe and applies it immediately to the 3D head.
    */
+  resolveExpressionState(recipeOrAUs, options = {}) {
+    return resolveExpressionState(recipeOrAUs, this.auCatalog, { ...options, rigMap: this.auMap });
+  }
+
   setExpressionFromRecipe(recipeOrAUs, options = {}) {
-    const state = resolveExpressionState(recipeOrAUs, this.auCatalog, options);
+    const state = this.resolveExpressionState(recipeOrAUs, options);
     this.applyResolvedState(state);
     return state;
   }
@@ -458,7 +512,7 @@ export class FaceRig {
   applyResolvedState(state, extraBlink = 0) {
     if (!state) return;
     this.currentState = state;
-    const weights = state.weights || {};
+    const weights = applyRigGains(state.weights || {}, this.auMap);
 
     for (const mesh of this.morphMeshes) {
       const dict = mesh.morphTargetDictionary;
@@ -514,9 +568,19 @@ export class FaceRig {
    * Never uses setTimeout or setInterval.
    */
   async flashExpression(recipeOrState, durationMs = 200, options = {}) {
+    await this.ready;
+    if (!this.isReady || this._disposed) return { cancelled: true };
+    if (!options.assessment) durationMs = Math.max(durationMs, this.minimumFlashMs || 0);
+    const presetBefore = this.currentPreset;
+    const previousLock = this.cameraLocked;
+    this.cameraLocked = true;
+    if (!previousLock) this.setCameraPreset('front');
+    this._notifyRig();
+    const previousControls = this.controls.enabled;
+    this.controls.enabled = false;
     const peakState = recipeOrState?.weights
       ? recipeOrState
-      : resolveExpressionState(recipeOrState, this.auCatalog, options);
+      : this.resolveExpressionState(recipeOrState, options);
     const neutralState = resolveExpressionState([], this.auCatalog);
 
     const prevBlinks = this.idleBlinksEnabled;
@@ -547,6 +611,10 @@ export class FaceRig {
       return result;
     } finally {
       this.idleBlinksEnabled = prevBlinks;
+      this.controls.enabled = previousControls;
+      this.cameraLocked = previousLock;
+      if (!previousLock) this.setCameraPreset(presetBefore);
+      this._notifyRig();
     }
   }
 
@@ -655,6 +723,9 @@ export class FaceRig {
 
   dispose() {
     this._disposed = true;
+    ++this._loadSeq;
+    for (const pending of this._rigCache.values()) pending.then(p => this._disposeRoot(p.root, p.wrinkles, p.sssTex)).catch(() => {});
+    this._rigCache.clear();
     if (this._rafId) cancelAnimationFrame(this._rafId);
     if (this._resizeObserver) this._resizeObserver.disconnect();
     if (this._onWindowResize) window.removeEventListener('resize', this._onWindowResize);

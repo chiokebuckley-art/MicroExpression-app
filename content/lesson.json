@@ -1,0 +1,527 @@
+{
+  "version": 1,
+  "title": "What to look for",
+  "intro": "Before the baseline, learn where each of the 7 universal expressions shows up on the face. Drag the slider from neutral to the full expression and watch the labelled regions.",
+  "cards": [
+    {
+      "id": "happiness",
+      "recipeId": "happiness",
+      "title": "Happiness",
+      "subtitle": "Duchenne smile pattern",
+      "formula": "AU 6 + 12",
+      "image": "assets/teaching-cards/happiness.png",
+      "aus": [
+        {
+          "au": 6,
+          "name": "Cheek raiser",
+          "intensity": 1
+        },
+        {
+          "au": 12,
+          "name": "Lip corner puller",
+          "intensity": 1
+        }
+      ],
+      "annotations": [
+        {
+          "region": "brows",
+          "anchor": "innerBrow",
+          "label": "Brows: relaxed",
+          "detail": "No brow action. Brows stay at rest.",
+          "au": null
+        },
+        {
+          "region": "eyes",
+          "anchor": "lowerLidL",
+          "label": "Eyes narrow from below",
+          "detail": "Lower lids pushed up, crow’s-feet at outer corners.",
+          "au": "AU6"
+        },
+        {
+          "region": "eyes",
+          "anchor": "cheekR",
+          "label": "Cheeks lift",
+          "detail": "Cheeks bulge up under the eyes.",
+          "au": "AU6"
+        },
+        {
+          "region": "mouth",
+          "anchor": "cornerL",
+          "label": "Lip corners up & back",
+          "detail": "Corners pulled obliquely toward the cheekbones.",
+          "au": "AU12"
+        },
+        {
+          "region": "nose",
+          "anchor": "noseR",
+          "label": "Nose–lip fold deepens",
+          "detail": "Side effect of the cheeks rising.",
+          "au": "AU6+12"
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Social / polite smile",
+          "tip": "AU12 only: the mouth smiles but cheeks and lower lids don’t lift. Check the eyes, not the mouth."
+        },
+        {
+          "with": "Contempt",
+          "tip": "Contempt is one-sided (AU14). A smile is symmetric."
+        }
+      ],
+      "cue": "Look at the lower eyelids. If they rise with the lip corners, the smile includes cheek raising (AU6). This pattern alone cannot establish sincerity."
+    },
+    {
+      "id": "sadness",
+      "recipeId": "sadness",
+      "title": "Sadness",
+      "subtitle": "Oblique brows, corners down",
+      "formula": "AU 1 + 4 + 15 (+17)",
+      "image": "assets/teaching-cards/sadness.png",
+      "aus": [
+        {
+          "au": 1,
+          "name": "Inner brow raiser",
+          "intensity": 1
+        },
+        {
+          "au": 4,
+          "name": "Brow lowerer",
+          "intensity": 0.5
+        },
+        {
+          "au": 15,
+          "name": "Lip corner depressor",
+          "intensity": 0.9
+        },
+        {
+          "au": 17,
+          "name": "Chin raiser",
+          "intensity": 0.5
+        }
+      ],
+      "annotations": [
+        {
+          "region": "brows",
+          "anchor": "innerBrow",
+          "label": "Inner brows up & together",
+          "detail": "Inner corners rise into a slanted “tent” shape.",
+          "au": "AU1+4"
+        },
+        {
+          "region": "eyes",
+          "anchor": "upperLidR",
+          "label": "Eyes heavy",
+          "detail": "Upper lids droop a little and the gaze drops. Not widened.",
+          "au": null
+        },
+        {
+          "region": "mouth",
+          "anchor": "cornerL",
+          "label": "Lip corners down",
+          "detail": "Corners pulled down and slightly out.",
+          "au": "AU15"
+        },
+        {
+          "region": "jaw",
+          "anchor": "chin",
+          "label": "Chin pushed up",
+          "detail": "Chin boss wrinkles and the lower lip pouts.",
+          "au": "AU17"
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Fear",
+          "tip": "Fear also lifts the inner brows (AU1+4), but it adds AU2+5 (wide eyes) and stretched lips (AU20)."
+        },
+        {
+          "with": "Neutral / tired",
+          "tip": "Watch the inner brow corners. That oblique slant is the most reliable sign of sadness."
+        }
+      ],
+      "cue": "Find the inner brow corners. If they slant up toward the middle, think sadness."
+    },
+    {
+      "id": "anger",
+      "recipeId": "anger",
+      "title": "Anger",
+      "subtitle": "Lowered brows, hard stare, pressed lips",
+      "formula": "AU 4 + 5 + 7 + 23/24",
+      "image": "assets/teaching-cards/anger.png",
+      "aus": [
+        {
+          "au": 4,
+          "name": "Brow lowerer",
+          "intensity": 1
+        },
+        {
+          "au": 5,
+          "name": "Upper lid raiser",
+          "intensity": 0.6
+        },
+        {
+          "au": 7,
+          "name": "Lid tightener",
+          "intensity": 0.8
+        },
+        {
+          "au": 23,
+          "name": "Lip tightener",
+          "intensity": 0.8
+        },
+        {
+          "au": 24,
+          "name": "Lip pressor",
+          "intensity": 0.5
+        }
+      ],
+      "annotations": [
+        {
+          "region": "brows",
+          "anchor": "browL",
+          "label": "Brows down & together",
+          "detail": "Vertical lines appear between the brows.",
+          "au": "AU4"
+        },
+        {
+          "region": "eyes",
+          "anchor": "upperLidR",
+          "label": "Glaring upper lid",
+          "detail": "Upper lid raised into a hard stare.",
+          "au": "AU5"
+        },
+        {
+          "region": "eyes",
+          "anchor": "lowerLidL",
+          "label": "Lower lid tensed",
+          "detail": "Lower lid straightens and tightens.",
+          "au": "AU7"
+        },
+        {
+          "region": "nose",
+          "anchor": "noseR",
+          "label": "Nose smooth",
+          "detail": "No nose wrinkle. That rules out disgust.",
+          "au": null
+        },
+        {
+          "region": "mouth",
+          "anchor": "cornerR",
+          "label": "Lips pressed thin",
+          "detail": "Lips tightened and pressed together, red margins narrow.",
+          "au": "AU23+24"
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Disgust",
+          "tip": "Disgust also lowers the brows, but it wrinkles the nose and raises the upper lip (AU9/10)."
+        },
+        {
+          "with": "Concentration",
+          "tip": "Brow lowering alone (AU4) is ambiguous. Anger adds the glare (AU5+7) and pressed lips."
+        }
+      ],
+      "cue": "Brows down plus a glare plus thin lips. The nose stays smooth."
+    },
+    {
+      "id": "fear",
+      "recipeId": "fear",
+      "title": "Fear",
+      "subtitle": "Flat pinched brows, wide eyes, stretched lips",
+      "formula": "AU 1 + 2 + 4 + 5 + 20 (+25)",
+      "image": "assets/teaching-cards/fear.png",
+      "aus": [
+        {
+          "au": 1,
+          "name": "Inner brow raiser",
+          "intensity": 0.9
+        },
+        {
+          "au": 2,
+          "name": "Outer brow raiser",
+          "intensity": 0.55
+        },
+        {
+          "au": 4,
+          "name": "Brow lowerer",
+          "intensity": 0.85
+        },
+        {
+          "au": 5,
+          "name": "Upper lid raiser",
+          "intensity": 1
+        },
+        {
+          "au": 7,
+          "name": "Lid tightener",
+          "intensity": 0.2
+        },
+        {
+          "au": 20,
+          "name": "Lip stretcher",
+          "intensity": 1
+        },
+        {
+          "au": 25,
+          "name": "Lips part",
+          "intensity": 0.3
+        }
+      ],
+      "annotations": [
+        {
+          "region": "brows",
+          "anchor": "innerBrow",
+          "label": "Brows up AND pinched",
+          "detail": "Raised but drawn together into a flat, tense line.",
+          "au": "AU1+2+4"
+        },
+        {
+          "region": "eyes",
+          "anchor": "upperLidL",
+          "label": "Eyes wide",
+          "detail": "Upper lids raised, white shows above the iris.",
+          "au": "AU5"
+        },
+        {
+          "region": "eyes",
+          "anchor": "lowerLidR",
+          "label": "Lower lids tense",
+          "detail": "Slight tension in the lower lid.",
+          "au": "AU7"
+        },
+        {
+          "region": "mouth",
+          "anchor": "cornerR",
+          "label": "Lips stretched sideways",
+          "detail": "Corners pulled horizontally toward the ears.",
+          "au": "AU20"
+        },
+        {
+          "region": "jaw",
+          "anchor": "jaw",
+          "label": "Jaw mostly closed",
+          "detail": "Lips only slightly parted. No big jaw drop.",
+          "au": "AU25"
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Surprise",
+          "tip": "Surprise brows are curved and not pinched, with no lower-lid tension and a loose dropped jaw (AU26)."
+        },
+        {
+          "with": "Sadness",
+          "tip": "Sadness shares AU1+4 but the eyes are heavy, not wide, and the corners go down."
+        }
+      ],
+      "cue": "Fear has tension everywhere: pinched brows and stretched lips. Surprise is open and relaxed."
+    },
+    {
+      "id": "surprise",
+      "recipeId": "surprise",
+      "title": "Surprise",
+      "subtitle": "High curved brows, wide eyes, dropped jaw",
+      "formula": "AU 1 + 2 + 5 + 26",
+      "image": "assets/teaching-cards/surprise.png",
+      "aus": [
+        {
+          "au": 1,
+          "name": "Inner brow raiser",
+          "intensity": 1
+        },
+        {
+          "au": 2,
+          "name": "Outer brow raiser",
+          "intensity": 1
+        },
+        {
+          "au": 5,
+          "name": "Upper lid raiser",
+          "intensity": 1
+        },
+        {
+          "au": 26,
+          "name": "Jaw drop",
+          "intensity": 0.8
+        }
+      ],
+      "annotations": [
+        {
+          "region": "brows",
+          "anchor": "outerBrowL",
+          "label": "Brows high & curved",
+          "detail": "Whole brow arches up, with long horizontal forehead lines.",
+          "au": "AU1+2"
+        },
+        {
+          "region": "brows",
+          "anchor": "innerBrow",
+          "label": "No pinch",
+          "detail": "Brows are not drawn together, unlike fear.",
+          "au": null
+        },
+        {
+          "region": "eyes",
+          "anchor": "upperLidR",
+          "label": "Eyes wide open",
+          "detail": "Upper lids raised, lower lids relaxed.",
+          "au": "AU5"
+        },
+        {
+          "region": "jaw",
+          "anchor": "jaw",
+          "label": "Jaw drops loose",
+          "detail": "Mouth falls open and the lips stay relaxed, not stretched.",
+          "au": "AU26"
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Fear",
+          "tip": "Fear adds the brow pinch (AU4) and horizontal lip stretch (AU20), with less jaw drop."
+        },
+        {
+          "with": "Duration",
+          "tip": "Surprise is the briefest emotion. If it lingers it is often posed or turning into another emotion."
+        }
+      ],
+      "cue": "Round and relaxed: arched brows, round eyes, open jaw. No tension in the lips."
+    },
+    {
+      "id": "disgust",
+      "recipeId": "disgust",
+      "title": "Disgust",
+      "subtitle": "Nose wrinkle, raised upper lip",
+      "formula": "AU 9 + 10 (+15/16)",
+      "image": "assets/teaching-cards/disgust.png",
+      "aus": [
+        {
+          "au": 9,
+          "name": "Nose wrinkler",
+          "intensity": 1
+        },
+        {
+          "au": 10,
+          "name": "Upper lip raiser",
+          "intensity": 0.8
+        },
+        {
+          "au": 15,
+          "name": "Lip corner depressor",
+          "intensity": 0.3
+        },
+        {
+          "au": 16,
+          "name": "Lower lip depressor",
+          "intensity": 0.3
+        }
+      ],
+      "annotations": [
+        {
+          "region": "brows",
+          "anchor": "browL",
+          "label": "Brows lowered",
+          "detail": "Pulled down as part of the nose wrinkle.",
+          "au": "AU9"
+        },
+        {
+          "region": "eyes",
+          "anchor": "lowerLidR",
+          "label": "Eyes narrowed",
+          "detail": "Lower lids pushed up from below.",
+          "au": "AU9"
+        },
+        {
+          "region": "nose",
+          "anchor": "noseL",
+          "label": "Nose wrinkled",
+          "detail": "Skin bunches along the nose and the nostrils lift.",
+          "au": "AU9"
+        },
+        {
+          "region": "mouth",
+          "anchor": "upperLipR",
+          "label": "Upper lip raised",
+          "detail": "Upper lip lifts and can show the upper teeth.",
+          "au": "AU10"
+        },
+        {
+          "region": "mouth",
+          "anchor": "lowerLip",
+          "label": "Lower lip down",
+          "detail": "Lower lip and corners pulled down.",
+          "au": "AU15+16"
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Anger",
+          "tip": "Both lower the brows, but anger keeps the nose smooth and presses the lips together."
+        },
+        {
+          "with": "Contempt",
+          "tip": "Contempt is one-sided at the lip corner. Disgust is symmetric and centred on the nose."
+        }
+      ],
+      "cue": "Look at the middle of the face: a wrinkled nose and a raised upper lip."
+    },
+    {
+      "id": "contempt",
+      "recipeId": "contempt",
+      "title": "Contempt",
+      "subtitle": "One-sided lip corner tightening",
+      "formula": "R AU 14 (unilateral)",
+      "image": "assets/teaching-cards/contempt.png",
+      "aus": [
+        {
+          "au": 14,
+          "name": "Dimpler (one side)",
+          "intensity": 1
+        }
+      ],
+      "annotations": [
+        {
+          "region": "neutral",
+          "anchor": "innerBrow",
+          "label": "Brows neutral",
+          "detail": "No brow action.",
+          "au": null
+        },
+        {
+          "region": "neutral",
+          "anchor": "upperLidL",
+          "label": "Eyes neutral",
+          "detail": "No cheek raise and no eye crinkle.",
+          "au": null
+        },
+        {
+          "region": "mouth",
+          "anchor": "cornerR",
+          "label": "ONE corner tightened & up",
+          "detail": "A dimple forms at one lip corner only.",
+          "au": "AU14 (R)"
+        },
+        {
+          "region": "neutral",
+          "anchor": "cornerL",
+          "label": "Other corner at rest",
+          "detail": "This asymmetry is the whole tell.",
+          "au": null
+        }
+      ],
+      "confusedWith": [
+        {
+          "with": "Happiness / amusement",
+          "tip": "Smiles are symmetric (AU12 on both sides, often with AU6). Contempt is one-sided with no cheek raise."
+        },
+        {
+          "with": "Disgust",
+          "tip": "Disgust is symmetric and wrinkles the nose. Contempt leaves the nose alone."
+        }
+      ],
+      "cue": "Compare the two lip corners. If only one moves, think contempt."
+    }
+  ]
+}

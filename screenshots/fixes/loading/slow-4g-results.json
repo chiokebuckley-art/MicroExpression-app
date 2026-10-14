@@ -1,0 +1,11 @@
+{
+  "before": {
+    "centerStdDev": 0.0,
+    "headCount": 0,
+    "toolbarOutOfSync": true
+  },
+  "after": {
+    "centerStdDev": 42.010158355899044,
+    "headCount": 1
+  }
+}
