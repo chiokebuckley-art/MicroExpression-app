@@ -1,0 +1,332 @@
+{
+  "rigId": "facecap",
+  "aliases": {
+    "browDownLeft": "browDown_L",
+    "browDownRight": "browDown_R",
+    "browInnerUp": "browInnerUp",
+    "browOuterUpLeft": "browOuterUp_L",
+    "browOuterUpRight": "browOuterUp_R",
+    "cheekPuff": "cheekPuff",
+    "cheekSquintLeft": "cheekSquint_L",
+    "cheekSquintRight": "cheekSquint_R",
+    "eyeBlinkLeft": "eyeBlink_L",
+    "eyeBlinkRight": "eyeBlink_R",
+    "eyeLookDownLeft": "eyeLookDown_L",
+    "eyeLookDownRight": "eyeLookDown_R",
+    "eyeLookInLeft": "eyeLookIn_L",
+    "eyeLookInRight": "eyeLookIn_R",
+    "eyeLookOutLeft": "eyeLookOut_L",
+    "eyeLookOutRight": "eyeLookOut_R",
+    "eyeLookUpLeft": "eyeLookUp_L",
+    "eyeLookUpRight": "eyeLookUp_R",
+    "eyeSquintLeft": "eyeSquint_L",
+    "eyeSquintRight": "eyeSquint_R",
+    "eyeWideLeft": "eyeWide_L",
+    "eyeWideRight": "eyeWide_R",
+    "jawForward": "jawForward",
+    "jawLeft": "jaw_L",
+    "jawOpen": "jawOpen",
+    "jawRight": "jaw_R",
+    "mouthClose": "mouthClose",
+    "mouthDimpleLeft": "mouthDimple_L",
+    "mouthDimpleRight": "mouthDimple_R",
+    "mouthFrownLeft": "mouthFrown_L",
+    "mouthFrownRight": "mouthFrown_R",
+    "mouthFunnel": "mouthFunnel",
+    "mouthLeft": "mouth_L",
+    "mouthLowerDownLeft": "mouthLowerDown_L",
+    "mouthLowerDownRight": "mouthLowerDown_R",
+    "mouthPressLeft": "mouthPress_L",
+    "mouthPressRight": "mouthPress_R",
+    "mouthPucker": "mouthPucker",
+    "mouthRight": "mouth_R",
+    "mouthRollLower": "mouthRollLower",
+    "mouthRollUpper": "mouthRollUpper",
+    "mouthShrugLower": "mouthShrugLower",
+    "mouthShrugUpper": "mouthShrugUpper",
+    "mouthSmileLeft": "mouthSmile_L",
+    "mouthSmileRight": "mouthSmile_R",
+    "mouthStretchLeft": "mouthStretch_L",
+    "mouthStretchRight": "mouthStretch_R",
+    "mouthUpperUpLeft": "mouthUpperUp_L",
+    "mouthUpperUpRight": "mouthUpperUp_R",
+    "noseSneerLeft": "noseSneer_L",
+    "noseSneerRight": "noseSneer_R",
+    "tongueOut": "tongueOut"
+  },
+  "entries": {
+    "1": [
+      {
+        "shape": "browInnerUp",
+        "weight": 1.0,
+        "lateral": false
+      }
+    ],
+    "2": [
+      {
+        "shape": "browOuterUp",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "4": [
+      {
+        "shape": "browDown",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "5": [
+      {
+        "shape": "eyeWide",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "6": [
+      {
+        "shape": "cheekSquint",
+        "weight": 1.0,
+        "lateral": true
+      },
+      {
+        "shape": "eyeSquint",
+        "weight": 0.35,
+        "lateral": true
+      }
+    ],
+    "7": [
+      {
+        "shape": "eyeSquint",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "9": [
+      {
+        "shape": "noseSneer",
+        "weight": 1.0,
+        "lateral": true
+      },
+      {
+        "shape": "mouthUpperUp",
+        "weight": 0.2,
+        "lateral": true
+      },
+      {
+        "shape": "browDown",
+        "weight": 0.15,
+        "lateral": true
+      }
+    ],
+    "10": [
+      {
+        "shape": "mouthUpperUp",
+        "weight": 1.0,
+        "lateral": true
+      },
+      {
+        "shape": "noseSneer",
+        "weight": 0.1,
+        "lateral": true
+      }
+    ],
+    "12": [
+      {
+        "shape": "mouthSmile",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "14": [
+      {
+        "shape": "mouthDimple",
+        "weight": 1.0,
+        "lateral": true
+      },
+      {
+        "shape": "mouthPress",
+        "weight": 0.3,
+        "lateral": true
+      },
+      {
+        "shape": "mouthSmile",
+        "weight": 0.2,
+        "lateral": true
+      }
+    ],
+    "15": [
+      {
+        "shape": "mouthFrown",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "16": [
+      {
+        "shape": "mouthLowerDown",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "17": [
+      {
+        "shape": "mouthShrugLower",
+        "weight": 1.0,
+        "lateral": false
+      },
+      {
+        "shape": "mouthShrugUpper",
+        "weight": 0.2,
+        "lateral": false
+      }
+    ],
+    "20": [
+      {
+        "shape": "mouthStretch",
+        "weight": 1.0,
+        "lateral": true
+      },
+      {
+        "shape": "mouthDimple",
+        "weight": 0.25,
+        "lateral": true
+      },
+      {
+        "shape": "mouthLowerDown",
+        "weight": 0.15,
+        "lateral": true
+      }
+    ],
+    "23": [
+      {
+        "shape": "mouthPress",
+        "weight": 0.6,
+        "lateral": true
+      },
+      {
+        "shape": "mouthRollUpper",
+        "weight": 0.2,
+        "lateral": false
+      },
+      {
+        "shape": "mouthRollLower",
+        "weight": 0.2,
+        "lateral": false
+      },
+      {
+        "shape": "mouthPucker",
+        "weight": 0.12,
+        "lateral": false
+      }
+    ],
+    "24": [
+      {
+        "shape": "mouthPress",
+        "weight": 1.0,
+        "lateral": true
+      },
+      {
+        "shape": "mouthRollLower",
+        "weight": 0.3,
+        "lateral": false
+      }
+    ],
+    "25": [
+      {
+        "shape": "mouthUpperUp",
+        "weight": 0.15,
+        "lateral": true
+      },
+      {
+        "shape": "mouthLowerDown",
+        "weight": 0.15,
+        "lateral": true
+      }
+    ],
+    "26": [
+      {
+        "shape": "jawOpen",
+        "weight": 1.0,
+        "lateral": false
+      }
+    ],
+    "27": [
+      {
+        "shape": "jawOpen",
+        "weight": 1.0,
+        "lateral": false
+      },
+      {
+        "shape": "mouthStretch",
+        "weight": 0.3,
+        "lateral": true
+      }
+    ],
+    "43": [
+      {
+        "shape": "eyeBlink",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "45": [
+      {
+        "shape": "eyeBlink",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ],
+    "46": [
+      {
+        "shape": "eyeBlink",
+        "weight": 1.0,
+        "lateral": true
+      }
+    ]
+  },
+  "correctives": [
+    {
+      "id": "fear_lip_stretch_corrective",
+      "when": [
+        1,
+        4,
+        20
+      ],
+      "description": "Applies extra horizontal lip tension and outward-downward corner pull when AU1, AU4, and AU20 are simultaneously active (fear fix).",
+      "shapes": [
+        {
+          "shape": "mouthPressLeft",
+          "weight": 0.1
+        },
+        {
+          "shape": "mouthPressRight",
+          "weight": 0.1
+        },
+        {
+          "shape": "mouthFrownLeft",
+          "weight": 0.1
+        },
+        {
+          "shape": "mouthFrownRight",
+          "weight": 0.1
+        }
+      ]
+    },
+    {
+      "id": "sadness_oblique_brow_corrective",
+      "when": [
+        1,
+        4,
+        15
+      ],
+      "description": "Ensures AU1+AU4 in sadness preserves raised inner brow corners while drawing brows together (oblique angle) without cancelling AU1.",
+      "shapes": [
+        {
+          "shape": "browInnerUp",
+          "weight": 0.2
+        }
+      ]
+    }
+  ]
+}

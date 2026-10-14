@@ -1,0 +1,207 @@
+{
+  "level": 5,
+  "id": "L5",
+  "title": "Subtle and Partial Expressions",
+  "subtitle": "Low intensity (0.3, 0.6, 1.0), upper-face-only and lower-face-only expressions, and baseline comparison",
+  "modes": [
+    "intensityExplorer",
+    "spotDifference",
+    "regionOnly"
+  ],
+  "masteryTarget": 0.7,
+  "intensities": [
+    {
+      "id": "subtle",
+      "label": "Subtle (0.3)",
+      "scale": 0.3
+    },
+    {
+      "id": "moderate",
+      "label": "Moderate (0.6)",
+      "scale": 0.6
+    },
+    {
+      "id": "full",
+      "label": "Full (1.0)",
+      "scale": 1.0
+    }
+  ],
+  "spotDifferenceItems": [
+    {
+      "id": "l5_spot_01",
+      "emotion": "happiness",
+      "recipeId": "happiness",
+      "scale": 0.3,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_02",
+      "emotion": "sadness",
+      "recipeId": "sadness",
+      "scale": 0.3,
+      "region": "upper",
+      "prompt": "Compare against the neutral baseline (upper face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_03",
+      "emotion": "anger",
+      "recipeId": "anger",
+      "scale": 0.3,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_04",
+      "emotion": "fear",
+      "recipeId": "fear",
+      "scale": 0.3,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_05",
+      "emotion": "surprise",
+      "recipeId": "surprise",
+      "scale": 0.3,
+      "region": "upper",
+      "prompt": "Compare against the neutral baseline (upper face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_06",
+      "emotion": "disgust",
+      "recipeId": "disgust",
+      "scale": 0.3,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_07",
+      "emotion": "contempt",
+      "recipeId": "contempt",
+      "scale": 0.3,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_08",
+      "emotion": "happiness",
+      "recipeId": "happiness",
+      "scale": 0.3,
+      "region": "upper",
+      "prompt": "Compare against the neutral baseline (upper face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_09",
+      "emotion": "sadness",
+      "recipeId": "sadness",
+      "scale": 0.3,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_10",
+      "emotion": "anger",
+      "recipeId": "anger",
+      "scale": 0.3,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_11",
+      "emotion": "fear",
+      "recipeId": "fear",
+      "scale": 0.3,
+      "region": "upper",
+      "prompt": "Compare against the neutral baseline (upper face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_12",
+      "emotion": "surprise",
+      "recipeId": "surprise",
+      "scale": 0.3,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 30%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_13",
+      "emotion": "disgust",
+      "recipeId": "disgust",
+      "scale": 0.45,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_14",
+      "emotion": "contempt",
+      "recipeId": "contempt_left",
+      "scale": 0.45,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_15",
+      "emotion": "happiness",
+      "recipeId": "happiness",
+      "scale": 0.45,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_16",
+      "emotion": "sadness",
+      "recipeId": "sadness",
+      "scale": 0.45,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_17",
+      "emotion": "anger",
+      "recipeId": "anger",
+      "scale": 0.45,
+      "region": "upper",
+      "prompt": "Compare against the neutral baseline (upper face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_18",
+      "emotion": "fear",
+      "recipeId": "fear",
+      "scale": 0.45,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_19",
+      "emotion": "surprise",
+      "recipeId": "surprise",
+      "scale": 0.45,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_20",
+      "emotion": "disgust",
+      "recipeId": "disgust",
+      "scale": 0.45,
+      "region": "upper",
+      "prompt": "Compare against the neutral baseline (upper face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_21",
+      "emotion": "contempt",
+      "recipeId": "contempt",
+      "scale": 0.45,
+      "region": "lower",
+      "prompt": "Compare against the neutral baseline (lower face, intensity 45%). Which emotion emerged?"
+    },
+    {
+      "id": "l5_spot_22",
+      "emotion": "happiness",
+      "recipeId": "happiness",
+      "scale": 0.45,
+      "region": "full",
+      "prompt": "Compare against the neutral baseline (full face, intensity 45%). Which emotion emerged?"
+    }
+  ]
+}

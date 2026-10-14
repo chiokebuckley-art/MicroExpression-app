@@ -1,0 +1,501 @@
+{
+  "intensityScale": {
+    "A": { "label": "Trace (A)", "value": 0.15, "description": "Barely perceptible trace of muscle contraction; skin shift without deep furrowing." },
+    "B": { "label": "Slight (B)", "value": 0.35, "description": "Slight but definite movement; visible shift in landmark position." },
+    "C": { "label": "Marked (C)", "value": 0.55, "description": "Pronounced contraction with clear skin folding or furrowing." },
+    "D": { "label": "Severe (D)", "value": 0.75, "description": "Strong, near-maximal displacement and deep skin creasing." },
+    "E": { "label": "Maximum (E)", "value": 0.95, "description": "Extreme physiological limit of movement for this Action Unit." }
+  },
+  "regionGroups": {
+    "upper": [1, 2, 4, 5, 6, 7, 43, 45, 46],
+    "lower": [9, 10, 12, 14, 15, 16, 17, 20, 23, 24, 25, 26, 27]
+  },
+  "aus": [
+    {
+      "id": 1,
+      "code": "AU1",
+      "name": "Inner Brow Raiser",
+      "muscle": "Frontalis, pars medialis",
+      "region": "upper",
+      "vertexGroup": "brow",
+      "lateral": false,
+      "fit": "Direct",
+      "description": "Pulls the inner corners of the eyebrows upward, creating short horizontal wrinkles in the center of the forehead and often producing an oblique brow shape when combined with AU4.",
+      "visualCues": [
+        "Medial eyebrow corners lift upward",
+        "Central forehead skin bunches into horizontal lines",
+        "Inner brow arches higher than outer brow"
+      ],
+      "emotions": ["sadness", "fear", "surprise"],
+      "blendshapes": [
+        { "shape": "browInnerUp", "weight": 1.0, "lateral": false }
+      ],
+      "notes": "A single bilateral channel in ARKit. When combined with AU4 in sadness or fear, creates the signature oblique or flattened medial brow."
+    },
+    {
+      "id": 2,
+      "code": "AU2",
+      "name": "Outer Brow Raiser",
+      "muscle": "Frontalis, pars lateralis",
+      "region": "upper",
+      "vertexGroup": "brow",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Lifts the outer (lateral) portions of the eyebrows upward, arching the brow and stretching the lateral upper eyelid skin.",
+      "visualCues": [
+        "Lateral tails of the eyebrows pull up",
+        "Long, curved horizontal forehead lines when paired with AU1",
+        "Can occur unilaterally in skepticism or doubt"
+      ],
+      "emotions": ["surprise", "fear"],
+      "blendshapes": [
+        { "shape": "browOuterUp", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Can be unilateral (the skepticism cue). Reduced to 0.55 in fear so brows stay flatter than in surprise."
+    },
+    {
+      "id": 4,
+      "code": "AU4",
+      "name": "Brow Lowerer",
+      "muscle": "Corrugator supercilii, depressor supercilii, procerus",
+      "region": "upper",
+      "vertexGroup": "brow",
+      "lateral": true,
+      "fit": "Approx.",
+      "description": "Lowers the eyebrows and pulls their inner corners together toward the root of the nose, producing vertical glabella furrows ('eleven lines') between the brows.",
+      "visualCues": [
+        "Eyebrows drop closer to the eyes",
+        "Medial brow heads draw inward toward each other",
+        "Vertical glabella lines appear between the brows"
+      ],
+      "emotions": ["anger", "fear", "sadness"],
+      "blendshapes": [
+        { "shape": "browDown", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Mainly lowers the brow; combined with AU1+2 in fear (AU4 at 0.85) so the brows sit flat and pinched rather than arched."
+    },
+    {
+      "id": 5,
+      "code": "AU5",
+      "name": "Upper Lid Raiser",
+      "muscle": "Levator palpebrae superioris",
+      "region": "upper",
+      "vertexGroup": "lids",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Pulls the upper eyelid back into the eye socket, exposing the upper iris and often a rim of white sclera above the iris.",
+      "visualCues": [
+        "Upper eyelid retracts high above the pupil",
+        "White sclera visible above the iris at high intensity",
+        "Eyes appear wide open or glaring"
+      ],
+      "emotions": ["surprise", "fear", "anger"],
+      "blendshapes": [
+        { "shape": "eyeWide", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Sclera above the iris shows at 0.7 or more. Stacks with AU7 in anger (hard stare) and fear (wide eyes with tense lower lid)."
+    },
+    {
+      "id": 6,
+      "code": "AU6",
+      "name": "Cheek Raiser",
+      "muscle": "Orbicularis oculi, pars orbitalis",
+      "region": "upper",
+      "vertexGroup": "cheek",
+      "lateral": true,
+      "fit": "Approx.",
+      "description": "Draws the skin around the outside of the eye inward from the temples and upward from the cheeks, narrowing the eye opening and radiating crow's-feet wrinkles from the outer corners.",
+      "visualCues": [
+        "Infraorbital cheek puffs upward",
+        "Lower eyelid pushes up and bags slightly",
+        "Crow's-feet wrinkles fan out from the outer eye corners"
+      ],
+      "emotions": ["happiness", "disgust"],
+      "blendshapes": [
+        { "shape": "cheekSquint", "weight": 1.0, "lateral": true },
+        { "shape": "eyeSquint", "weight": 0.35, "lateral": true }
+      ],
+      "notes": "Key marker of the Duchenne smile (AU6 + AU12) versus a posed/social smile (AU12 alone). Drives the AU6 crow's-feet wrinkle map."
+    },
+    {
+      "id": 7,
+      "code": "AU7",
+      "name": "Lid Tightener",
+      "muscle": "Orbicularis oculi, pars palpebralis",
+      "region": "upper",
+      "vertexGroup": "lids",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Tightens the eyelids and raises the lower lid straight up toward the pupil without lifting the upper cheek or producing strong crow's feet.",
+      "visualCues": [
+        "Lower eyelid margin straightens and rises",
+        "Eye aperture narrows into a focused squint",
+        "Lower lid tenses horizontally beneath the iris"
+      ],
+      "emotions": ["anger", "fear"],
+      "blendshapes": [
+        { "shape": "eyeSquint", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Stacks with AU5 in anger (hard stare) and at 0.2 in fear (lower-lid tension that surprise lacks)."
+    },
+    {
+      "id": 9,
+      "code": "AU9",
+      "name": "Nose Wrinkler",
+      "muscle": "Levator labii superioris alaeque nasi",
+      "region": "lower",
+      "vertexGroup": "nose",
+      "lateral": true,
+      "fit": "Approx.",
+      "description": "Pulls the skin along the sides of the nose upward toward the root of the nose, wrinkling the nasal bridge, flaring the nostrils, and lifting the center of the upper lip.",
+      "visualCues": [
+        "Horizontal and diagonal wrinkles across the bridge of the nose",
+        "Nostril wings pull upward and widen",
+        "Medial brow lowers slightly as nasal skin bunches"
+      ],
+      "emotions": ["disgust"],
+      "blendshapes": [
+        { "shape": "noseSneer", "weight": 1.0, "lateral": true },
+        { "shape": "mouthUpperUp", "weight": 0.2, "lateral": true },
+        { "shape": "browDown", "weight": 0.15, "lateral": true }
+      ],
+      "notes": "AU9 also lifts the upper lip slightly and pulls down the medial brow. Drives the AU9 nose wrinkle normal map."
+    },
+    {
+      "id": 10,
+      "code": "AU10",
+      "name": "Upper Lip Raiser",
+      "muscle": "Levator labii superioris",
+      "region": "lower",
+      "vertexGroup": "upperLip",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Raises the upper lip upward, deepening the upper nasolabial furrow and creating a squared or inverted-U arch in the upper lip.",
+      "visualCues": [
+        "Upper lip lifts, often exposing upper gums or teeth",
+        "Upper nasolabial fold deepens from nostril to mid-cheek",
+        "Upper lip takes on a squared arch"
+      ],
+      "emotions": ["disgust"],
+      "blendshapes": [
+        { "shape": "mouthUpperUp", "weight": 1.0, "lateral": true },
+        { "shape": "noseSneer", "weight": 0.1, "lateral": true }
+      ],
+      "notes": "Core component of disgust alongside AU9."
+    },
+    {
+      "id": 12,
+      "code": "AU12",
+      "name": "Lip Corner Puller",
+      "muscle": "Zygomaticus major",
+      "region": "lower",
+      "vertexGroup": "lipCorners",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Pulls the corners of the lips back and upward toward the cheekbones, curving the mouth into a smile and deepening the nasolabial fold.",
+      "visualCues": [
+        "Mouth corners angle upward and outward",
+        "Nasolabial fold curves from nose wings past lip corners",
+        "Without AU6, eyes remain uncrinkled (social smile)"
+      ],
+      "emotions": ["happiness"],
+      "blendshapes": [
+        { "shape": "mouthSmile", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "AU12 alone must not show AU6 (the social smile item)."
+    },
+    {
+      "id": 14,
+      "code": "AU14",
+      "name": "Dimpler",
+      "muscle": "Buccinator",
+      "region": "lower",
+      "vertexGroup": "lipCorners",
+      "lateral": true,
+      "fit": "Approx.",
+      "description": "Tightens the corners of the mouth and pulls them inward against the teeth, creating a dimple or crease just outside the lip corner. Unilateral AU14 is the hallmark of contempt.",
+      "visualCues": [
+        "Lip corner tightens and pulls slightly inward/upward",
+        "Small dimple or crease forms lateral to the mouth corner",
+        "When unilateral (left or right), creates an asymmetrical smirk"
+      ],
+      "emotions": ["contempt"],
+      "blendshapes": [
+        { "shape": "mouthDimple", "weight": 1.0, "lateral": true },
+        { "shape": "mouthPress", "weight": 0.3, "lateral": true },
+        { "shape": "mouthSmile", "weight": 0.2, "lateral": true }
+      ],
+      "notes": "Unilateral for contempt; supports both Left and Right variants."
+    },
+    {
+      "id": 15,
+      "code": "AU15",
+      "name": "Lip Corner Depressor",
+      "muscle": "Depressor anguli oris (triangularis)",
+      "region": "lower",
+      "vertexGroup": "lipCorners",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Pulls the corners of the lips downward, angling the mouth into an arch and creating vertical creases descending from the lip corners.",
+      "visualCues": [
+        "Mouth corners pull distinctly downward",
+        "Lips curve into a downward frown arc",
+        "Pairs with AU17 (chin raise) in sadness"
+      ],
+      "emotions": ["sadness", "disgust"],
+      "blendshapes": [
+        { "shape": "mouthFrown", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Direct ARKit mapping to mouthFrownLeft/Right."
+    },
+    {
+      "id": 16,
+      "code": "AU16",
+      "name": "Lower Lip Depressor",
+      "muscle": "Depressor labii inferioris",
+      "region": "lower",
+      "vertexGroup": "chin",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Pulls the lower lip downward and slightly outward, often exposing the lower teeth.",
+      "visualCues": [
+        "Lower lip drops downward",
+        "Lower teeth become visible",
+        "Lower lip stretches taut horizontally"
+      ],
+      "emotions": ["disgust"],
+      "blendshapes": [
+        { "shape": "mouthLowerDown", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Usually accompanied by AU25 (lips part)."
+    },
+    {
+      "id": 17,
+      "code": "AU17",
+      "name": "Chin Raiser",
+      "muscle": "Mentalis",
+      "region": "lower",
+      "vertexGroup": "chin",
+      "lateral": false,
+      "fit": "Approx.",
+      "description": "Pushes the chin boss and lower lip upward, wrinkling or dimpling the skin on the chin and protruding the lower lip in sadness or doubt.",
+      "visualCues": [
+        "Soft tissue of the chin pushes upward",
+        "Lower lip arches up in the center",
+        "Dimpling or 'pebble chin' texture appears on the mentalis area"
+      ],
+      "emotions": ["sadness"],
+      "blendshapes": [
+        { "shape": "mouthShrugLower", "weight": 1.0, "lateral": false },
+        { "shape": "mouthShrugUpper", "weight": 0.2, "lateral": false }
+      ],
+      "notes": "Combined with AU15 in sadness and with unilateral AU2 in skepticism/doubt."
+    },
+    {
+      "id": 20,
+      "code": "AU20",
+      "name": "Lip Stretcher",
+      "muscle": "Risorius",
+      "region": "lower",
+      "vertexGroup": "lipCorners",
+      "lateral": true,
+      "fit": "Approx.",
+      "description": "Pulls the lips horizontally back toward the ears, flattening and elongating the mouth opening. A critical lower-face distinguisher of fear vs. surprise.",
+      "visualCues": [
+        "Mouth corners pull horizontally outward toward the ears",
+        "Lips stretch wide and tense rather than dropping into an 'O'",
+        "Skin over the lower cheeks pulls taut"
+      ],
+      "emotions": ["fear"],
+      "blendshapes": [
+        { "shape": "mouthStretch", "weight": 1.0, "lateral": true },
+        { "shape": "mouthDimple", "weight": 0.25, "lateral": true },
+        { "shape": "mouthLowerDown", "weight": 0.15, "lateral": true }
+      ],
+      "notes": "Extra horizontal pull (mouthDimple 0.25 + mouthLowerDown 0.15) plus fear-only corrective ensures fear reads as horizontal lip stretch, not surprise."
+    },
+    {
+      "id": 23,
+      "code": "AU23",
+      "name": "Lip Tightener",
+      "muscle": "Orbicularis oris (marginal fibers)",
+      "region": "lower",
+      "vertexGroup": "upperLip",
+      "lateral": false,
+      "fit": "Approx.",
+      "description": "Tightens and narrows the red margin of the lips, rolling them inward so the lips appear thin and tense.",
+      "visualCues": [
+        "Red lip margin narrows and thins",
+        "Lips roll slightly inward with high muscular tension",
+        "Characteristic of controlled or mounting anger"
+      ],
+      "emotions": ["anger"],
+      "blendshapes": [
+        { "shape": "mouthPress", "weight": 0.6, "lateral": true },
+        { "shape": "mouthRollUpper", "weight": 0.2, "lateral": false },
+        { "shape": "mouthRollLower", "weight": 0.2, "lateral": false },
+        { "shape": "mouthPucker", "weight": 0.12, "lateral": false }
+      ],
+      "notes": "Approximates marginal orbicularis oris narrowing in ARKit."
+    },
+    {
+      "id": 24,
+      "code": "AU24",
+      "name": "Lip Presser",
+      "muscle": "Orbicularis oris (labial fibers)",
+      "region": "lower",
+      "vertexGroup": "upperLip",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Presses the upper and lower lips firmly together without necessarily rolling them completely inward, bulging the skin just above and below the lip line.",
+      "visualCues": [
+        "Upper and lower lips press tightly against each other",
+        "Lip line becomes straight, firm, and compressed",
+        "Often an early sign of anger or determination"
+      ],
+      "emotions": ["anger"],
+      "blendshapes": [
+        { "shape": "mouthPress", "weight": 1.0, "lateral": true },
+        { "shape": "mouthRollLower", "weight": 0.3, "lateral": false }
+      ],
+      "notes": "Adds mouthClose if jawOpen > 0."
+    },
+    {
+      "id": 25,
+      "code": "AU25",
+      "codeLabel": "AU25",
+      "name": "Lips Part",
+      "muscle": "Depressor labii / relaxed orbicularis oris",
+      "region": "lower",
+      "vertexGroup": "upperLip",
+      "lateral": true,
+      "fit": "Approx.",
+      "description": "Separates the upper and lower lips slightly without dropping the jaw, allowing a small gap between the lips where teeth may just show.",
+      "visualCues": [
+        "Slight horizontal space between upper and lower lips",
+        "Jaw remains closed or nearly closed",
+        "Used in fear (with AU20) so the mouth is slightly parted, not dropped open"
+      ],
+      "emotions": ["fear"],
+      "blendshapes": [
+        { "shape": "mouthUpperUp", "weight": 0.15, "lateral": true },
+        { "shape": "mouthLowerDown", "weight": 0.15, "lateral": true }
+      ],
+      "notes": "Parts the lips without dropping the jaw."
+    },
+    {
+      "id": 26,
+      "code": "AU26",
+      "name": "Jaw Drop",
+      "muscle": "Masseter / temporalis relaxation",
+      "region": "lower",
+      "vertexGroup": "chin",
+      "lateral": false,
+      "fit": "Direct",
+      "description": "Allows the mandible (lower jaw) to drop downward by relaxation rather than forceful pull, creating a relaxed open mouth as seen in surprise.",
+      "visualCues": [
+        "Lower jaw drops downward cleanly",
+        "Lips part into a relaxed oval or 'O' shape in surprise",
+        "No horizontal lip tension when activated alone"
+      ],
+      "emotions": ["surprise", "fear"],
+      "blendshapes": [
+        { "shape": "jawOpen", "weight": 1.0, "lateral": false }
+      ],
+      "notes": "Kept at <= 0.10 in fear vs. 0.80 in surprise."
+    },
+    {
+      "id": 27,
+      "code": "AU27",
+      "name": "Mouth Stretch",
+      "muscle": "Pterygoids / digastric",
+      "region": "lower",
+      "vertexGroup": "chin",
+      "lateral": false,
+      "fit": "Approx.",
+      "description": "Actively pulls the lower jaw wide open, stretching the mouth vertically and horizontally as seen in extreme terror or horror.",
+      "visualCues": [
+        "Jaw actively pulled wide open",
+        "Mouth opening is both wide and tall"
+      ],
+      "emotions": ["fear"],
+      "blendshapes": [
+        { "shape": "jawOpen", "weight": 1.0, "lateral": false },
+        { "shape": "mouthStretch", "weight": 0.3, "lateral": true }
+      ],
+      "notes": "Used in the horror and terror items."
+    },
+    {
+      "id": 43,
+      "code": "AU43",
+      "name": "Eyes Closed",
+      "muscle": "Orbicularis oculi (relaxation of levator palpebrae)",
+      "region": "upper",
+      "vertexGroup": "lids",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Upper and lower eyelids meet and remain closed without squinting tension.",
+      "visualCues": ["Eyelids closed smoothly"],
+      "emotions": [],
+      "blendshapes": [
+        { "shape": "eyeBlink", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Idle blinks run only on the neutral face, never during a flash."
+    },
+    {
+      "id": 45,
+      "code": "AU45",
+      "name": "Blink",
+      "muscle": "Orbicularis oculi",
+      "region": "upper",
+      "vertexGroup": "lids",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Brief bilateral closure and reopening of the eyelids.",
+      "visualCues": ["Rapid bilateral blink"],
+      "emotions": [],
+      "blendshapes": [
+        { "shape": "eyeBlink", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Idle blinks run only on the neutral face, never during a flash."
+    },
+    {
+      "id": 46,
+      "code": "AU46",
+      "name": "Wink",
+      "muscle": "Orbicularis oculi (unilateral)",
+      "region": "upper",
+      "vertexGroup": "lids",
+      "lateral": true,
+      "fit": "Direct",
+      "description": "Deliberate unilateral closure of one eye.",
+      "visualCues": ["One eye closes while the other remains open"],
+      "emotions": [],
+      "blendshapes": [
+        { "shape": "eyeBlink", "weight": 1.0, "lateral": true }
+      ],
+      "notes": "Unilateral eye closure."
+    }
+  ],
+  "correctives": [
+    {
+      "id": "fear_lip_stretch_corrective",
+      "when": [1, 4, 20],
+      "description": "Applies extra horizontal lip tension and outward-downward corner pull when AU1, AU4, and AU20 are simultaneously active (fear fix).",
+      "shapes": [
+        { "shape": "mouthPressLeft", "weight": 0.1 },
+        { "shape": "mouthPressRight", "weight": 0.1 },
+        { "shape": "mouthFrownLeft", "weight": 0.1 },
+        { "shape": "mouthFrownRight", "weight": 0.1 }
+      ]
+    },
+    {
+      "id": "sadness_oblique_brow_corrective",
+      "when": [1, 4, 15],
+      "description": "Ensures AU1+AU4 in sadness preserves raised inner brow corners while drawing brows together (oblique angle) without cancelling AU1.",
+      "shapes": [
+        { "shape": "browInnerUp", "weight": 0.2 }
+      ]
+    }
+  ]
+}

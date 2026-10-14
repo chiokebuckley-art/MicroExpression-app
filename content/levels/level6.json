@@ -1,0 +1,313 @@
+{
+  "level": 6,
+  "id": "L6",
+  "title": "Confusables",
+  "subtitle": "Fear/surprise, anger/disgust, sadness/fear, Duchenne/social smile, and contempt/amusement",
+  "modes": [
+    "sideBySide",
+    "discriminationDrill"
+  ],
+  "masteryTarget": 0.7,
+  "drillItems": [
+    {
+      "id": "l6_fear_vs_surprise_1",
+      "pairId": "fear_vs_surprise",
+      "targetRecipeId": "fear",
+      "scale": 1.0,
+      "options": [
+        "fear",
+        "surprise"
+      ]
+    },
+    {
+      "id": "l6_fear_vs_surprise_2",
+      "pairId": "fear_vs_surprise",
+      "targetRecipeId": "surprise",
+      "scale": 0.85,
+      "options": [
+        "fear",
+        "surprise"
+      ]
+    },
+    {
+      "id": "l6_fear_vs_surprise_3",
+      "pairId": "fear_vs_surprise",
+      "targetRecipeId": "fear",
+      "scale": 0.7,
+      "options": [
+        "fear",
+        "surprise"
+      ]
+    },
+    {
+      "id": "l6_fear_vs_surprise_4",
+      "pairId": "fear_vs_surprise",
+      "targetRecipeId": "surprise",
+      "scale": 0.9,
+      "options": [
+        "fear",
+        "surprise"
+      ]
+    },
+    {
+      "id": "l6_fear_vs_surprise_5",
+      "pairId": "fear_vs_surprise",
+      "targetRecipeId": "fear",
+      "scale": 0.6,
+      "options": [
+        "fear",
+        "surprise"
+      ]
+    },
+    {
+      "id": "l6_fear_vs_surprise_6",
+      "pairId": "fear_vs_surprise",
+      "targetRecipeId": "surprise",
+      "scale": 0.8,
+      "options": [
+        "fear",
+        "surprise"
+      ]
+    },
+    {
+      "id": "l6_anger_vs_disgust_1",
+      "pairId": "anger_vs_disgust",
+      "targetRecipeId": "anger",
+      "scale": 1.0,
+      "options": [
+        "anger",
+        "disgust"
+      ]
+    },
+    {
+      "id": "l6_anger_vs_disgust_2",
+      "pairId": "anger_vs_disgust",
+      "targetRecipeId": "disgust",
+      "scale": 0.85,
+      "options": [
+        "anger",
+        "disgust"
+      ]
+    },
+    {
+      "id": "l6_anger_vs_disgust_3",
+      "pairId": "anger_vs_disgust",
+      "targetRecipeId": "anger",
+      "scale": 0.7,
+      "options": [
+        "anger",
+        "disgust"
+      ]
+    },
+    {
+      "id": "l6_anger_vs_disgust_4",
+      "pairId": "anger_vs_disgust",
+      "targetRecipeId": "disgust",
+      "scale": 0.9,
+      "options": [
+        "anger",
+        "disgust"
+      ]
+    },
+    {
+      "id": "l6_anger_vs_disgust_5",
+      "pairId": "anger_vs_disgust",
+      "targetRecipeId": "anger",
+      "scale": 0.6,
+      "options": [
+        "anger",
+        "disgust"
+      ]
+    },
+    {
+      "id": "l6_anger_vs_disgust_6",
+      "pairId": "anger_vs_disgust",
+      "targetRecipeId": "disgust",
+      "scale": 0.8,
+      "options": [
+        "anger",
+        "disgust"
+      ]
+    },
+    {
+      "id": "l6_sadness_vs_fear_1",
+      "pairId": "sadness_vs_fear",
+      "targetRecipeId": "sadness",
+      "scale": 1.0,
+      "options": [
+        "sadness",
+        "fear"
+      ]
+    },
+    {
+      "id": "l6_sadness_vs_fear_2",
+      "pairId": "sadness_vs_fear",
+      "targetRecipeId": "fear",
+      "scale": 0.85,
+      "options": [
+        "sadness",
+        "fear"
+      ]
+    },
+    {
+      "id": "l6_sadness_vs_fear_3",
+      "pairId": "sadness_vs_fear",
+      "targetRecipeId": "sadness",
+      "scale": 0.7,
+      "options": [
+        "sadness",
+        "fear"
+      ]
+    },
+    {
+      "id": "l6_sadness_vs_fear_4",
+      "pairId": "sadness_vs_fear",
+      "targetRecipeId": "fear",
+      "scale": 0.9,
+      "options": [
+        "sadness",
+        "fear"
+      ]
+    },
+    {
+      "id": "l6_sadness_vs_fear_5",
+      "pairId": "sadness_vs_fear",
+      "targetRecipeId": "sadness",
+      "scale": 0.6,
+      "options": [
+        "sadness",
+        "fear"
+      ]
+    },
+    {
+      "id": "l6_sadness_vs_fear_6",
+      "pairId": "sadness_vs_fear",
+      "targetRecipeId": "fear",
+      "scale": 0.8,
+      "options": [
+        "sadness",
+        "fear"
+      ]
+    },
+    {
+      "id": "l6_genuine_vs_social_smile_1",
+      "pairId": "genuine_vs_social_smile",
+      "targetRecipeId": "happiness",
+      "scale": 1.0,
+      "options": [
+        "happiness",
+        "happiness_social"
+      ]
+    },
+    {
+      "id": "l6_genuine_vs_social_smile_2",
+      "pairId": "genuine_vs_social_smile",
+      "targetRecipeId": "happiness_social",
+      "scale": 0.85,
+      "options": [
+        "happiness",
+        "happiness_social"
+      ]
+    },
+    {
+      "id": "l6_genuine_vs_social_smile_3",
+      "pairId": "genuine_vs_social_smile",
+      "targetRecipeId": "happiness",
+      "scale": 0.7,
+      "options": [
+        "happiness",
+        "happiness_social"
+      ]
+    },
+    {
+      "id": "l6_genuine_vs_social_smile_4",
+      "pairId": "genuine_vs_social_smile",
+      "targetRecipeId": "happiness_social",
+      "scale": 0.9,
+      "options": [
+        "happiness",
+        "happiness_social"
+      ]
+    },
+    {
+      "id": "l6_genuine_vs_social_smile_5",
+      "pairId": "genuine_vs_social_smile",
+      "targetRecipeId": "happiness",
+      "scale": 0.6,
+      "options": [
+        "happiness",
+        "happiness_social"
+      ]
+    },
+    {
+      "id": "l6_genuine_vs_social_smile_6",
+      "pairId": "genuine_vs_social_smile",
+      "targetRecipeId": "happiness_social",
+      "scale": 0.8,
+      "options": [
+        "happiness",
+        "happiness_social"
+      ]
+    },
+    {
+      "id": "l6_contempt_vs_amusement_1",
+      "pairId": "contempt_vs_amusement",
+      "targetRecipeId": "contempt",
+      "scale": 1.0,
+      "options": [
+        "contempt",
+        "happiness_amusement_low"
+      ]
+    },
+    {
+      "id": "l6_contempt_vs_amusement_2",
+      "pairId": "contempt_vs_amusement",
+      "targetRecipeId": "happiness_amusement_low",
+      "scale": 0.85,
+      "options": [
+        "contempt",
+        "happiness_amusement_low"
+      ]
+    },
+    {
+      "id": "l6_contempt_vs_amusement_3",
+      "pairId": "contempt_vs_amusement",
+      "targetRecipeId": "contempt",
+      "scale": 0.7,
+      "options": [
+        "contempt",
+        "happiness_amusement_low"
+      ]
+    },
+    {
+      "id": "l6_contempt_vs_amusement_4",
+      "pairId": "contempt_vs_amusement",
+      "targetRecipeId": "happiness_amusement_low",
+      "scale": 0.9,
+      "options": [
+        "contempt",
+        "happiness_amusement_low"
+      ]
+    },
+    {
+      "id": "l6_contempt_vs_amusement_5",
+      "pairId": "contempt_vs_amusement",
+      "targetRecipeId": "contempt",
+      "scale": 0.6,
+      "options": [
+        "contempt",
+        "happiness_amusement_low"
+      ]
+    },
+    {
+      "id": "l6_contempt_vs_amusement_6",
+      "pairId": "contempt_vs_amusement",
+      "targetRecipeId": "happiness_amusement_low",
+      "scale": 0.8,
+      "options": [
+        "contempt",
+        "happiness_amusement_low"
+      ]
+    }
+  ]
+}

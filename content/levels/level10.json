@@ -1,0 +1,12 @@
+{
+  "level": 10,
+  "id": "L10",
+  "title": "Real-World Application",
+  "subtitle": "Context-swap pairs, scripted conversation scenes with embedded flashes, and ethical follow-up questions",
+  "modes": [
+    "contextSwaps",
+    "conversations",
+    "ethicsReview"
+  ],
+  "masteryTarget": 0.7
+}

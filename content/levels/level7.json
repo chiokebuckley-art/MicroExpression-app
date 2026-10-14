@@ -1,0 +1,18 @@
+{
+  "level": 7,
+  "id": "L7",
+  "title": "Micro-Expressions",
+  "subtitle": "Adaptive rAF flash trainer from 500 ms down to 40 ms with slow-motion AU replay on a miss",
+  "requiresEthicsGate": true,
+  "ladderMs": [
+    500,
+    333,
+    200,
+    133,
+    100,
+    67,
+    50,
+    40
+  ],
+  "masteryTarget": 0.7
+}

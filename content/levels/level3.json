@@ -1,0 +1,638 @@
+{
+  "level": 3,
+  "id": "L3",
+  "title": "Action Units (FACS)",
+  "subtitle": "The 18 key AUs, FACS intensities A-E, before/after drills, and expression builder",
+  "modes": [
+    "ladder",
+    "whichAu",
+    "builder"
+  ],
+  "masteryTarget": 0.7,
+  "whichAuItems": [
+    {
+      "id": "l3_drill_1_1",
+      "au": 1,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        1,
+        4,
+        4,
+        4
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l3_drill_1_2",
+      "au": 1,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        1,
+        5,
+        5,
+        5
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l3_drill_2_1",
+      "au": 2,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        2,
+        5,
+        7,
+        10
+      ],
+      "answer": 2
+    },
+    {
+      "id": "l3_drill_2_2",
+      "au": 2,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        2,
+        6,
+        9,
+        12
+      ],
+      "answer": 2
+    },
+    {
+      "id": "l3_drill_4_1",
+      "au": 4,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        4,
+        6,
+        12,
+        17
+      ],
+      "answer": 4
+    },
+    {
+      "id": "l3_drill_4_2",
+      "au": 4,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        4,
+        7,
+        14,
+        20
+      ],
+      "answer": 4
+    },
+    {
+      "id": "l3_drill_5_1",
+      "au": 5,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        5,
+        7,
+        16,
+        26
+      ],
+      "answer": 5
+    },
+    {
+      "id": "l3_drill_5_2",
+      "au": 5,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        5,
+        9,
+        17,
+        1
+      ],
+      "answer": 5
+    },
+    {
+      "id": "l3_drill_6_1",
+      "au": 6,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        6,
+        9,
+        23,
+        7
+      ],
+      "answer": 6
+    },
+    {
+      "id": "l3_drill_6_2",
+      "au": 6,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        6,
+        10,
+        24,
+        9
+      ],
+      "answer": 6
+    },
+    {
+      "id": "l3_drill_7_1",
+      "au": 7,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        7,
+        10,
+        26,
+        15
+      ],
+      "answer": 7
+    },
+    {
+      "id": "l3_drill_7_2",
+      "au": 7,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        7,
+        12,
+        1,
+        16
+      ],
+      "answer": 7
+    },
+    {
+      "id": "l3_drill_9_1",
+      "au": 9,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        9,
+        12,
+        4,
+        24
+      ],
+      "answer": 9
+    },
+    {
+      "id": "l3_drill_9_2",
+      "au": 9,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        9,
+        14,
+        5,
+        25
+      ],
+      "answer": 9
+    },
+    {
+      "id": "l3_drill_10_1",
+      "au": 10,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        10,
+        14,
+        7,
+        4
+      ],
+      "answer": 10
+    },
+    {
+      "id": "l3_drill_10_2",
+      "au": 10,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        10,
+        15,
+        9,
+        5
+      ],
+      "answer": 10
+    },
+    {
+      "id": "l3_drill_12_1",
+      "au": 12,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        12,
+        15,
+        14,
+        10
+      ],
+      "answer": 12
+    },
+    {
+      "id": "l3_drill_12_2",
+      "au": 12,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        12,
+        16,
+        15,
+        14
+      ],
+      "answer": 12
+    },
+    {
+      "id": "l3_drill_14_1",
+      "au": 14,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        14,
+        16,
+        17,
+        20
+      ],
+      "answer": 14
+    },
+    {
+      "id": "l3_drill_14_2",
+      "au": 14,
+      "intensity": 0.95,
+      "side": "right",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        14,
+        17,
+        20,
+        23
+      ],
+      "answer": 14
+    },
+    {
+      "id": "l3_drill_15_1",
+      "au": 15,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        15,
+        17,
+        24,
+        1
+      ],
+      "answer": 15
+    },
+    {
+      "id": "l3_drill_15_2",
+      "au": 15,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        15,
+        20,
+        25,
+        2
+      ],
+      "answer": 15
+    },
+    {
+      "id": "l3_drill_16_1",
+      "au": 16,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        16,
+        20,
+        1,
+        7
+      ],
+      "answer": 16
+    },
+    {
+      "id": "l3_drill_16_2",
+      "au": 16,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        16,
+        23,
+        2,
+        9
+      ],
+      "answer": 16
+    },
+    {
+      "id": "l3_drill_17_1",
+      "au": 17,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        17,
+        23,
+        5,
+        15
+      ],
+      "answer": 17
+    },
+    {
+      "id": "l3_drill_17_2",
+      "au": 17,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        17,
+        24,
+        6,
+        16
+      ],
+      "answer": 17
+    },
+    {
+      "id": "l3_drill_20_1",
+      "au": 20,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        20,
+        24,
+        9,
+        25
+      ],
+      "answer": 20
+    },
+    {
+      "id": "l3_drill_20_2",
+      "au": 20,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        20,
+        25,
+        10,
+        26
+      ],
+      "answer": 20
+    },
+    {
+      "id": "l3_drill_23_1",
+      "au": 23,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        23,
+        25,
+        14,
+        5
+      ],
+      "answer": 23
+    },
+    {
+      "id": "l3_drill_23_2",
+      "au": 23,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        23,
+        26,
+        15,
+        6
+      ],
+      "answer": 23
+    },
+    {
+      "id": "l3_drill_24_1",
+      "au": 24,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        24,
+        26,
+        17,
+        12
+      ],
+      "answer": 24
+    },
+    {
+      "id": "l3_drill_24_2",
+      "au": 24,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        24,
+        1,
+        20,
+        14
+      ],
+      "answer": 24
+    },
+    {
+      "id": "l3_drill_25_1",
+      "au": 25,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        25,
+        1,
+        24,
+        20
+      ],
+      "answer": 25
+    },
+    {
+      "id": "l3_drill_25_2",
+      "au": 25,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        25,
+        2,
+        26,
+        23
+      ],
+      "answer": 25
+    },
+    {
+      "id": "l3_drill_26_1",
+      "au": 26,
+      "intensity": 0.75,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Marked D)?",
+      "options": [
+        26,
+        2,
+        2,
+        2
+      ],
+      "answer": 26
+    },
+    {
+      "id": "l3_drill_26_2",
+      "au": 26,
+      "intensity": 0.95,
+      "side": "both",
+      "prompt": "Toggle Before/After on the 3D face. Which Action Unit activated (Maximum E)?",
+      "options": [
+        26,
+        4,
+        4,
+        4
+      ],
+      "answer": 26
+    }
+  ],
+  "builderTargets": [
+    {
+      "id": "bld_01",
+      "label": "Duchenne Smile (Happiness)",
+      "targetAUs": [
+        6,
+        12
+      ],
+      "hint": "Combine the Cheek Raiser (crow's feet) with the Lip Corner Puller."
+    },
+    {
+      "id": "bld_02",
+      "label": "Social / Posed Smile",
+      "targetAUs": [
+        12
+      ],
+      "hint": "Activate the Lip Corner Puller alone without Cheek Raiser."
+    },
+    {
+      "id": "bld_03",
+      "label": "Surprise",
+      "targetAUs": [
+        1,
+        2,
+        5,
+        26
+      ],
+      "hint": "Raise inner and outer brows, widen upper lids, and drop the jaw."
+    },
+    {
+      "id": "bld_04",
+      "label": "Core Disgust",
+      "targetAUs": [
+        9,
+        10
+      ],
+      "hint": "Wrinkle the nose bridge and raise the upper lip."
+    },
+    {
+      "id": "bld_05",
+      "label": "Sadness",
+      "targetAUs": [
+        1,
+        4,
+        15,
+        17
+      ],
+      "hint": "Oblique brows (inner raise + lowerer), depressed lip corners, and raised chin."
+    },
+    {
+      "id": "bld_06",
+      "label": "Anger",
+      "targetAUs": [
+        4,
+        5,
+        7,
+        23,
+        24
+      ],
+      "hint": "Lower brows, widen upper lid, tighten lower lid, and tighten/press lips."
+    },
+    {
+      "id": "bld_07",
+      "label": "Fear",
+      "targetAUs": [
+        1,
+        2,
+        4,
+        5,
+        20
+      ],
+      "hint": "Raise and pinch brows together (1+2+4), widen upper lids (5), and stretch lips horizontally (20)."
+    },
+    {
+      "id": "bld_08",
+      "label": "Contempt",
+      "targetAUs": [
+        14
+      ],
+      "hint": "Tighten the mouth corner with the Dimpler (AU14)."
+    },
+    {
+      "id": "bld_09",
+      "label": "Concentration (Upper Face)",
+      "targetAUs": [
+        4,
+        7
+      ],
+      "hint": "Lower the eyebrows and tighten the eyelids while keeping the mouth relaxed."
+    },
+    {
+      "id": "bld_10",
+      "label": "Skepticism / Doubt",
+      "targetAUs": [
+        2,
+        17
+      ],
+      "hint": "Raise the outer brow and push up the chin boss."
+    },
+    {
+      "id": "bld_11",
+      "label": "Pain Wince",
+      "targetAUs": [
+        4,
+        6,
+        7,
+        9
+      ],
+      "hint": "Lower brows, raise cheeks, squeeze lids, and wrinkle the nose."
+    },
+    {
+      "id": "bld_12",
+      "label": "Oblique Sad Brows Only",
+      "targetAUs": [
+        1,
+        4
+      ],
+      "hint": "Pull the inner brow corners up while drawing the brows together."
+    }
+  ]
+}

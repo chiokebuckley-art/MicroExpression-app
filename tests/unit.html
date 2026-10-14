@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reading Faces — Browser Unit Test Suite</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='%2338b6ff'/></svg>" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../lib/three.module.js",
+      "three/addons/": "../lib/addons/"
+    }
+  }
+  </script>
+  <style>
+    body {
+      background: #0d1117;
+      color: #f1f5f9;
+      font-family: monospace;
+      padding: 24px;
+    }
+    .pass { color: #4ade80; }
+    .fail { color: #f87171; font-weight: bold; }
+    li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <h1>Reading Faces — Automated Unit Test Suite</h1>
+  <div id="testSummary">Running unit tests...</div>
+  <ul id="testLog"></ul>
+
+  <script type="module">
+    import { resolveExpressionState } from '../src/face/resolver.js';
+    import { estimateAUsFromBlendshapes } from '../src/face/auMap.js';
+    import { snapMsToFrames } from '../src/face/scheduler.js';
+    import { createStaircaseState, stepStaircase, simulateObserverStaircase } from '../src/train/staircase.js';
+    import { createSRSCard, updateSRSCard, buildSessionMix } from '../src/train/srs.js';
+    import { generateBenchmarkItems, scoreAssessment } from '../src/train/assessment.js';
+    import { computeConfusionMatrix } from '../src/ui/dashboard.js';
+    import { logTrial, getTrials, putSRSCard, getAllSRSCards } from '../src/store/db.js';
+    import { exportDatabaseJSON, importDatabaseJSON, resetAllProgress } from '../src/store/export.js';
+    import { normalizeAllContent } from '../src/contentAdapter.js';
+
+    const results = [];
+    const logEl = document.getElementById('testLog');
+    const summaryEl = document.getElementById('testSummary');
+
+    function assert(name, condition, detail = '') {
+      const passed = Boolean(condition);
+      results.push({ name, passed, detail });
+      const li = document.createElement('li');
+      li.className = passed ? 'pass' : 'fail';
+      li.textContent = `${passed ? 'PASS' : 'FAIL'}: ${name}${detail ? ' — ' + detail : ''}`;
+      logEl.appendChild(li);
+      if (!passed) {
+        console.error('Unit test failed:', name, detail);
+      }
+    }
+
+    async function runAll() {
+      const [aus, expressions] = await Promise.all([
+        fetch('../content/aus.json').then((r) => r.json()),
+        fetch('../content/expressions.json').then((r) => r.json())
+      ]);
+      normalizeAllContent({ aus, expressions });
+
+      // 1. Resolver & Combination Correctives
+      const fearRecipe = expressions.core.find((e) => e.id === 'fear');
+      const surpriseRecipe = expressions.core.find((e) => e.id === 'surprise');
+      const happyRecipe = expressions.core.find((e) => e.id === 'happiness');
+      const socialSmileRecipe = expressions.variants.find((e) => e.id === 'happiness_social');
+      const contemptRecipe = expressions.core.find((e) => e.id === 'contempt');
+
+      const fearState = resolveExpressionState(fearRecipe, aus);
+      const surpriseState = resolveExpressionState(surpriseRecipe, aus);
+      const happyState = resolveExpressionState(happyRecipe, aus);
+      const socialState = resolveExpressionState(socialSmileRecipe, aus);
+      const contemptState = resolveExpressionState(contemptRecipe, aus);
+
+      assert(
+        'Fear corrective clamps jawOpen <= 0.10 and activates mouthStretch (AU20) + browDown (AU4)',
+        fearState.weights.jawOpen <= 0.10 &&
+          fearState.weights.mouthStretchLeft > 0.7 &&
+          fearState.weights.browDownLeft > 0.5,
+        `jawOpen=${fearState.weights.jawOpen.toFixed(2)}, mouthStretchL=${fearState.weights.mouthStretchLeft.toFixed(2)}`
+      );
+
+      assert(
+        'Surprise opens jaw (AU26 > 0.5) with zero browDown (AU4=0) and zero mouthStretch (AU20=0)',
+        surpriseState.weights.jawOpen > 0.5 &&
+          surpriseState.weights.browDownLeft === 0 &&
+          surpriseState.weights.mouthStretchLeft === 0,
+        `jawOpen=${surpriseState.weights.jawOpen.toFixed(2)}`
+      );
+
+      assert(
+        'Duchenne Smile (AU6+12) activates cheekSquint + crowsFeet wrinkle weight, whereas Social Smile (AU12) has 0 cheekSquint and 0 crowsFeet',
+        happyState.weights.cheekSquintLeft > 0.5 &&
+          happyState.wrinkleWeights.crowsFeet > 0.5 &&
+          socialState.weights.cheekSquintLeft === 0 &&
+          socialState.wrinkleWeights.crowsFeet === 0,
+        `Duchenne crowsFeet=${happyState.wrinkleWeights.crowsFeet}, Social crowsFeet=${socialState.wrinkleWeights.crowsFeet}`
+      );
+
+      assert(
+        'Unilateral Contempt activates one side only (asymmetric mouthDimple / mouthSmile)',
+        Math.abs(contemptState.weights.mouthDimpleLeft - contemptState.weights.mouthDimpleRight) > 0.5,
+        `L=${contemptState.weights.mouthDimpleLeft.toFixed(2)}, R=${contemptState.weights.mouthDimpleRight.toFixed(2)}`
+      );
+
+      // 2. Inverse AU Estimator (Mirror Mode)
+      const est = estimateAUsFromBlendshapes(happyState.weights, {}, aus);
+      assert(
+        'Mirror Mode AU estimator recovers AU6 and AU12 from Duchenne blendshapes',
+        est.auScores[6] > 0.5 && est.auScores[12] > 0.5,
+        `AU6=${est.auScores[6]?.toFixed(2)}, AU12=${est.auScores[12]?.toFixed(2)}`
+      );
+
+      // 3. Frame-Counting Scheduler Math
+      const snap60_50 = snapMsToFrames(50, 1000 / 60);
+      const snap60_200 = snapMsToFrames(200, 1000 / 60);
+      const snap120_40 = snapMsToFrames(40, 1000 / 120);
+      assert(
+        'Frame snapping at 60 Hz & 120 Hz computes exact frame counts',
+        snap60_50.frames === 3 && snap60_200.frames === 12 && snap120_40.frames === 5,
+        `60Hz@50ms=${snap60_50.frames}f, 60Hz@200ms=${snap60_200.frames}f, 120Hz@40ms=${snap120_40.frames}f`
+      );
+
+      // 4. 3-Down / 1-Up Staircase Mechanics & Simulated Observer Convergence
+      let st = createStaircaseState('fear', 2); // 200 ms
+      st = stepStaircase(st, true);
+      st = stepStaircase(st, true);
+      st = stepStaircase(st, true); // 3 correct -> step to 133 ms
+      const steppedDownMs = st.currentMs;
+      st = stepStaircase(st, false); // 1 wrong -> step back to 200 ms and record reversal
+      assert(
+        '3-down / 1-up staircase steps shorter after 3 correct and longer after 1 miss',
+        steppedDownMs === 133 && st.currentMs === 200 && st.reversals.length === 1,
+        `after 3 correct=${steppedDownMs}ms, after 1 miss=${st.currentMs}ms, reversals=${st.reversals.length}`
+      );
+
+      const simObserver = simulateObserverStaircase(120, 40, 42);
+      assert(
+        'Simulated observer with true 120 ms threshold converges within [100, 150] ms after 40 trials',
+        simObserver.thresholdMs >= 100 && simObserver.thresholdMs <= 150,
+        `estimated threshold=${simObserver.thresholdMs}ms`
+      );
+
+      // 5. SRS 6-Box Progression & Session Mix
+      let card = createSRSCard('emotion', 'fear', 1000);
+      card = updateSRSCard(card, { correct: true, rtMs: 1100, nowMs: 2000 });
+      const boxAfterHit = card.box;
+      card = updateSRSCard(card, { correct: true, rtMs: 1100, nowMs: 3000 });
+      const boxAfterTwoHits = card.box;
+      card = updateSRSCard(card, { correct: false, rtMs: 1500, nowMs: 4000 });
+      assert(
+        'SRS advances box on fast correct response and resets to box 0 on miss',
+        boxAfterHit === 1 && boxAfterTwoHits === 2 && card.box === 0 && card.lapses === 1,
+        `box1=${boxAfterHit}, box2=${boxAfterTwoHits}, afterMiss=${card.box}`
+      );
+
+      const mix = buildSessionMix({
+        candidateItems: expressions.core.map((e) => ({ id: e.id, emotion: e.id, kind: 'emotion' })),
+        srsCardsMap: new Map(),
+        recentTrials: [{ shownEmotion: 'fear', chosenEmotion: 'surprise', correct: false }],
+        sessionSize: 20
+      });
+      assert('SRS session mixer generates exact 20-item mix (60/25/15)', mix.length === 20);
+
+      // 6. Fixed-Seed 42-Item Standardized Benchmark
+      const benchA = generateBenchmarkItems({ seed: 12345 });
+      const benchB = generateBenchmarkItems({ seed: 12345 });
+      assert(
+        'Standardized 42-item benchmark is deterministic for a fixed seed and balanced across 7 emotions',
+        benchA.length === 42 &&
+          benchA.every((it, idx) => it.emotion === benchB[idx].emotion && it.nominalMs === benchB[idx].nominalMs),
+        `items=${benchA.length}`
+      );
+
+      const scored = scoreAssessment(benchA.map((it) => ({ ...it, chosenEmotion: it.emotion, rtMs: 620 })));
+      assert('Benchmark scorer computes 100% on perfect responses', scored.overallAccuracy === 100);
+
+      // 7. Confusion Matrix Row Normalization
+      const sampleTrials = [
+        { shownEmotion: 'fear', chosenEmotion: 'fear', correct: true, nominalMs: 100 },
+        { shownEmotion: 'fear', chosenEmotion: 'surprise', correct: false, nominalMs: 100 },
+        { shownEmotion: 'fear', chosenEmotion: 'not_sure', correct: false, nominalMs: 100 },
+        { shownEmotion: 'anger', chosenEmotion: 'anger', correct: true, nominalMs: 100 }
+      ];
+      const cm = computeConfusionMatrix(sampleTrials);
+      const fearRowSum = cm.cols.reduce((acc, c) => acc + cm.probs.fear[c], 0);
+      assert(
+        'Confusion matrix row probabilities sum to 1.0 +/- 1e-6',
+        Math.abs(fearRowSum - 1.0) < 1e-6 && cm.counts.fear.not_sure === 1,
+        `fearRowSum=${fearRowSum.toFixed(6)}`
+      );
+
+      // 8. IndexedDB Round-Trip Export -> Reset -> Import
+      await resetAllProgress();
+      await logTrial({ shownEmotion: 'disgust', chosenEmotion: 'disgust', correct: true, nominalMs: 200 });
+      await putSRSCard(createSRSCard('emotion', 'disgust'));
+      const exported = await exportDatabaseJSON();
+      await resetAllProgress();
+      const emptyTrials = await getTrials();
+      await importDatabaseJSON(exported);
+      const restoredTrials = await getTrials();
+      const restoredCards = await getAllSRSCards();
+      assert(
+        'IndexedDB JSON export -> reset -> import round-trip restores all records losslessly',
+        emptyTrials.length === 0 && restoredTrials.length === 1 && restoredCards.length === 1,
+        `restoredTrials=${restoredTrials.length}, restoredCards=${restoredCards.length}`
+      );
+      await resetAllProgress();
+
+      const allPassed = results.every((r) => r.passed);
+      window.__unitTestsPassed = allPassed;
+      window.__unitTestResults = results;
+      summaryEl.className = allPassed ? 'pass' : 'fail';
+      summaryEl.textContent = allPassed
+        ? `ALL ${results.length} UNIT TESTS PASSED!`
+        : `${results.filter((r) => !r.passed).length} OF ${results.length} TESTS FAILED`;
+    }
+
+    runAll().catch((err) => {
+      console.error(err);
+      window.__unitTestsPassed = false;
+      summaryEl.className = 'fail';
+      summaryEl.textContent = 'Error running unit tests: ' + err.message;
+    });
+  </script>
+</body>
+</html>

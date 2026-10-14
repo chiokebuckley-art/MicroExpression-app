@@ -1,0 +1,442 @@
+{
+  "recipes": [
+    {
+      "id": "neutral",
+      "label": "Neutral Baseline",
+      "emotion": "neutral",
+      "aus": [],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "keyCues": [
+        "Relaxed forehead and brow arch",
+        "Eyelids resting naturally over the upper iris margin",
+        "Lips lightly closed without corner tension or chin dimpling"
+      ],
+      "confusedWith": []
+    },
+    {
+      "id": "happiness",
+      "label": "Happiness (Duchenne Smile)",
+      "emotion": "happiness",
+      "aus": [
+        { "au": 6, "intensity": 0.8, "side": "both" },
+        { "au": 12, "intensity": 1.0, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "browsForehead": "Relaxed",
+      "eyesLids": "Cheeks raised, crow's feet, lower lid pushed up",
+      "noseMouthJaw": "Lip corners pulled up and back",
+      "keyCues": [
+        "AU6 (Cheek Raiser) pushes the cheeks up and crinkles crow's feet at the outer eye corners",
+        "AU12 (Lip Corner Puller) curves the mouth corners upward and back toward the cheekbones",
+        "Lower eyelids bag slightly as the orbicularis oculi contracts"
+      ],
+      "confusedWith": ["contempt"]
+    },
+    {
+      "id": "happiness_social",
+      "label": "Social / Posed Smile (AU12 Only)",
+      "emotion": "happiness",
+      "variantOf": "happiness",
+      "isNonDuchenne": true,
+      "aus": [
+        { "au": 12, "intensity": 0.9, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "lower",
+      "browsForehead": "Relaxed, unmoving",
+      "eyesLids": "Wide and uncrinkled; no cheek raise or crow's feet",
+      "noseMouthJaw": "Lip corners pulled up by zygomaticus major alone",
+      "keyCues": [
+        "Mouth corners pull upward (AU12), but the upper cheeks and eye corners remain completely relaxed",
+        "Absence of AU6 crow's-feet wrinkles and lower-lid elevation",
+        "In dynamic timelines, social smiles often step on and off abruptly"
+      ],
+      "confusedWith": ["happiness"]
+    },
+    {
+      "id": "happiness_amusement_low",
+      "label": "Low Amusement (Subtle Duchenne)",
+      "emotion": "happiness",
+      "variantOf": "happiness",
+      "aus": [
+        { "au": 6, "intensity": 0.35, "side": "both" },
+        { "au": 12, "intensity": 0.4, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "keyCues": [
+        "Symmetrical low-intensity smile (AU12) paired with soft cheek elevation (AU6)",
+        "Bilateral symmetry distinguishes it from unilateral contempt (AU14)"
+      ],
+      "confusedWith": ["contempt"]
+    },
+    {
+      "id": "sadness",
+      "label": "Sadness (Full with Chin Raise)",
+      "emotion": "sadness",
+      "aus": [
+        { "au": 1, "intensity": 1.0, "side": "both" },
+        { "au": 4, "intensity": 0.5, "side": "both" },
+        { "au": 15, "intensity": 0.9, "side": "both" },
+        { "au": 17, "intensity": 0.5, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0.15, "headPitch": -3, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "browsForehead": "Inner corners raised and drawn together (oblique)",
+      "eyesLids": "Upper lids droop, gaze down",
+      "noseMouthJaw": "Lip corners down, chin pushed up",
+      "keyCues": [
+        "AU1 + AU4 lift the inner eyebrow corners and draw them together into an oblique triangle",
+        "AU15 pulls the lip corners distinctly downward",
+        "AU17 pushes the chin boss upward, arching the lower lip"
+      ],
+      "confusedWith": ["fear"]
+    },
+    {
+      "id": "sadness_no17",
+      "label": "Sadness (Without Chin Raise)",
+      "emotion": "sadness",
+      "variantOf": "sadness",
+      "aus": [
+        { "au": 1, "intensity": 1.0, "side": "both" },
+        { "au": 4, "intensity": 0.5, "side": "both" },
+        { "au": 15, "intensity": 0.85, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0.15, "headPitch": -2, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "keyCues": [
+        "Oblique inner brows (AU1 + AU4) with depressed lip corners (AU15)",
+        "Chin boss remains flatter without AU17 mentalis contraction"
+      ],
+      "confusedWith": ["fear"]
+    },
+    {
+      "id": "anger",
+      "label": "Anger (Pressed Lips)",
+      "emotion": "anger",
+      "aus": [
+        { "au": 4, "intensity": 1.0, "side": "both" },
+        { "au": 5, "intensity": 0.6, "side": "both" },
+        { "au": 7, "intensity": 0.8, "side": "both" },
+        { "au": 23, "intensity": 0.8, "side": "both" },
+        { "au": 24, "intensity": 0.5, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": -2, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "browsForehead": "Lowered and pulled together, vertical lines",
+      "eyesLids": "Hard stare, upper lid raised, lower lid tense",
+      "noseMouthJaw": "Lips pressed thin or squared open",
+      "keyCues": [
+        "AU4 strongly lowers the brows and draws them together with vertical glabella furrows",
+        "AU5 + AU7 create a focused, hard stare (upper lid raised while lower lid tenses)",
+        "AU23 + AU24 tighten and press the lips into a thin, tense line"
+      ],
+      "confusedWith": ["disgust"]
+    },
+    {
+      "id": "fear",
+      "label": "Fear",
+      "emotion": "fear",
+      "aus": [
+        { "au": 1, "intensity": 0.9, "side": "both" },
+        { "au": 2, "intensity": 0.55, "side": "both" },
+        { "au": 4, "intensity": 0.85, "side": "both" },
+        { "au": 5, "intensity": 1.0, "side": "both" },
+        { "au": 7, "intensity": 0.2, "side": "both" },
+        { "au": 20, "intensity": 1.0, "side": "both" },
+        { "au": 25, "intensity": 0.3, "side": "both" },
+        { "au": 26, "intensity": 0.08, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "browsForehead": "Raised AND pulled together, flat or wavy line",
+      "eyesLids": "Upper whites visible, lower lid tense",
+      "noseMouthJaw": "Lips stretched horizontally; mouth nearly closed",
+      "keyCues": [
+        "AU1 + AU2 + AU4 (at 0.85) raise and pinch the brows together into a flatter, straighter horizontal line than surprise",
+        "AU5 exposes white sclera above the iris while AU7 tenses the lower lid",
+        "AU20 pulls the lips wide horizontally toward the ears with the jaw nearly closed (AU26 <= 0.10), never the relaxed 'O' of surprise"
+      ],
+      "confusedWith": ["surprise", "sadness"]
+    },
+    {
+      "id": "surprise",
+      "label": "Surprise",
+      "emotion": "surprise",
+      "aus": [
+        { "au": 1, "intensity": 1.0, "side": "both" },
+        { "au": 2, "intensity": 1.0, "side": "both" },
+        { "au": 5, "intensity": 1.0, "side": "both" },
+        { "au": 26, "intensity": 0.8, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 1, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "browsForehead": "Raised high and curved, long horizontal lines",
+      "eyesLids": "Wide open, no lower-lid tension",
+      "noseMouthJaw": "Jaw dropped, relaxed open mouth",
+      "keyCues": [
+        "AU1 + AU2 arch the entire eyebrows high and curved without any medial AU4 pinch",
+        "AU5 opens the eyes wide with relaxed lower lids (no AU7 squint)",
+        "AU26 drops the jaw into a relaxed, oval open mouth without AU20 horizontal stretch"
+      ],
+      "confusedWith": ["fear"]
+    },
+    {
+      "id": "disgust",
+      "label": "Disgust (Full)",
+      "emotion": "disgust",
+      "aus": [
+        { "au": 9, "intensity": 1.0, "side": "both" },
+        { "au": 10, "intensity": 0.8, "side": "both" },
+        { "au": 15, "intensity": 0.3, "side": "both" },
+        { "au": 16, "intensity": 0.3, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "browsForehead": "Lowered slightly by nasal bridge pull",
+      "eyesLids": "Narrowed by cheek raise",
+      "noseMouthJaw": "Nose wrinkled, upper lip raised",
+      "keyCues": [
+        "AU9 wrinkles the bridge and sides of the nose and pulls the medial brow down",
+        "AU10 pulls the upper lip upward into an inverted-U arch, deepening the upper nasolabial fold",
+        "Distinguished from anger by nasal bridge wrinkling and upper-lip elevation rather than thin pressed lips"
+      ],
+      "confusedWith": ["anger"]
+    },
+    {
+      "id": "disgust_core",
+      "label": "Disgust (Nose Wrinkle + Upper Lip)",
+      "emotion": "disgust",
+      "variantOf": "disgust",
+      "aus": [
+        { "au": 9, "intensity": 1.0, "side": "both" },
+        { "au": 10, "intensity": 0.8, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 0, "headYaw": 0, "headRoll": 0 },
+      "region": "lower",
+      "keyCues": [
+        "Pure AU9 (Nose Wrinkler) + AU10 (Upper Lip Raiser) without lower-lip depression",
+        "Concentrated in the nasal bridge and upper nasolabial furrow"
+      ],
+      "confusedWith": ["anger"]
+    },
+    {
+      "id": "contempt",
+      "label": "Contempt (Right Unilateral AU14)",
+      "emotion": "contempt",
+      "aus": [
+        { "au": 14, "intensity": 1.0, "side": "right" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 2, "headYaw": 0, "headRoll": 0 },
+      "region": "lower",
+      "browsForehead": "Neutral",
+      "eyesLids": "Neutral or slight lid narrowing",
+      "noseMouthJaw": "One lip corner tightened and raised",
+      "keyCues": [
+        "Unilateral AU14 (Dimpler) tightens and slightly lifts only one corner of the mouth",
+        "The only Ekman basic expression defined by strict left/right asymmetry",
+        "Eyes remain neutral, distinguishing it from bilateral amusement (AU6 + AU12)"
+      ],
+      "confusedWith": ["happiness"]
+    },
+    {
+      "id": "contempt_left",
+      "label": "Contempt (Left Unilateral AU14)",
+      "emotion": "contempt",
+      "variantOf": "contempt",
+      "aus": [
+        { "au": 14, "intensity": 1.0, "side": "left" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 2, "headYaw": 0, "headRoll": 0 },
+      "region": "lower",
+      "keyCues": [
+        "Unilateral AU14 on the subject's left mouth corner",
+        "Asymmetrical dimple and corner tightening without cheek raise"
+      ],
+      "confusedWith": ["happiness"]
+    },
+    {
+      "id": "pain",
+      "label": "Physical / Empathetic Pain",
+      "emotion": "sadness",
+      "socialCategory": "pain",
+      "aus": [
+        { "au": 4, "intensity": 0.9, "side": "both" },
+        { "au": 6, "intensity": 0.85, "side": "both" },
+        { "au": 7, "intensity": 0.9, "side": "both" },
+        { "au": 9, "intensity": 0.65, "side": "both" },
+        { "au": 25, "intensity": 0.4, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0.1, "headPitch": -4, "headYaw": 0, "headRoll": -2 },
+      "region": "full",
+      "keyCues": [
+        "Brows strongly lowered (AU4) while cheeks raise (AU6) and lids tighten hard (AU7)",
+        "Nose wrinkles (AU9) and lips part under tension (AU25)"
+      ],
+      "confusedWith": ["disgust", "anger"]
+    },
+    {
+      "id": "concentration",
+      "label": "Concentration / Focus",
+      "emotion": "anger",
+      "socialCategory": "concentration",
+      "aus": [
+        { "au": 4, "intensity": 0.7, "side": "both" },
+        { "au": 7, "intensity": 0.4, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": -2, "headYaw": 0, "headRoll": 0 },
+      "region": "upper",
+      "keyCues": [
+        "Knitted brows (AU4) and slight lid tightening (AU7) while the mouth remains completely relaxed",
+        "Easy to misread as mild anger if context (reading, problem-solving) is ignored"
+      ],
+      "confusedWith": ["anger"]
+    },
+    {
+      "id": "skepticism",
+      "label": "Skepticism / Doubt",
+      "emotion": "contempt",
+      "socialCategory": "skepticism",
+      "aus": [
+        { "au": 17, "intensity": 0.7, "side": "both" },
+        { "au": 2, "intensity": 0.85, "side": "right" },
+        { "au": 4, "intensity": 0.4, "side": "left" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 2, "headYaw": -5, "headRoll": 3 },
+      "region": "full",
+      "keyCues": [
+        "Unilateral outer brow raise (AU2 on one side) paired with chin raise (AU17)",
+        "Communicates questioning or evaluating a claim"
+      ],
+      "confusedWith": ["surprise", "contempt"]
+    },
+    {
+      "id": "embarrassment",
+      "label": "Embarrassment",
+      "emotion": "happiness",
+      "socialCategory": "embarrassment",
+      "aus": [
+        { "au": 12, "intensity": 0.35, "side": "both" },
+        { "au": 24, "intensity": 0.35, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0.35, "headPitch": -10, "headYaw": 8, "headRoll": -4, "posture": "face_touch" },
+      "region": "full",
+      "keyCues": [
+        "Gaze shifts downward, head pitches down (-10 deg) and turns slightly away",
+        "Controlled, sheepish smile (low AU12 pressed with AU24) and often a hand-to-face/neck gesture"
+      ],
+      "confusedWith": ["happiness", "sadness"]
+    },
+    {
+      "id": "shame",
+      "label": "Shame",
+      "emotion": "sadness",
+      "socialCategory": "shame",
+      "aus": [
+        { "au": 1, "intensity": 0.5, "side": "both" },
+        { "au": 15, "intensity": 0.6, "side": "both" },
+        { "au": 17, "intensity": 0.4, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0.4, "headPitch": -20, "headYaw": 0, "headRoll": 0, "posture": "collapsed" },
+      "region": "full",
+      "keyCues": [
+        "Head drops steeply (-20 deg), gaze averted downward, slumped/collapsed shoulders",
+        "Sad lower-face tension (AU15 + AU17) without the controlled smile of embarrassment"
+      ],
+      "confusedWith": ["sadness"]
+    },
+    {
+      "id": "pride",
+      "label": "Pride",
+      "emotion": "happiness",
+      "socialCategory": "pride",
+      "aus": [
+        { "au": 6, "intensity": 0.35, "side": "both" },
+        { "au": 12, "intensity": 0.4, "side": "both" },
+        { "au": 24, "intensity": 0.2, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": 10, "headYaw": 0, "headRoll": 0, "posture": "expanded" },
+      "region": "full",
+      "keyCues": [
+        "Chin tilts upward (+10 deg head pitch), expanded chest posture",
+        "Small, composed smile (AU12 at 0.3-0.4)"
+      ],
+      "confusedWith": ["happiness", "contempt"]
+    },
+    {
+      "id": "horror_terror",
+      "label": "Terror / Horror (AU27 Mouth Stretch)",
+      "emotion": "fear",
+      "variantOf": "fear",
+      "aus": [
+        { "au": 1, "intensity": 1.0, "side": "both" },
+        { "au": 2, "intensity": 0.6, "side": "both" },
+        { "au": 4, "intensity": 0.9, "side": "both" },
+        { "au": 5, "intensity": 1.0, "side": "both" },
+        { "au": 7, "intensity": 0.4, "side": "both" },
+        { "au": 20, "intensity": 1.0, "side": "both" },
+        { "au": 27, "intensity": 0.85, "side": "both" }
+      ],
+      "extras": { "gazeDown": 0, "headPitch": -2, "headYaw": 0, "headRoll": 0 },
+      "region": "full",
+      "keyCues": [
+        "Extreme fear brow pinch (AU1+2+4) and wide eyes (AU5) combined with active jaw stretch (AU27) and horizontal pull (AU20)"
+      ],
+      "confusedWith": ["surprise"]
+    }
+  ],
+  "confusablePairs": [
+    {
+      "id": "fear_vs_surprise",
+      "left": "fear",
+      "right": "surprise",
+      "title": "Fear vs. Surprise",
+      "keyCue": "Fear pulls the brows together and stretches the lips. Surprise has curved, raised brows and a relaxed open jaw.",
+      "auDelta": "+4, +20 / +26 relaxed",
+      "highlightAUs": [4, 20, 26],
+      "explanation": "In fear, AU4 pulls the raised brows inward so they look flatter and tense, while AU20 pulls the mouth horizontally with the jaw nearly closed (AU26 <= 0.10). In surprise, AU1+2 arch high without AU4, and AU26 drops the jaw into a relaxed oval."
+    },
+    {
+      "id": "anger_vs_disgust",
+      "left": "anger",
+      "right": "disgust",
+      "title": "Anger vs. Disgust",
+      "keyCue": "Anger shows in the brows and lips. Disgust shows in the nose and upper lip.",
+      "auDelta": "4,5,7,23 vs 9,10",
+      "highlightAUs": [4, 5, 7, 9, 10, 23],
+      "explanation": "Anger lowers the brows with a hard stare (AU4+5+7) and presses the lips thin (AU23+24). Disgust wrinkles the nasal bridge (AU9) and raises the upper lip into an inverted-U arch (AU10)."
+    },
+    {
+      "id": "sadness_vs_fear",
+      "left": "sadness",
+      "right": "fear",
+      "title": "Sadness vs. Fear",
+      "keyCue": "Both raise the inner brow. Sadness drops the lip corners. Fear stretches the lips and widens the eyes.",
+      "auDelta": "15(+17) vs 2,5,20",
+      "highlightAUs": [1, 2, 5, 15, 17, 20],
+      "explanation": "Both share AU1+4 in the medial brow, but sadness droops the upper lids and pulls the lip corners down (AU15 + AU17 chin raise), whereas fear widens the upper lids (AU5) and stretches the lips horizontally (AU20)."
+    },
+    {
+      "id": "genuine_vs_social_smile",
+      "left": "happiness",
+      "right": "happiness_social",
+      "title": "Genuine (Duchenne) vs. Social Smile",
+      "keyCue": "Check the eyes (AU6), symmetry and timing. Fake smiles start and stop abruptly.",
+      "auDelta": "6+12 vs 12",
+      "highlightAUs": [6, 12],
+      "explanation": "A genuine Duchenne smile engages AU6 (orbicularis oculi), lifting the cheeks, pushing up the lower lids, and crinkling crow's feet. A social smile activates only AU12 (zygomaticus major) in the lower face."
+    },
+    {
+      "id": "contempt_vs_amusement",
+      "left": "contempt",
+      "right": "happiness_amusement_low",
+      "title": "Contempt vs. Amusement",
+      "keyCue": "Contempt is one-sided and does not involve the eyes.",
+      "auDelta": "R14 vs 6+12 (low)",
+      "highlightAUs": [6, 12, 14],
+      "explanation": "Contempt is a unilateral AU14 dimpler tightening on one mouth corner only, with neutral eyes. Low amusement is bilateral (both mouth corners rise via AU12) with subtle cheek elevation (AU6)."
+    }
+  ]
+}

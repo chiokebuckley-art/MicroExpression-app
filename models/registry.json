@@ -1,0 +1,55 @@
+{
+  "defaultRig": "riya",
+  "rigs": [
+    {
+      "id": "riya",
+      "rigId": "riya",
+      "label": "Adult Female 01 (Primary Realistic Head)",
+      "glbUrl": "models/riya/head.glb",
+      "manifestUrl": "models/riya/manifest.json",
+      "wrinkleNormalUrl": "models/riya/head_normal_wrinkle.jpg",
+      "sssMapUrl": "models/riya/head_sss.jpg",
+      "tier": "realistic"
+    },
+    {
+      "id": "female_adult_08",
+      "rigId": "female_adult_08",
+      "label": "Adult Female 08 (South Asian / Medium-Warm)",
+      "glbUrl": "models/rocketbox/female_adult_08/head.glb",
+      "manifestUrl": "models/rocketbox/female_adult_08/manifest.json",
+      "wrinkleNormalUrl": "models/rocketbox/female_adult_08/head_normal_wrinkle.jpg",
+      "sssMapUrl": "models/rocketbox/female_adult_08/head_sss.jpg",
+      "tier": "realistic"
+    },
+    {
+      "id": "female_adult_12",
+      "rigId": "female_adult_12",
+      "label": "Adult Female 12 (Black / Deep Skin Tone)",
+      "glbUrl": "models/rocketbox/female_adult_12/head.glb",
+      "manifestUrl": "models/rocketbox/female_adult_12/manifest.json",
+      "wrinkleNormalUrl": "models/rocketbox/female_adult_12/head_normal_wrinkle.jpg",
+      "sssMapUrl": "models/rocketbox/female_adult_12/head_sss.jpg",
+      "tier": "realistic"
+    },
+    {
+      "id": "male_adult_01",
+      "rigId": "male_adult_01",
+      "label": "Adult Male 01 (Light-Medium Skin Tone)",
+      "glbUrl": "models/rocketbox/male_adult_01/head.glb",
+      "manifestUrl": "models/rocketbox/male_adult_01/manifest.json",
+      "wrinkleNormalUrl": "models/rocketbox/male_adult_01/head_normal_wrinkle.jpg",
+      "sssMapUrl": "models/rocketbox/male_adult_01/head_sss.jpg",
+      "tier": "realistic"
+    },
+    {
+      "id": "male_adult_06",
+      "rigId": "male_adult_06",
+      "label": "Adult Male 06 (Deep-Warm Skin Tone)",
+      "glbUrl": "models/rocketbox/male_adult_06/head.glb",
+      "manifestUrl": "models/rocketbox/male_adult_06/manifest.json",
+      "wrinkleNormalUrl": "models/rocketbox/male_adult_06/head_normal_wrinkle.jpg",
+      "sssMapUrl": "models/rocketbox/male_adult_06/head_sss.jpg",
+      "tier": "realistic"
+    }
+  ]
+}

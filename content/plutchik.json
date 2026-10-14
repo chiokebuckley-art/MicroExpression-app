@@ -1,0 +1,362 @@
+{
+  "petals": [
+    {
+      "id": "joy",
+      "primary": "Joy",
+      "mild": "Serenity",
+      "basic": "Joy",
+      "intense": "Ecstasy",
+      "opposite": "Sadness",
+      "angleDeg": 0,
+      "color": "#f5c542",
+      "mildColor": "#fae29c",
+      "intenseColor": "#e09f1f",
+      "definitions": {
+        "Serenity": "Calm, untroubled contentment and quiet inner warmth.",
+        "Joy": "Warm pleasure, delight, and positive connection when things go well.",
+        "Ecstasy": "Overwhelming elation and peak rapturous happiness."
+      }
+    },
+    {
+      "id": "trust",
+      "primary": "Trust",
+      "mild": "Acceptance",
+      "basic": "Trust",
+      "intense": "Admiration",
+      "opposite": "Disgust",
+      "angleDeg": 45,
+      "color": "#6ecb63",
+      "mildColor": "#aee2a8",
+      "intenseColor": "#3fa336",
+      "definitions": {
+        "Acceptance": "Open-minded willingness to receive someone or a situation without hostility.",
+        "Trust": "Confident reliance on the integrity, safety, or goodwill of another person.",
+        "Admiration": "Deep respect and warm approval toward extraordinary character or skill."
+      }
+    },
+    {
+      "id": "fear",
+      "primary": "Fear",
+      "mild": "Apprehension",
+      "basic": "Fear",
+      "intense": "Terror",
+      "opposite": "Anger",
+      "angleDeg": 90,
+      "color": "#2eb872",
+      "mildColor": "#8adbb0",
+      "intenseColor": "#16854d",
+      "definitions": {
+        "Apprehension": "Uneasy anticipation that something unfavorable or risky may happen.",
+        "Fear": "Acute alarm triggered by perceived danger or threat to safety.",
+        "Terror": "Overpowering, paralyzing dread in the face of immediate severe danger."
+      }
+    },
+    {
+      "id": "surprise",
+      "primary": "Surprise",
+      "mild": "Distraction",
+      "basic": "Surprise",
+      "intense": "Amazement",
+      "opposite": "Anticipation",
+      "angleDeg": 135,
+      "color": "#38b6ff",
+      "mildColor": "#94daff",
+      "intenseColor": "#1187cc",
+      "definitions": {
+        "Distraction": "Momentary shift of attention caused by an unexpected minor stimulus.",
+        "Surprise": "Brief orienting reaction to a sudden, unforeseen event.",
+        "Amazement": "Profound wonder and astonishment at something extraordinary."
+      }
+    },
+    {
+      "id": "sadness",
+      "primary": "Sadness",
+      "mild": "Pensiveness",
+      "basic": "Sadness",
+      "intense": "Grief",
+      "opposite": "Joy",
+      "angleDeg": 180,
+      "color": "#4c7cf3",
+      "mildColor": "#9cb7f9",
+      "intenseColor": "#2552c8",
+      "definitions": {
+        "Pensiveness": "Quiet, wistful reflection tinged with mild melancholy.",
+        "Sadness": "Emotional heaviness and sorrow following loss, disappointment, or helplessness.",
+        "Grief": "Deep, acute anguish and mourning over a major loss."
+      }
+    },
+    {
+      "id": "disgust",
+      "primary": "Disgust",
+      "mild": "Boredom",
+      "basic": "Disgust",
+      "intense": "Loathing",
+      "opposite": "Trust",
+      "angleDeg": 225,
+      "color": "#9b5de5",
+      "mildColor": "#c9a7f1",
+      "intenseColor": "#6e2dbd",
+      "definitions": {
+        "Boredom": "Weariness and mild aversion toward repetitive, unstimulating activity.",
+        "Disgust": "Strong revulsion toward something offensive, contaminated, or violating.",
+        "Loathing": "Intense detestation and total rejection of an object, act, or value."
+      }
+    },
+    {
+      "id": "anger",
+      "primary": "Anger",
+      "mild": "Annoyance",
+      "basic": "Anger",
+      "intense": "Rage",
+      "opposite": "Fear",
+      "angleDeg": 270,
+      "color": "#f15bb5",
+      "mildColor": "#f7a4d6",
+      "intenseColor": "#e63946",
+      "definitions": {
+        "Annoyance": "Friction and mild irritation at an obstacle or intrusion.",
+        "Anger": "Energized hostility and drive to push back against perceived unfairness or obstruction.",
+        "Rage": "Explosive, overwhelming fury with high autonomic activation."
+      }
+    },
+    {
+      "id": "anticipation",
+      "primary": "Anticipation",
+      "mild": "Interest",
+      "basic": "Anticipation",
+      "intense": "Vigilance",
+      "opposite": "Surprise",
+      "angleDeg": 315,
+      "color": "#ff924c",
+      "mildColor": "#ffc29b",
+      "intenseColor": "#e86818",
+      "definitions": {
+        "Interest": "Focused curiosity and engagement with something new or meaningful.",
+        "Anticipation": "Forward-looking readiness and expectation for an upcoming event.",
+        "Vigilance": "Sustained, high-alert watchfulness scanning for critical signals."
+      }
+    }
+  ],
+  "primaryDyads": [
+    {
+      "id": "optimism",
+      "label": "Optimism",
+      "components": ["Anticipation", "Joy"],
+      "tier": "primary",
+      "angleDeg": 337.5,
+      "color": "#facb48",
+      "definition": "Hopeful confidence that future effort will lead to a positive outcome (Anticipation + Joy)."
+    },
+    {
+      "id": "love",
+      "label": "Love",
+      "components": ["Joy", "Trust"],
+      "tier": "primary",
+      "angleDeg": 22.5,
+      "color": "#b2c853",
+      "definition": "Warm affectionate bond built from shared delight and deep mutual safety (Joy + Trust)."
+    },
+    {
+      "id": "submission",
+      "label": "Submission",
+      "components": ["Trust", "Fear"],
+      "tier": "primary",
+      "angleDeg": 67.5,
+      "color": "#4ec26b",
+      "definition": "Deferential compliance born from combining reliance on authority with fear of conflict (Trust + Fear)."
+    },
+    {
+      "id": "awe",
+      "label": "Awe",
+      "components": ["Fear", "Surprise"],
+      "tier": "primary",
+      "angleDeg": 112.5,
+      "color": "#33b7b9",
+      "definition": "Reverent wonder mixed with feeling small before something vast and powerful (Fear + Surprise)."
+    },
+    {
+      "id": "disapproval",
+      "label": "Disapproval",
+      "components": ["Surprise", "Sadness"],
+      "tier": "primary",
+      "angleDeg": 157.5,
+      "color": "#4299f9",
+      "definition": "Dismayed shock when an event violates expectations in a disappointing way (Surprise + Sadness)."
+    },
+    {
+      "id": "remorse",
+      "label": "Remorse",
+      "components": ["Sadness", "Disgust"],
+      "tier": "primary",
+      "angleDeg": 202.5,
+      "color": "#746dec",
+      "definition": "Sorrowful regret directed inward at one's own past action (Sadness + Disgust)."
+    },
+    {
+      "id": "contempt_dyad",
+      "label": "Contempt",
+      "components": ["Disgust", "Anger"],
+      "tier": "primary",
+      "angleDeg": 247.5,
+      "color": "#c65ccd",
+      "definition": "Cold moral superiority combining revulsion and hostility toward another (Disgust + Anger)."
+    },
+    {
+      "id": "aggressiveness",
+      "label": "Aggressiveness",
+      "components": ["Anger", "Anticipation"],
+      "tier": "primary",
+      "angleDeg": 292.5,
+      "color": "#f87781",
+      "definition": "Forward-driving combative readiness to confront or dominate an obstacle (Anger + Anticipation)."
+    }
+  ],
+  "secondaryAndTertiaryDyads": [
+    {
+      "id": "guilt",
+      "label": "Guilt",
+      "components": ["Joy", "Fear"],
+      "tier": "secondary",
+      "color": "#92bf5a",
+      "definition": "Uneasy tension after enjoying or doing something one fears crossed a rule or harmed someone (Joy + Fear)."
+    },
+    {
+      "id": "curiosity",
+      "label": "Curiosity",
+      "components": ["Trust", "Surprise"],
+      "tier": "secondary",
+      "color": "#53c1b1",
+      "definition": "Safe, open eagerness to explore an unexpected discovery (Trust + Surprise)."
+    },
+    {
+      "id": "despair",
+      "label": "Despair",
+      "components": ["Fear", "Sadness"],
+      "tier": "secondary",
+      "color": "#3d9ab3",
+      "definition": "Helpless dread when threat and loss feel inescapable (Fear + Sadness)."
+    },
+    {
+      "id": "unbelief",
+      "label": "Unbelief",
+      "components": ["Surprise", "Disgust"],
+      "tier": "secondary",
+      "color": "#6a8af2",
+      "definition": "Stunned rejection of something that seems both impossible and distasteful (Surprise + Disgust)."
+    },
+    {
+      "id": "envy",
+      "label": "Envy",
+      "components": ["Sadness", "Anger"],
+      "tier": "secondary",
+      "color": "#9f6cd4",
+      "definition": "Painful inferior longing mixed with resentment toward another's advantage (Sadness + Anger)."
+    },
+    {
+      "id": "cynicism",
+      "label": "Cynicism",
+      "components": ["Disgust", "Anticipation"],
+      "tier": "secondary",
+      "color": "#cd7899",
+      "definition": "Expecting selfish or distasteful motives ahead of time (Disgust + Anticipation)."
+    },
+    {
+      "id": "pride_dyad",
+      "label": "Pride",
+      "components": ["Anger", "Joy"],
+      "tier": "secondary",
+      "color": "#f3907c",
+      "definition": "Triumphant satisfaction after overcoming resistance or asserting strength (Anger + Joy)."
+    },
+    {
+      "id": "hope",
+      "label": "Hope",
+      "components": ["Anticipation", "Trust"],
+      "tier": "secondary",
+      "color": "#b7af58",
+      "definition": "Steady forward belief that things can turn out well (Anticipation + Trust)."
+    },
+    {
+      "id": "delight",
+      "label": "Delight",
+      "components": ["Joy", "Surprise"],
+      "tier": "tertiary",
+      "color": "#97be9e",
+      "definition": "Spontaneous sparkling pleasure triggered by a happy surprise (Joy + Surprise)."
+    },
+    {
+      "id": "anxiety_dyad",
+      "label": "Anxiety",
+      "components": ["Anticipation", "Fear"],
+      "tier": "tertiary",
+      "color": "#97a55f",
+      "definition": "Restless future-oriented worry scanning for uncertain threats (Anticipation + Fear)."
+    }
+  ],
+  "vocabularyCards": [
+    { "id": "voc_01", "term": "Serenity", "category": "Plutchik Mild", "prompt": "Quiet, untroubled peace and gentle contentment without high excitement.", "options": ["Serenity", "Joy", "Ecstasy", "Acceptance"] },
+    { "id": "voc_02", "term": "Joy", "category": "Plutchik Basic", "prompt": "Warm pleasure and delight when something meaningful goes well.", "options": ["Joy", "Serenity", "Optimism", "Interest"] },
+    { "id": "voc_03", "term": "Ecstasy", "category": "Plutchik Intense", "prompt": "Peak, overwhelming elation at the highest intensity of the Joy petal.", "options": ["Ecstasy", "Admiration", "Amazement", "Joy"] },
+    { "id": "voc_04", "term": "Acceptance", "category": "Plutchik Mild", "prompt": "Mild, open willingness to receive a person or situation without resistance.", "options": ["Acceptance", "Trust", "Serenity", "Interest"] },
+    { "id": "voc_05", "term": "Trust", "category": "Plutchik Basic", "prompt": "Confident reliance on another person's honesty, safety, or goodwill.", "options": ["Trust", "Acceptance", "Admiration", "Love"] },
+    { "id": "voc_06", "term": "Admiration", "category": "Plutchik Intense", "prompt": "Deep, elevated respect and approval at the highest intensity of Trust.", "options": ["Admiration", "Trust", "Ecstasy", "Awe"] },
+    { "id": "voc_07", "term": "Apprehension", "category": "Plutchik Mild", "prompt": "Mild uneasy concern that something risky or unpleasant might occur.", "options": ["Apprehension", "Fear", "Terror", "Distraction"] },
+    { "id": "voc_08", "term": "Fear", "category": "Plutchik Basic", "prompt": "Acute alarm in response to a perceived threat or danger.", "options": ["Fear", "Apprehension", "Anger", "Surprise"] },
+    { "id": "voc_09", "term": "Terror", "category": "Plutchik Intense", "prompt": "Overpowering, extreme dread at the outer ring of the Fear petal.", "options": ["Terror", "Rage", "Loathing", "Amazement"] },
+    { "id": "voc_10", "term": "Distraction", "category": "Plutchik Mild", "prompt": "Mild, momentary interruption of focus by something unexpected.", "options": ["Distraction", "Surprise", "Boredom", "Apprehension"] },
+    { "id": "voc_11", "term": "Surprise", "category": "Plutchik Basic", "prompt": "Sudden orienting response to an unforeseen stimulus or event.", "options": ["Surprise", "Amazement", "Fear", "Anticipation"] },
+    { "id": "voc_12", "term": "Amazement", "category": "Plutchik Intense", "prompt": "Intense astonishment and wonder at the peak of the Surprise petal.", "options": ["Amazement", "Surprise", "Ecstasy", "Awe"] },
+    { "id": "voc_13", "term": "Pensiveness", "category": "Plutchik Mild", "prompt": "Quiet, thoughtful reflection tinged with mild melancholy.", "options": ["Pensiveness", "Sadness", "Grief", "Boredom"] },
+    { "id": "voc_14", "term": "Sadness", "category": "Plutchik Basic", "prompt": "Sorrow and emotional heaviness following loss or disappointment.", "options": ["Sadness", "Pensiveness", "Grief", "Remorse"] },
+    { "id": "voc_15", "term": "Grief", "category": "Plutchik Intense", "prompt": "Deep, acute heartache and mourning at the highest intensity of Sadness.", "options": ["Grief", "Sadness", "Loathing", "Despair"] },
+    { "id": "voc_16", "term": "Boredom", "category": "Plutchik Mild", "prompt": "Mild aversion and restlessness from unstimulating, repetitive activity.", "options": ["Boredom", "Disgust", "Pensiveness", "Annoyance"] },
+    { "id": "voc_17", "term": "Disgust", "category": "Plutchik Basic", "prompt": "Strong revulsion toward something offensive, spoiled, or violating.", "options": ["Disgust", "Boredom", "Loathing", "Anger"] },
+    { "id": "voc_18", "term": "Loathing", "category": "Plutchik Intense", "prompt": "Extreme detestation and utter revulsion at the peak of Disgust.", "options": ["Loathing", "Disgust", "Rage", "Contempt"] },
+    { "id": "voc_19", "term": "Annoyance", "category": "Plutchik Mild", "prompt": "Mild friction and irritation at an inconvenience or interruption.", "options": ["Annoyance", "Anger", "Boredom", "Apprehension"] },
+    { "id": "voc_20", "term": "Anger", "category": "Plutchik Basic", "prompt": "Energized hostility aimed at pushing back against an unfair obstacle.", "options": ["Anger", "Annoyance", "Rage", "Disgust"] },
+    { "id": "voc_21", "term": "Rage", "category": "Plutchik Intense", "prompt": "Explosive, overwhelming fury at the highest ring of the Anger petal.", "options": ["Rage", "Anger", "Terror", "Aggressiveness"] },
+    { "id": "voc_22", "term": "Interest", "category": "Plutchik Mild", "prompt": "Engaged curiosity and focused attention on something worth exploring.", "options": ["Interest", "Anticipation", "Vigilance", "Acceptance"] },
+    { "id": "voc_23", "term": "Anticipation", "category": "Plutchik Basic", "prompt": "Forward-looking expectation and readiness for what comes next.", "options": ["Anticipation", "Interest", "Vigilance", "Surprise"] },
+    { "id": "voc_24", "term": "Vigilance", "category": "Plutchik Intense", "prompt": "High-alert, sustained watchfulness at the peak of Anticipation.", "options": ["Vigilance", "Anticipation", "Terror", "Rage"] },
+    { "id": "voc_25", "term": "Optimism", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Anticipation and Joy.", "options": ["Optimism", "Love", "Hope", "Delight"] },
+    { "id": "voc_26", "term": "Love", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Joy and Trust.", "options": ["Love", "Optimism", "Admiration", "Submission"] },
+    { "id": "voc_27", "term": "Submission", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Trust and Fear.", "options": ["Submission", "Awe", "Guilt", "Acceptance"] },
+    { "id": "voc_28", "term": "Awe", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Fear and Surprise.", "options": ["Awe", "Amazement", "Disapproval", "Submission"] },
+    { "id": "voc_29", "term": "Disapproval", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Surprise and Sadness.", "options": ["Disapproval", "Remorse", "Unbelief", "Contempt"] },
+    { "id": "voc_30", "term": "Remorse", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Sadness and Disgust.", "options": ["Remorse", "Guilt", "Disapproval", "Grief"] },
+    { "id": "voc_31", "term": "Contempt", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Disgust and Anger.", "options": ["Contempt", "Aggressiveness", "Loathing", "Remorse"] },
+    { "id": "voc_32", "term": "Aggressiveness", "category": "Primary Dyad", "prompt": "The primary dyad formed by blending Anger and Anticipation.", "options": ["Aggressiveness", "Rage", "Contempt", "Vigilance"] },
+    { "id": "voc_33", "term": "Guilt", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Joy and Fear, or feeling responsible for a specific harm.", "options": ["Guilt", "Shame", "Remorse", "Submission"] },
+    { "id": "voc_34", "term": "Curiosity", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Trust and Surprise — safe eagerness to explore.", "options": ["Curiosity", "Interest", "Awe", "Amazement"] },
+    { "id": "voc_35", "term": "Despair", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Fear and Sadness when loss feels inescapable.", "options": ["Despair", "Grief", "Remorse", "Terror"] },
+    { "id": "voc_36", "term": "Unbelief", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Surprise and Disgust — shocked rejection.", "options": ["Unbelief", "Disapproval", "Contempt", "Boredom"] },
+    { "id": "voc_37", "term": "Envy", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Sadness and Anger — resentful longing for another's advantage.", "options": ["Envy", "Jealousy", "Contempt", "Remorse"] },
+    { "id": "voc_38", "term": "Cynicism", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Disgust and Anticipation — expecting ulterior motives.", "options": ["Cynicism", "Skepticism", "Contempt", "Boredom"] },
+    { "id": "voc_39", "term": "Pride", "category": "Secondary Dyad", "prompt": "Feeling of expanded self-worth after accomplishment (Anger + Joy in Plutchik).", "options": ["Pride", "Triumph", "Admiration", "Optimism"] },
+    { "id": "voc_40", "term": "Hope", "category": "Secondary Dyad", "prompt": "The secondary dyad blending Anticipation and Trust toward a uncertain future.", "options": ["Hope", "Optimism", "Serenity", "Acceptance"] },
+    { "id": "voc_41", "term": "Adoration", "category": "27 Spectrum", "prompt": "Warm, reverent affection and devotion toward someone deeply cherished.", "options": ["Adoration", "Admiration", "Aesthetic Appreciation", "Sympathy"] },
+    { "id": "voc_42", "term": "Aesthetic Appreciation", "category": "27 Spectrum", "prompt": "Being moved by artistry, music, design, or natural beauty without needing to possess it.", "options": ["Aesthetic Appreciation", "Entrancement", "Awe", "Calmness"] },
+    { "id": "voc_43", "term": "Amusement", "category": "27 Spectrum", "prompt": "Lighthearted playfulness and impulse to laugh at something incongruous or witty.", "options": ["Amusement", "Joy", "Excitement", "Satisfaction"] },
+    { "id": "voc_44", "term": "Anxiety", "category": "27 Spectrum", "prompt": "Diffuse, high-arousal uneasiness about uncertain future outcomes.", "options": ["Anxiety", "Fear", "Horror", "Awkwardness"] },
+    { "id": "voc_45", "term": "Awkwardness", "category": "27 Spectrum", "prompt": "Social discomfort when interaction norms slip or a moment feels clumsy.", "options": ["Awkwardness", "Embarrassment", "Confusion", "Anxiety"] },
+    { "id": "voc_46", "term": "Calmness", "category": "27 Spectrum", "prompt": "Low-arousal equanimity and physiological steadiness.", "options": ["Calmness", "Relief", "Satisfaction", "Boredom"] },
+    { "id": "voc_47", "term": "Confusion", "category": "27 Spectrum", "prompt": "Cognitive friction when incoming information conflicts with one's mental model.", "options": ["Confusion", "Skepticism", "Concentration", "Awkwardness"] },
+    { "id": "voc_48", "term": "Craving", "category": "27 Spectrum", "prompt": "Intense, narrow-focus appetitive urge for a specific reward.", "options": ["Craving", "Excitement", "Interest", "Satisfaction"] },
+    { "id": "voc_49", "term": "Empathetic Pain", "category": "27 Spectrum", "prompt": "Visceral wince and shared distress upon witnessing another person suffer injury or hurt.", "options": ["Empathetic Pain", "Sympathy", "Sadness", "Horror"] },
+    { "id": "voc_50", "term": "Entrancement", "category": "27 Spectrum", "prompt": "Spellbound absorption where external time and distractions fade away.", "options": ["Entrancement", "Aesthetic Appreciation", "Interest", "Calmness"] },
+    { "id": "voc_51", "term": "Excitement", "category": "27 Spectrum", "prompt": "High-energy, pleasant activation anticipating or experiencing fast-moving reward.", "options": ["Excitement", "Joy", "Amusement", "Triumph"] },
+    { "id": "voc_52", "term": "Horror", "category": "27 Spectrum", "prompt": "Shocked, visceral recoil combining intense fear and disgust at something grotesque or perilous.", "options": ["Horror", "Fear", "Disgust", "Awe"] },
+    { "id": "voc_53", "term": "Nostalgia", "category": "27 Spectrum", "prompt": "Bittersweet, warm longing for a meaningful chapter or place from the past.", "options": ["Nostalgia", "Sadness", "Calmness", "Adoration"] },
+    { "id": "voc_54", "term": "Relief", "category": "27 Spectrum", "prompt": "Exhaling release of tension when a feared threat passes or resolves safely.", "options": ["Relief", "Calmness", "Satisfaction", "Joy"] },
+    { "id": "voc_55", "term": "Attraction", "category": "27 Spectrum", "prompt": "Magnetic romantic or passionate draw toward another person (combining romance and desire).", "options": ["Attraction", "Adoration", "Excitement", "Craving"] },
+    { "id": "voc_56", "term": "Satisfaction", "category": "27 Spectrum", "prompt": "Settled gratification after completing meaningful work or meeting a need.", "options": ["Satisfaction", "Relief", "Pride", "Calmness"] },
+    { "id": "voc_57", "term": "Sympathy", "category": "27 Spectrum", "prompt": "Warm, caring concern and desire to comfort someone going through hardship.", "options": ["Sympathy", "Empathetic Pain", "Sadness", "Trust"] },
+    { "id": "voc_58", "term": "Triumph", "category": "27 Spectrum", "prompt": "Surge of victorious exultation after prevailing in a high-stakes challenge.", "options": ["Triumph", "Pride", "Ecstasy", "Excitement"] },
+    { "id": "voc_59", "term": "Embarrassment", "category": "Self-Conscious", "prompt": "Brief flustered self-consciousness after a minor social slip, marked by gaze down and sheepish smile.", "options": ["Embarrassment", "Shame", "Guilt", "Awkwardness"] },
+    { "id": "voc_60", "term": "Shame", "category": "Self-Conscious", "prompt": "Heavy self-conscious feeling that one's whole self is flawed or exposed, marked by head down and collapsed posture.", "options": ["Shame", "Guilt", "Embarrassment", "Remorse"] },
+    { "id": "voc_61", "term": "Skepticism", "category": "Social State", "prompt": "Questioning doubt toward a claim, often shown with a raised chin (AU17) and one raised outer brow (AU2).", "options": ["Skepticism", "Confusion", "Contempt", "Concentration"] },
+    { "id": "voc_62", "term": "Concentration", "category": "Social State", "prompt": "Task-focused mental effort that knits the brows (AU4+7) without any underlying hostility.", "options": ["Concentration", "Anger", "Confusion", "Vigilance"] },
+    { "id": "voc_63", "term": "Compassion", "category": "Social State", "prompt": "Warm motivation to alleviate another's suffering with patience and care.", "options": ["Compassion", "Sympathy", "Gratitude", "Trust"] },
+    { "id": "voc_64", "term": "Gratitude", "category": "Social State", "prompt": "Warm appreciation recognizing that someone acted generously to benefit you.", "options": ["Gratitude", "Admiration", "Satisfaction", "Joy"] }
+  ]
+}

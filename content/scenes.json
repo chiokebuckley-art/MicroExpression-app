@@ -1,0 +1,581 @@
+{
+  "level9Scenes": [
+    {
+      "id": "sc9_01",
+      "level": 9,
+      "setting": "studio_stage",
+      "posture": "expanded",
+      "caption": "Stepping back from the canvas as the gallery curator nods in approval.",
+      "recipeId": "pride",
+      "options": ["Pride & Satisfaction", "Contempt", "Embarrassment", "Anxiety"],
+      "best": "Pride & Satisfaction",
+      "explanation": "Chin tilted slightly up (+10 deg), expanded posture, and a small symmetric smile (AU12) in an accomplishment setting signal pride and satisfaction."
+    },
+    {
+      "id": "sc9_02",
+      "level": 9,
+      "setting": "coffee_spill",
+      "posture": "face_touch",
+      "caption": "Accidentally knocking over a water glass at a quiet dinner table.",
+      "recipeId": "embarrassment",
+      "options": ["Embarrassment", "Shame", "Anger", "Pride"],
+      "best": "Embarrassment",
+      "explanation": "Downward gaze, slight head turn, sheepish controlled smile (AU12+24), and hand-to-face touch after a minor social slip indicate embarrassment."
+    },
+    {
+      "id": "sc9_03",
+      "level": 9,
+      "setting": "code_terminal",
+      "posture": "lean_in",
+      "caption": "Tracing an elusive timing bug across three log panels late in the afternoon.",
+      "recipeId": "concentration",
+      "options": ["Concentration", "Hostile Anger", "Disgust", "Grief"],
+      "best": "Concentration",
+      "explanation": "Furrowed brows (AU4) and narrowed lids (AU7) with a relaxed mouth while leaning toward a complex task reflect focused concentration, not anger."
+    },
+    {
+      "id": "sc9_04",
+      "level": 9,
+      "setting": "boardroom_pitch",
+      "posture": "arms_crossed",
+      "caption": "Listening to a vendor promise a 300% speedup with zero engineering effort.",
+      "recipeId": "skepticism",
+      "options": ["Skepticism / Doubt", "Terror", "Amazement", "Grief"],
+      "best": "Skepticism / Doubt",
+      "explanation": "A unilateral outer brow raise (AU2) combined with a pushed-up chin boss (AU17) and evaluating posture signals skepticism."
+    },
+    {
+      "id": "sc9_05",
+      "level": 9,
+      "setting": "track_sideline",
+      "posture": "guarded",
+      "caption": "Watching a teammate land awkwardly on their ankle during a sprint.",
+      "recipeId": "pain",
+      "options": ["Empathetic Pain", "Amusement", "Boredom", "Contempt"],
+      "best": "Empathetic Pain",
+      "explanation": "Lowered brows (AU4), raised cheeks (AU6), tightly squeezed lids (AU7), and nasal wrinkling (AU9) while witnessing an injury express empathetic pain."
+    },
+    {
+      "id": "sc9_06",
+      "level": 9,
+      "setting": "quiet_hallway",
+      "posture": "collapsed",
+      "caption": "Sitting alone outside the director's office after letting the team down on a key safety check.",
+      "recipeId": "shame",
+      "options": ["Shame", "Embarrassment", "Amusement", "Interest"],
+      "best": "Shame",
+      "explanation": "Deep head drop (-20 deg), collapsed shoulders, and sad lower-face tension without any sheepish smile point to shame."
+    },
+    {
+      "id": "sc9_07",
+      "level": 9,
+      "setting": "canyon_overlook",
+      "posture": "expanded",
+      "caption": "Stepping out onto a high mountain ridge as the clouds part over a vast valley.",
+      "recipeId": "blend_fearful_surprise",
+      "options": ["Awe", "Boredom", "Contempt", "Annoyance"],
+      "best": "Awe",
+      "explanation": "Widened eyes and raised brows with a slightly parted jaw before a vast natural vista convey awe."
+    },
+    {
+      "id": "sc9_08",
+      "level": 9,
+      "setting": "attic_box",
+      "posture": "slumped",
+      "caption": "Leafing through an old photo album from childhood summers at a grandparents' house.",
+      "recipeId": "blend_bittersweet",
+      "options": ["Nostalgia", "Rage", "Horror", "Vigilance"],
+      "best": "Nostalgia",
+      "explanation": "A gentle warm smile (AU6+12) paired with wistful oblique inner brows (AU1) while looking at old memories captures nostalgia."
+    },
+    {
+      "id": "sc9_09",
+      "level": 9,
+      "setting": "lecture_slide",
+      "posture": "slumped",
+      "caption": "Listening to the fourth consecutive hour of unedited budget spreadsheet readings.",
+      "recipeId": "neutral",
+      "options": ["Boredom", "Terror", "Ecstasy", "Rage"],
+      "best": "Boredom",
+      "explanation": "Slack facial tone, heavy eyelids, and slumped posture in an unstimulating environment indicate boredom."
+    },
+    {
+      "id": "sc9_10",
+      "level": 9,
+      "setting": "hospital_waiting",
+      "posture": "exhale_drop",
+      "caption": "Hearing the surgeon step out and say the procedure went smoothly.",
+      "recipeId": "happiness_amusement_low",
+      "options": ["Relief", "Contempt", "Envy", "Disgust"],
+      "best": "Relief",
+      "explanation": "Dropping shoulders, softening brow tension, and a quiet warm smile after anxious waiting signal relief."
+    },
+    {
+      "id": "sc9_11",
+      "level": 9,
+      "setting": "award_banquet",
+      "posture": "arms_crossed",
+      "caption": "Watching a rival receive the innovation prize for an idea similar to yours.",
+      "recipeId": "blend_angry_sad",
+      "options": ["Envy & Resentment", "Calmness", "Amusement", "Awe"],
+      "best": "Envy & Resentment",
+      "explanation": "Oblique inner brow pull (AU1) colliding with brow lowering (AU4) and tightened lips (AU15+23) in a competitive loss context signals envy and resentment."
+    },
+    {
+      "id": "sc9_12",
+      "level": 9,
+      "setting": "park_bench",
+      "posture": "lean_in",
+      "caption": "Sitting beside a close friend who is recounting a difficult week.",
+      "recipeId": "sadness_no17",
+      "options": ["Sympathy & Compassion", "Contempt", "Boredom", "Triumph"],
+      "best": "Sympathy & Compassion",
+      "explanation": "Forward lean, attentive gaze, and concerned oblique brows (AU1+4) while listening to a friend's hardship express sympathy."
+    },
+    {
+      "id": "sc9_13",
+      "level": 9,
+      "setting": "lab_workbench",
+      "posture": "head_tilt",
+      "caption": "Seeing an instrument readout display negative pressure when the valve is wide open.",
+      "recipeId": "concentration",
+      "options": ["Confusion", "Pride", "Loathing", "Grief"],
+      "best": "Confusion",
+      "explanation": "Knitted brows (AU4+7) paired with a lateral head tilt in front of contradictory data indicate confusion."
+    },
+    {
+      "id": "sc9_14",
+      "level": 9,
+      "setting": "surprise_party",
+      "posture": "expanded",
+      "caption": "Opening the studio door to find the entire team holding cake and banners.",
+      "recipeId": "blend_happy_surprise",
+      "options": ["Delighted Surprise (Amusement + Joy)", "Disgust", "Shame", "Skepticism"],
+      "best": "Delighted Surprise (Amusement + Joy)",
+      "explanation": "Arched brows and wide eyes (AU1+2+5) combined with a full Duchenne smile (AU6+12) show delighted surprise."
+    },
+    {
+      "id": "sc9_15",
+      "level": 9,
+      "setting": "kitchen_fridge",
+      "posture": "guarded",
+      "caption": "Uncovering a container of spoiled seafood left unrefrigerated over the weekend.",
+      "recipeId": "disgust",
+      "options": ["Disgust", "Sadness", "Pride", "Interest"],
+      "best": "Disgust",
+      "explanation": "Wrinkled nasal bridge (AU9) and raised upper lip (AU10) while recoiling from spoilage clearly express disgust."
+    }
+  ],
+  "level10ContextSwaps": [
+    {
+      "pairId": "swap_01",
+      "title": "Knitted Brows (AU4 + AU7): Debugging vs. Interrupted",
+      "recipeId": "concentration",
+      "sceneA": {
+        "id": "swap_01_a",
+        "level": 10,
+        "setting": "code_terminal",
+        "posture": "lean_in",
+        "caption": "Maya is silently reading a dense architectural diagram on her monitor.",
+        "options": ["Focused Concentration", "Hostile Anger at You", "Disgust", "Grief"],
+        "best": "Focused Concentration",
+        "followUp": {
+          "options": [
+            "Is now a good time to jump in, or would you like 15 minutes to finish reading that section?",
+            "Why are you angry at me?",
+            "You clearly hate this architecture.",
+            "Stop frowning at the screen."
+          ],
+          "best": "Is now a good time to jump in, or would you like 15 minutes to finish reading that section?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_01_b",
+        "level": 10,
+        "setting": "boardroom_pitch",
+        "posture": "arms_crossed",
+        "caption": "Maya has just been interrupted for the third time in two minutes while answering a question.",
+        "options": ["Simmering Annoyance / Friction", "Sleepy Boredom", "Joyful Amusement", "Calmness"],
+        "best": "Simmering Annoyance / Friction",
+        "followUp": {
+          "options": [
+            "Sorry, we cut across you there — please finish your point, Maya.",
+            "Why are you being defensive?",
+            "I know what you are thinking.",
+            "Let's move on since you have nothing to add."
+          ],
+          "best": "Sorry, we cut across you there — please finish your point, Maya."
+        }
+      }
+    },
+    {
+      "pairId": "swap_02",
+      "title": "Wince (AU4 + AU6 + AU7 + AU9): Bright Sunlight vs. Bad News",
+      "recipeId": "pain",
+      "sceneA": {
+        "id": "swap_02_a",
+        "level": 10,
+        "setting": "canyon_overlook",
+        "posture": "guarded",
+        "caption": "Stepping out of a dark cinema lobby directly into noon glare on white concrete.",
+        "options": ["Sensory Squint Against Glare", "Moral Disgust at a Friend", "Rage", "Contempt"],
+        "best": "Sensory Squint Against Glare",
+        "followUp": {
+          "options": [
+            "Want to step under the awning where the sun isn't right in our eyes?",
+            "What did I say that disgusted you?",
+            "Why are you upset with me?",
+            "Tell me what you're hiding."
+          ],
+          "best": "Want to step under the awning where the sun isn't right in our eyes?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_02_b",
+        "level": 10,
+        "setting": "track_sideline",
+        "posture": "guarded",
+        "caption": "Hearing a colleague describe a painful bicycle crash on the morning commute.",
+        "options": ["Empathetic Pain / Wince", "Boredom", "Pride", "Arrogance"],
+        "best": "Empathetic Pain / Wince",
+        "followUp": {
+          "options": [
+            "That sounds rough — are they okay, and do they need a hand getting home?",
+            "Why are you making that face at me?",
+            "You look angry about the bike lane.",
+            "Don't overreact."
+          ],
+          "best": "That sounds rough — are they okay, and do they need a hand getting home?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_03",
+      "title": "Controlled Smile + Gaze Down: Compliment vs. Mistake",
+      "recipeId": "embarrassment",
+      "sceneA": {
+        "id": "swap_03_a",
+        "level": 10,
+        "setting": "award_banquet",
+        "posture": "face_touch",
+        "caption": "The whole room applauds Jordan for quietly mentoring three new engineers.",
+        "options": ["Modest Embarrassment Under Praise", "Hostile Contempt", "Cold Rage", "Disgust"],
+        "best": "Modest Embarrassment Under Praise",
+        "followUp": {
+          "options": [
+            "No need to give a big speech — we just wanted to thank you for helping everyone onboard.",
+            "Why aren't you happy about the award?",
+            "What did you do wrong?",
+            "Why are you looking at the floor?"
+          ],
+          "best": "No need to give a big speech — we just wanted to thank you for helping everyone onboard."
+        }
+      },
+      "sceneB": {
+        "id": "swap_03_b",
+        "level": 10,
+        "setting": "coffee_spill",
+        "posture": "face_touch",
+        "caption": "Jordan realizes their microphone was unmuted while humming during a client call.",
+        "options": ["Flustered Social Embarrassment", "Triumph", "Deep Grief", "Loathing"],
+        "best": "Flustered Social Embarrassment",
+        "followUp": {
+          "options": [
+            "Happens to everyone on remote calls — let's dive right into slide two!",
+            "Why did you disrupt the client?",
+            "You look guilty of something bigger.",
+            "Explain yourself right now."
+          ],
+          "best": "Happens to everyone on remote calls — let's dive right into slide two!"
+        }
+      }
+    },
+    {
+      "pairId": "swap_04",
+      "title": "Oblique Brows + Soft Smile (AU1 + AU6 + AU12): Farewell vs. Sympathy",
+      "recipeId": "blend_bittersweet",
+      "sceneA": {
+        "id": "swap_04_a",
+        "level": 10,
+        "setting": "attic_box",
+        "posture": "lean_in",
+        "caption": "Packing the last box on the final day in a beloved studio space before moving to a larger building.",
+        "options": ["Bittersweet Nostalgia", "Hostile Anger", "Pure Fear", "Disgust"],
+        "best": "Bittersweet Nostalgia",
+        "followUp": {
+          "options": [
+            "Lot of great memories in this room — what's your favorite project we built here?",
+            "Why are you sad when we're upgrading?",
+            "Do you hate the new building?",
+            "Stop looking upset."
+          ],
+          "best": "Lot of great memories in this room — what's your favorite project we built here?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_04_b",
+        "level": 10,
+        "setting": "park_bench",
+        "posture": "lean_in",
+        "caption": "A junior teammate admits they stayed up all night worrying about their first demo.",
+        "options": ["Warm Compassion & Reassurance", "Mocking Contempt", "Horror", "Boredom"],
+        "best": "Warm Compassion & Reassurance",
+        "followUp": {
+          "options": [
+            "First demos are always nerve-wracking — want to run through it together once before we start?",
+            "Why didn't you sleep?",
+            "You aren't ready for this.",
+            "Why are you smiling at their stress?"
+          ],
+          "best": "First demos are always nerve-wracking — want to run through it together once before we start?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_05",
+      "title": "Wide Eyes + Arched Brows (AU1+2+5+26): Plot Twist vs. Sudden Noise",
+      "recipeId": "surprise",
+      "sceneA": {
+        "id": "swap_05_a",
+        "level": 10,
+        "setting": "surprise_party",
+        "posture": "expanded",
+        "caption": "Opening an envelope to discover the grant committee funded the entire three-year budget.",
+        "options": ["Astonished Surprise", "Chronic Sadness", "Contempt", "Boredom"],
+        "best": "Astonished Surprise",
+        "followUp": {
+          "options": [
+            "Did the committee come back with the full grant decision?",
+            "What went wrong with the application?",
+            "Why are you frightened?",
+            "Are you angry at the committee?"
+          ],
+          "best": "Did the committee come back with the full grant decision?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_05_b",
+        "level": 10,
+        "setting": "lab_workbench",
+        "posture": "guarded",
+        "caption": "A heavy wrench slips off a shelf and clangs loudly onto the metal floor behind the bench.",
+        "options": ["Startle / Orienting Surprise", "Arrogant Pride", "Nostalgia", "Remorse"],
+        "best": "Startle / Orienting Surprise",
+        "followUp": {
+          "options": [
+            "That was a loud drop — is everyone clear of the shelf?",
+            "Why did you throw that wrench?",
+            "What are you hiding at the workbench?",
+            "Why are you so nervous?"
+          ],
+          "best": "That was a loud drop — is everyone clear of the shelf?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_06",
+      "title": "Unilateral Brow + Chin Raise (AU2R + AU17): Auditing Claims vs. Puzzling Out",
+      "recipeId": "skepticism",
+      "sceneA": {
+        "id": "swap_06_a",
+        "level": 10,
+        "setting": "boardroom_pitch",
+        "posture": "arms_crossed",
+        "caption": "Reviewing a timeline estimate that cuts QA testing from three weeks down to one afternoon.",
+        "options": ["Skepticism About Feasibility", "Ecstatic Joy", "Deep Grief", "Panic"],
+        "best": "Skepticism About Feasibility",
+        "followUp": {
+          "options": [
+            "It looks like you might have reservations about the QA window — what risks do you see there?",
+            "Why are you rolling your eyes at my plan?",
+            "Just approve the schedule.",
+            "Are you refusing to cooperate?"
+          ],
+          "best": "It looks like you might have reservations about the QA window — what risks do you see there?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_06_b",
+        "level": 10,
+        "setting": "lab_workbench",
+        "posture": "head_tilt",
+        "caption": "Tasting a new soup recipe to figure out which spice is missing.",
+        "options": ["Evaluative Weighing / Curiosity", "Furious Rage", "Terror", "Shame"],
+        "best": "Evaluative Weighing / Curiosity",
+        "followUp": {
+          "options": [
+            "What do you think — does it need a little more acidity or salt?",
+            "Is the food spoiled?",
+            "Why do you hate my cooking?",
+            "Don't eat it if you're disgusted."
+          ],
+          "best": "What do you think — does it need a little more acidity or salt?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_07",
+      "title": "Pinched Brows + Stretched Lips (Fear Recipe): Near-Miss vs. Stage Fright",
+      "recipeId": "fear",
+      "sceneA": {
+        "id": "swap_07_a",
+        "level": 10,
+        "setting": "track_sideline",
+        "posture": "guarded",
+        "caption": "A cyclist swerves inches past the curb while you wait to cross.",
+        "options": ["Acute Physical Alarm (Fear)", "Boredom", "Smug Contempt", "Calmness"],
+        "best": "Acute Physical Alarm (Fear)",
+        "followUp": {
+          "options": [
+            "That was way too close — take a breath, are you alright?",
+            "Why did you jump like that?",
+            "What are you guilty of?",
+            "Why are you angry at me?"
+          ],
+          "best": "That was way too close — take a breath, are you alright?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_07_b",
+        "level": 10,
+        "setting": "studio_stage",
+        "posture": "guarded",
+        "caption": "Waiting backstage 30 seconds before walking out to keynote in front of 800 people.",
+        "options": ["Pre-Performance Apprehension / Stage Fright", "Disgust at the Audience", "Boredom", "Contempt"],
+        "best": "Pre-Performance Apprehension / Stage Fright",
+        "followUp": {
+          "options": [
+            "Big crowd out there — want a sip of water or a quick breath together before you go on?",
+            "Did you forget your slides?",
+            "Why don't you want to be here?",
+            "You look like you're hiding something."
+          ],
+          "best": "Big crowd out there — want a sip of water or a quick breath together before you go on?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_08",
+      "title": "Nose Wrinkle + Upper Lip Raise (AU9+10): Bad Odor vs. Unfair Clause",
+      "recipeId": "disgust",
+      "sceneA": {
+        "id": "swap_08_a",
+        "level": 10,
+        "setting": "kitchen_fridge",
+        "posture": "guarded",
+        "caption": "Walking past a leaking chemical solvent container in the storage room.",
+        "options": ["Olfactory / Sensory Disgust", "Sadness", "Pride", "Amusement"],
+        "best": "Olfactory / Sensory Disgust",
+        "followUp": {
+          "options": [
+            "Do you smell solvent fumes near that cabinet? Let's ventilate and check the seal.",
+            "Why are you sneering at me?",
+            "What made you angry?",
+            "Are you hiding something in the closet?"
+          ],
+          "best": "Do you smell solvent fumes near that cabinet? Let's ventilate and check the seal."
+        }
+      },
+      "sceneB": {
+        "id": "swap_08_b",
+        "level": 10,
+        "setting": "boardroom_pitch",
+        "posture": "arms_crossed",
+        "caption": "Reading a contract clause that shifts all liability onto entry-level contractors.",
+        "options": ["Moral Revulsion / Distaste", "Joyful Excitement", "Sleepy Boredom", "Fear"],
+        "best": "Moral Revulsion / Distaste",
+        "followUp": {
+          "options": [
+            "That clause seems to have struck a nerve — what part of the terms feels unfair?",
+            "Why are you making faces during contract review?",
+            "Sign it anyway.",
+            "Are you afraid of the legal team?"
+          ],
+          "best": "That clause seems to have struck a nerve — what part of the terms feels unfair?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_09",
+      "title": "Pressed Lips + Lowered Brows (Anger Recipe): Heavy Lift vs. Boundary Crossed",
+      "recipeId": "anger",
+      "sceneA": {
+        "id": "swap_09_a",
+        "level": 10,
+        "setting": "lab_workbench",
+        "posture": "lean_in",
+        "caption": "Trying to loosen a rusted steel bolt that has been seized for years.",
+        "options": ["Physical Exertion & Strain", "Personal Hatred", "Sadness", "Amusement"],
+        "best": "Physical Exertion & Strain",
+        "followUp": {
+          "options": [
+            "That bolt looks completely seized — want me to grab the long breaker bar?",
+            "Why are you furious at the equipment?",
+            "Calm down right now.",
+            "What did I do to make you mad?"
+          ],
+          "best": "That bolt looks completely seized — want me to grab the long breaker bar?"
+        }
+      },
+      "sceneB": {
+        "id": "swap_09_b",
+        "level": 10,
+        "setting": "boardroom_pitch",
+        "posture": "arms_crossed",
+        "caption": "Being told on Friday at 5 PM that the weekend trip must be canceled for a non-urgent report.",
+        "options": ["Frustration & Anger at Unfairness", "Delighted Surprise", "Serenity", "Nostalgia"],
+        "best": "Frustration & Anger at Unfairness",
+        "followUp": {
+          "options": [
+            "I know springing this on Friday evening is frustrating — can we scope this so it waits until Monday morning?",
+            "Don't give me that look.",
+            "Why are you hiding your feelings?",
+            "You love working weekends, right?"
+          ],
+          "best": "I know springing this on Friday evening is frustrating — can we scope this so it waits until Monday morning?"
+        }
+      }
+    },
+    {
+      "pairId": "swap_10",
+      "title": "Posed Social Smile (AU12 Only): Polite Greeting vs. Masking Discomfort",
+      "recipeId": "happiness_social",
+      "sceneA": {
+        "id": "swap_10_a",
+        "level": 10,
+        "setting": "quiet_hallway",
+        "posture": "expanded",
+        "caption": "Nodding politely to an acquaintance while walking past in the corridor.",
+        "options": ["Standard Polite Social Signal", "Deep Ecstasy", "Malicious Scheming", "Terror"],
+        "best": "Standard Polite Social Signal",
+        "followUp": {
+          "options": [
+            "Morning! Hope your week is going well.",
+            "Why wasn't that a real Duchenne smile?",
+            "Why are you faking happiness at me?",
+            "What are you concealing?"
+          ],
+          "best": "Morning! Hope your week is going well."
+        }
+      },
+      "sceneB": {
+        "id": "swap_10_b",
+        "level": 10,
+        "setting": "hospital_waiting",
+        "posture": "guarded",
+        "caption": "Saying 'Everything is fine, really' when asked how they are handling an overloaded schedule.",
+        "options": ["Polite Masking Over Stress", "Pure Unclouded Joy", "Rage", "Amazement"],
+        "best": "Polite Masking Over Stress",
+        "followUp": {
+          "options": [
+            "I appreciate how much you're carrying — if we took one project off your plate this week, which one would help most?",
+            "Your eyes didn't crinkle so I know you're faking.",
+            "Stop pretending everything is fine.",
+            "Admit that you are failing."
+          ],
+          "best": "I appreciate how much you're carrying — if we took one project off your plate this week, which one would help most?"
+        }
+      }
+    }
+  ]
+}

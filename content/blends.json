@@ -1,0 +1,556 @@
+{
+  "blends": [
+    {
+      "id": "blend_happy_surprise",
+      "label": "Happy-Surprise (Delighted Surprise)",
+      "components": ["happiness", "surprise"],
+      "aus": [
+        { "au": 1, "intensity": 0.9, "side": "both" },
+        { "au": 2, "intensity": 0.9, "side": "both" },
+        { "au": 5, "intensity": 0.85, "side": "both" },
+        { "au": 6, "intensity": 0.75, "side": "both" },
+        { "au": 12, "intensity": 0.9, "side": "both" },
+        { "au": 26, "intensity": 0.65, "side": "both" }
+      ],
+      "notes": "A delighted surprise: high arched brows and wide eyes (AU1+2+5) with dropped jaw (AU26) combined with raised cheeks and smiling lip corners (AU6+12).",
+      "keyCues": [
+        "Upper face shows surprise: arched eyebrows (AU1+2) and widened upper lids (AU5)",
+        "Mid/lower face shows happiness: raised cheeks (AU6) and upturned smiling mouth corners (AU12) over a dropped jaw (AU26)"
+      ]
+    },
+    {
+      "id": "blend_fearful_surprise",
+      "label": "Fearful-Surprise (Alarmed Shock / Awe)",
+      "components": ["fear", "surprise"],
+      "aus": [
+        { "au": 1, "intensity": 0.95, "side": "both" },
+        { "au": 2, "intensity": 0.7, "side": "both" },
+        { "au": 4, "intensity": 0.75, "side": "both" },
+        { "au": 5, "intensity": 1.0, "side": "both" },
+        { "au": 20, "intensity": 0.85, "side": "both" },
+        { "au": 26, "intensity": 0.5, "side": "both" }
+      ],
+      "notes": "Distinguish it from pure fear by the open jaw (AU26 at 0.5), and from pure surprise by the brow pinch (AU4) and horizontal lip stretch (AU20).",
+      "keyCues": [
+        "Fear contributes medial brow pinch (AU4) and horizontal lip stretch (AU20)",
+        "Surprise contributes a half-dropped jaw (AU26 at 0.5) and high upper lids (AU5)"
+      ]
+    },
+    {
+      "id": "blend_angry_sad",
+      "label": "Angry-Sad (Resentful Grief / Bitter Frustration)",
+      "components": ["anger", "sadness"],
+      "aus": [
+        { "au": 1, "intensity": 0.85, "side": "both" },
+        { "au": 4, "intensity": 0.9, "side": "both" },
+        { "au": 7, "intensity": 0.75, "side": "both" },
+        { "au": 15, "intensity": 0.75, "side": "both" },
+        { "au": 23, "intensity": 0.7, "side": "both" }
+      ],
+      "notes": "Brow conflict: the AU1 + AU4 pull meets tightened lids (AU7) and narrowed, downward-angled lips (AU15 + AU23).",
+      "keyCues": [
+        "Upper face blends oblique inner-brow lift (AU1) with strong glabella lowering and lid tightening (AU4+7)",
+        "Lower face combines narrowed, tightened lip margins (AU23, anger) with downward-pulled mouth corners (AU15, sadness)"
+      ]
+    },
+    {
+      "id": "blend_disgust_anger",
+      "label": "Disgust-Anger (Plutchik Contempt Dyad / Scorn)",
+      "components": ["disgust", "anger"],
+      "aus": [
+        { "au": 4, "intensity": 0.9, "side": "both" },
+        { "au": 7, "intensity": 0.8, "side": "both" },
+        { "au": 9, "intensity": 0.9, "side": "both" },
+        { "au": 10, "intensity": 0.8, "side": "both" }
+      ],
+      "notes": "Plutchik's disgust + anger = contempt dyad. Note how this bilateral blend differs from Ekman's unilateral AU14 contempt.",
+      "keyCues": [
+        "Anger drives the lowered brows and narrowed glaring eyelids (AU4 + AU7)",
+        "Disgust drives the wrinkled nasal bridge and raised upper lip (AU9 + AU10)"
+      ]
+    },
+    {
+      "id": "blend_bittersweet",
+      "label": "Bittersweet (Smile with Sad Brows)",
+      "components": ["happiness", "sadness"],
+      "aus": [
+        { "au": 1, "intensity": 0.6, "side": "both" },
+        { "au": 4, "intensity": 0.35, "side": "both" },
+        { "au": 6, "intensity": 0.4, "side": "both" },
+        { "au": 12, "intensity": 0.5, "side": "both" },
+        { "au": 15, "intensity": 0.3, "side": "both" }
+      ],
+      "notes": "A gentle smile (AU6 at 0.4, AU12 at 0.5) paired with sad oblique inner brows (AU1 at 0.6) and slight corner counter-tension (AU15 at 0.3).",
+      "keyCues": [
+        "Inner eyebrows lift into a wistful oblique angle (AU1, sadness)",
+        "Cheeks and mouth corners rise in a soft, restrained smile (AU6 + AU12, happiness)"
+      ]
+    },
+    {
+      "id": "blend_fearful_anger",
+      "label": "Fearful-Anger (Cornered Hostility)",
+      "components": ["fear", "anger"],
+      "aus": [
+        { "au": 1, "intensity": 0.75, "side": "both" },
+        { "au": 4, "intensity": 1.0, "side": "both" },
+        { "au": 5, "intensity": 0.9, "side": "both" },
+        { "au": 7, "intensity": 0.7, "side": "both" },
+        { "au": 20, "intensity": 0.75, "side": "both" },
+        { "au": 23, "intensity": 0.65, "side": "both" }
+      ],
+      "notes": "Combines the wide-eyed horizontal lip stretch of fear (AU1+5+20) with the hard brow furrow, lid squint, and lip tightening of anger (AU4+7+23).",
+      "keyCues": [
+        "Brows are deeply lowered yet inner corners pull up under stress (AU1 + AU4)",
+        "Mouth corners stretch horizontally (AU20, fear) while the lip red narrows (AU23, anger)"
+      ]
+    },
+    {
+      "id": "blend_sad_disgust",
+      "label": "Sad-Disgust (Remorse / Self-Reproach)",
+      "components": ["sadness", "disgust"],
+      "aus": [
+        { "au": 1, "intensity": 0.9, "side": "both" },
+        { "au": 4, "intensity": 0.55, "side": "both" },
+        { "au": 9, "intensity": 0.75, "side": "both" },
+        { "au": 10, "intensity": 0.65, "side": "both" },
+        { "au": 15, "intensity": 0.8, "side": "both" },
+        { "au": 17, "intensity": 0.45, "side": "both" }
+      ],
+      "notes": "Plutchik's remorse dyad: oblique sad brows and downturned mouth corners (AU1+4+15+17) blended with nasal wrinkling and upper-lip lift (AU9+10).",
+      "keyCues": [
+        "Sadness shows in the raised inner brows (AU1) and depressed mouth corners (AU15)",
+        "Disgust shows in the wrinkled nose bridge (AU9) and lifted upper lip (AU10)"
+      ]
+    },
+    {
+      "id": "blend_surprised_sadness",
+      "label": "Surprised-Sadness (Disapproval / Shocked Grief)",
+      "components": ["surprise", "sadness"],
+      "aus": [
+        { "au": 1, "intensity": 1.0, "side": "both" },
+        { "au": 2, "intensity": 0.75, "side": "both" },
+        { "au": 5, "intensity": 0.85, "side": "both" },
+        { "au": 15, "intensity": 0.85, "side": "both" },
+        { "au": 17, "intensity": 0.5, "side": "both" },
+        { "au": 26, "intensity": 0.35, "side": "both" }
+      ],
+      "notes": "Plutchik's disapproval dyad: wide surprised upper face (AU1+2+5) with a sad downturned mouth and raised chin (AU15+17).",
+      "keyCues": [
+        "Upper face widens in surprise (AU1+2+5)",
+        "Lower face pulls into a pronounced frown with chin elevation (AU15+17, sadness)"
+      ]
+    },
+    {
+      "id": "blend_happy_contempt",
+      "label": "Happy-Contempt (Smug Amusement)",
+      "components": ["happiness", "contempt"],
+      "aus": [
+        { "au": 6, "intensity": 0.55, "side": "both" },
+        { "au": 12, "intensity": 0.55, "side": "both" },
+        { "au": 14, "intensity": 0.95, "side": "right" }
+      ],
+      "notes": "Warm cheek raise and bilateral smile base (AU6+12) made strongly asymmetrical by unilateral right dimpler tightening (AU14).",
+      "keyCues": [
+        "Cheeks crinkle slightly with genuine pleasure (AU6 + AU12, happiness)",
+        "One mouth corner pulls sharply inward and higher via unilateral AU14 (contempt)"
+      ]
+    },
+    {
+      "id": "blend_fearful_disgust",
+      "label": "Fearful-Disgust (Revulsion / Horror)",
+      "components": ["fear", "disgust"],
+      "aus": [
+        { "au": 1, "intensity": 0.85, "side": "both" },
+        { "au": 2, "intensity": 0.5, "side": "both" },
+        { "au": 4, "intensity": 0.85, "side": "both" },
+        { "au": 5, "intensity": 0.95, "side": "both" },
+        { "au": 9, "intensity": 0.85, "side": "both" },
+        { "au": 10, "intensity": 0.75, "side": "both" },
+        { "au": 20, "intensity": 0.85, "side": "both" }
+      ],
+      "notes": "Wide eyes, flattened brows, and stretched lips (fear) combined with nasal wrinkling and upper-lip sneer (disgust).",
+      "keyCues": [
+        "Wide upper lids (AU5) and horizontal lip pull (AU20) signal fear",
+        "Wrinkled nose bridge (AU9) and raised upper lip (AU10) signal disgust"
+      ]
+    },
+    {
+      "id": "blend_happy_surprise_subtle",
+      "label": "Happy-Surprise (Moderate Intensity)",
+      "components": ["happiness", "surprise"],
+      "aus": [
+        { "au": 1, "intensity": 0.6, "side": "both" },
+        { "au": 2, "intensity": 0.6, "side": "both" },
+        { "au": 5, "intensity": 0.55, "side": "both" },
+        { "au": 6, "intensity": 0.5, "side": "both" },
+        { "au": 12, "intensity": 0.65, "side": "both" },
+        { "au": 26, "intensity": 0.4, "side": "both" }
+      ],
+      "notes": "Moderate-intensity delighted surprise (0.6 scale).",
+      "keyCues": [
+        "Moderate brow arch and lid widening (surprise) with soft Duchenne smile (happiness)"
+      ]
+    },
+    {
+      "id": "blend_angry_sad_subtle",
+      "label": "Angry-Sad (Moderate Intensity)",
+      "components": ["anger", "sadness"],
+      "aus": [
+        { "au": 1, "intensity": 0.6, "side": "both" },
+        { "au": 4, "intensity": 0.65, "side": "both" },
+        { "au": 7, "intensity": 0.55, "side": "both" },
+        { "au": 15, "intensity": 0.55, "side": "both" },
+        { "au": 23, "intensity": 0.5, "side": "both" }
+      ],
+      "notes": "Moderate-intensity resentful sadness (0.6 scale).",
+      "keyCues": [
+        "Subtle oblique brow furrow (AU1+4) with tightened, downturned lips (AU15+23)"
+      ]
+    }
+  ],
+  "maskedFlashes": [
+    {
+      "id": "mask_anger_smile_1",
+      "label": "Anger Flash Masked by Social Smile (150 ms)",
+      "targetState": { "hidden": "anger", "shown": "happiness" },
+      "highlightAUs": [4, 5, 7, 23],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "anger", "scale": 0.9, "ease": "step" },
+        { "tMs": 650, "recipeId": "happiness_social", "scale": 0.95, "ease": "step" },
+        { "tMs": 1600, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "A brief 150 ms flash of anger (AU4+5+7+23) immediately covered by a held social smile (AU12 alone)."
+    },
+    {
+      "id": "mask_fear_smile_1",
+      "label": "Fear Flash Masked by Social Smile (150 ms)",
+      "targetState": { "hidden": "fear", "shown": "happiness" },
+      "highlightAUs": [1, 2, 4, 5, 20],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "fear", "scale": 0.95, "ease": "step" },
+        { "tMs": 650, "recipeId": "happiness_social", "scale": 0.9, "ease": "step" },
+        { "tMs": 1600, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "A 150 ms flash of fear (pinched brows AU1+2+4, wide eyes AU5, stretched lips AU20) quickly masked by a polite smile (AU12)."
+    },
+    {
+      "id": "mask_disgust_smile_1",
+      "label": "Disgust Flash Masked by Social Smile (140 ms)",
+      "targetState": { "hidden": "disgust", "shown": "happiness" },
+      "highlightAUs": [9, 10],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "disgust", "scale": 0.9, "ease": "step" },
+        { "tMs": 640, "recipeId": "happiness_social", "scale": 0.95, "ease": "step" },
+        { "tMs": 1600, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Nose wrinkling and upper-lip elevation (AU9+10) flash for 140 ms before being overridden by AU12."
+    },
+    {
+      "id": "mask_sadness_smile_1",
+      "label": "Sadness Flash Masked by Social Smile (160 ms)",
+      "targetState": { "hidden": "sadness", "shown": "happiness" },
+      "highlightAUs": [1, 4, 15, 17],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "sadness", "scale": 0.9, "ease": "step" },
+        { "tMs": 660, "recipeId": "happiness_social", "scale": 0.9, "ease": "step" },
+        { "tMs": 1600, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Oblique inner brows and downturned lip corners (AU1+4+15) appear briefly before a social smile covers them."
+    },
+    {
+      "id": "mask_contempt_smile_1",
+      "label": "Contempt Flash Masked by Social Smile (150 ms)",
+      "targetState": { "hidden": "contempt", "shown": "happiness" },
+      "highlightAUs": [14],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "contempt", "scale": 1.0, "ease": "step" },
+        { "tMs": 650, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        { "tMs": 1600, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "A unilateral right dimpler smirk (AU14) flashes before turning into a symmetrical posed smile (AU12)."
+    },
+    {
+      "id": "mask_surprise_neutral_1",
+      "label": "Surprise Flash Masked by Controlled Neutral (130 ms)",
+      "targetState": { "hidden": "surprise", "shown": "neutral" },
+      "highlightAUs": [1, 2, 5, 26],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "surprise", "scale": 0.85, "ease": "step" },
+        { "tMs": 630, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 1500, "recipeId": "neutral", "scale": 1.0, "ease": "step" }
+      ],
+      "explanation": "A sudden flash of surprise (AU1+2+5+26) quickly clamped back to a poker-faced neutral."
+    },
+    {
+      "id": "mask_anger_smile_fast",
+      "label": "Anger Flash Masked by Social Smile (100 ms)",
+      "targetState": { "hidden": "anger", "shown": "happiness" },
+      "highlightAUs": [4, 5, 7, 23],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "anger", "scale": 0.85, "ease": "step" },
+        { "tMs": 600, "recipeId": "happiness_social", "scale": 0.95, "ease": "step" },
+        { "tMs": 1550, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Rapid 100 ms flash of anger immediately masked by a social smile."
+    },
+    {
+      "id": "mask_fear_smile_fast",
+      "label": "Fear Flash Masked by Social Smile (100 ms)",
+      "targetState": { "hidden": "fear", "shown": "happiness" },
+      "highlightAUs": [1, 2, 4, 5, 20],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "fear", "scale": 0.9, "ease": "step" },
+        { "tMs": 600, "recipeId": "happiness_social", "scale": 0.95, "ease": "step" },
+        { "tMs": 1550, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Rapid 100 ms flash of fear immediately covered by an AU12 social smile."
+    },
+    {
+      "id": "mask_disgust_smile_fast",
+      "label": "Disgust Flash Masked by Social Smile (100 ms)",
+      "targetState": { "hidden": "disgust", "shown": "happiness" },
+      "highlightAUs": [9, 10],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "disgust", "scale": 0.85, "ease": "step" },
+        { "tMs": 600, "recipeId": "happiness_social", "scale": 0.95, "ease": "step" },
+        { "tMs": 1550, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Rapid 100 ms flash of disgust covered by a posed smile."
+    },
+    {
+      "id": "mask_sadness_smile_fast",
+      "label": "Sadness Flash Masked by Social Smile (100 ms)",
+      "targetState": { "hidden": "sadness", "shown": "happiness" },
+      "highlightAUs": [1, 4, 15],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "sadness", "scale": 0.85, "ease": "step" },
+        { "tMs": 600, "recipeId": "happiness_social", "scale": 0.9, "ease": "step" },
+        { "tMs": 1550, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Rapid 100 ms flash of sadness masked by an AU12 smile."
+    },
+    {
+      "id": "mask_contempt_left_smile",
+      "label": "Left Contempt Flash Masked by Social Smile (120 ms)",
+      "targetState": { "hidden": "contempt", "shown": "happiness" },
+      "highlightAUs": [14],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "contempt_left", "scale": 1.0, "ease": "step" },
+        { "tMs": 620, "recipeId": "happiness_social", "scale": 0.9, "ease": "step" },
+        { "tMs": 1550, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Left unilateral AU14 contempt flash covered by a symmetrical social smile."
+    },
+    {
+      "id": "mask_happy_neutral",
+      "label": "Suppressed Amusement Masked by Stoic Neutral (130 ms)",
+      "targetState": { "hidden": "happiness", "shown": "neutral" },
+      "highlightAUs": [6, 12],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 500, "recipeId": "happiness", "scale": 0.8, "ease": "step" },
+        { "tMs": 630, "recipeId": "concentration", "scale": 0.6, "ease": "step" },
+        { "tMs": 1550, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "A brief Duchenne smile (AU6+12) quickly suppressed into a serious expression."
+    }
+  ],
+  "upperFaceLeaks": [
+    {
+      "id": "leak_fear_under_smile",
+      "label": "Upper-Face Fear Leak Under Social Smile (120 ms)",
+      "targetState": { "hidden": "fear", "shown": "happiness" },
+      "highlightAUs": [1, 2, 4, 5],
+      "keys": [
+        { "tMs": 0, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        {
+          "tMs": 500,
+          "aus": [
+            { "au": 12, "intensity": 0.85, "side": "both" },
+            { "au": 1, "intensity": 0.9, "side": "both" },
+            { "au": 2, "intensity": 0.55, "side": "both" },
+            { "au": 4, "intensity": 0.85, "side": "both" },
+            { "au": 5, "intensity": 0.85, "side": "both" }
+          ],
+          "ease": "step"
+        },
+        { "tMs": 620, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        { "tMs": 1400, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "While the mouth holds a social smile (AU12), the upper face briefly leaks fear (AU1+2+4+5) for 120 ms."
+    },
+    {
+      "id": "leak_anger_under_smile",
+      "label": "Upper-Face Anger Leak Under Social Smile (120 ms)",
+      "targetState": { "hidden": "anger", "shown": "happiness" },
+      "highlightAUs": [4, 5, 7],
+      "keys": [
+        { "tMs": 0, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        {
+          "tMs": 500,
+          "aus": [
+            { "au": 12, "intensity": 0.85, "side": "both" },
+            { "au": 4, "intensity": 0.95, "side": "both" },
+            { "au": 5, "intensity": 0.6, "side": "both" },
+            { "au": 7, "intensity": 0.8, "side": "both" }
+          ],
+          "ease": "step"
+        },
+        { "tMs": 620, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        { "tMs": 1400, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "While the mouth holds a polite smile (AU12), the brows lower and lids glare (AU4+5+7) for 120 ms."
+    },
+    {
+      "id": "leak_sadness_under_smile",
+      "label": "Upper-Face Sadness Leak Under Social Smile (130 ms)",
+      "targetState": { "hidden": "sadness", "shown": "happiness" },
+      "highlightAUs": [1, 4],
+      "keys": [
+        { "tMs": 0, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        {
+          "tMs": 500,
+          "aus": [
+            { "au": 12, "intensity": 0.85, "side": "both" },
+            { "au": 1, "intensity": 1.0, "side": "both" },
+            { "au": 4, "intensity": 0.55, "side": "both" }
+          ],
+          "ease": "step"
+        },
+        { "tMs": 630, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        { "tMs": 1400, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Under a steady AU12 smile, the inner eyebrows pull up and together into an oblique sadness triangle (AU1+4)."
+    },
+    {
+      "id": "leak_surprise_under_smile",
+      "label": "Upper-Face Surprise Leak Under Social Smile (120 ms)",
+      "targetState": { "hidden": "surprise", "shown": "happiness" },
+      "highlightAUs": [1, 2, 5],
+      "keys": [
+        { "tMs": 0, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        {
+          "tMs": 500,
+          "aus": [
+            { "au": 12, "intensity": 0.85, "side": "both" },
+            { "au": 1, "intensity": 1.0, "side": "both" },
+            { "au": 2, "intensity": 1.0, "side": "both" },
+            { "au": 5, "intensity": 0.95, "side": "both" }
+          ],
+          "ease": "step"
+        },
+        { "tMs": 620, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
+        { "tMs": 1400, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "While maintaining a social smile, the eyebrows arch high and the upper lids widen (AU1+2+5)."
+    },
+    {
+      "id": "leak_disgust_under_smile",
+      "label": "Upper-Nasal Disgust Leak Under Social Smile (130 ms)",
+      "targetState": { "hidden": "disgust", "shown": "happiness" },
+      "highlightAUs": [9, 10],
+      "keys": [
+        { "tMs": 0, "recipeId": "happiness_social", "scale": 0.8, "ease": "step" },
+        {
+          "tMs": 500,
+          "aus": [
+            { "au": 12, "intensity": 0.75, "side": "both" },
+            { "au": 9, "intensity": 0.95, "side": "both" },
+            { "au": 10, "intensity": 0.6, "side": "both" }
+          ],
+          "ease": "step"
+        },
+        { "tMs": 630, "recipeId": "happiness_social", "scale": 0.8, "ease": "step" },
+        { "tMs": 1400, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Nasal bridge wrinkling (AU9) and upper-lip sneer (AU10) briefly leak through an ongoing social smile."
+    },
+    {
+      "id": "leak_contempt_under_smile",
+      "label": "Unilateral Contempt Spike Under Social Smile (140 ms)",
+      "targetState": { "hidden": "contempt", "shown": "happiness" },
+      "highlightAUs": [14],
+      "keys": [
+        { "tMs": 0, "recipeId": "happiness_social", "scale": 0.65, "ease": "step" },
+        {
+          "tMs": 500,
+          "aus": [
+            { "au": 12, "intensity": 0.4, "side": "both" },
+            { "au": 14, "intensity": 1.0, "side": "right" }
+          ],
+          "ease": "step"
+        },
+        { "tMs": 640, "recipeId": "happiness_social", "scale": 0.65, "ease": "step" },
+        { "tMs": 1400, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "A mild polite smile briefly shifts into a sharp unilateral right dimpler tightening (AU14)."
+    }
+  ],
+  "smileTiming": [
+    {
+      "id": "smile_genuine_ramp",
+      "label": "Genuine Duchenne Smile (Smooth 500 ms Onset/Offset + AU6)",
+      "targetState": "genuine",
+      "highlightAUs": [6, 12],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
+        { "tMs": 500, "recipeId": "happiness", "scale": 1.0, "ease": "easeInOut" },
+        { "tMs": 1400, "recipeId": "happiness", "scale": 1.0, "ease": "linear" },
+        { "tMs": 1950, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Genuine smiles build smoothly over ~500 ms, engage AU6 (cheek raise + crow's feet), and fade gradually."
+    },
+    {
+      "id": "smile_posed_step",
+      "label": "Posed Social Smile (Abrupt 80 ms Step Onset + AU12 Only)",
+      "targetState": "posed",
+      "highlightAUs": [12],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
+        { "tMs": 300, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
+        { "tMs": 380, "recipeId": "happiness_social", "scale": 0.95, "ease": "linear" },
+        { "tMs": 1500, "recipeId": "happiness_social", "scale": 0.95, "ease": "linear" },
+        { "tMs": 1580, "recipeId": "neutral", "scale": 1.0, "ease": "linear" }
+      ],
+      "explanation": "Posed social smiles snap on in ~80 ms, lack AU6 cheek elevation, hold rigidly, and drop off abruptly."
+    },
+    {
+      "id": "smile_genuine_soft",
+      "label": "Genuine Warm Smile (Gradual Onset & Slow Fade + AU6)",
+      "targetState": "genuine",
+      "highlightAUs": [6, 12],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
+        { "tMs": 550, "recipeId": "happiness", "scale": 0.85, "ease": "easeInOut" },
+        { "tMs": 1350, "recipeId": "happiness", "scale": 0.85, "ease": "linear" },
+        { "tMs": 2000, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+      ],
+      "explanation": "Smooth 550 ms onset and 650 ms offset with synchronized AU6 cheek raise and AU12 lip corner pull."
+    },
+    {
+      "id": "smile_posed_drop",
+      "label": "Posed Polite Smile (Fast Onset & Instant Drop-off)",
+      "targetState": "posed",
+      "highlightAUs": [12],
+      "keys": [
+        { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
+        { "tMs": 250, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
+        { "tMs": 330, "recipeId": "happiness_social", "scale": 0.9, "ease": "linear" },
+        { "tMs": 1200, "recipeId": "happiness_social", "scale": 0.9, "ease": "linear" },
+        { "tMs": 1270, "recipeId": "neutral", "scale": 1.0, "ease": "linear" }
+      ],
+      "explanation": "Appears in 80 ms without eye involvement (AU12 only) and vanishes in 70 ms."
+    }
+  ]
+}

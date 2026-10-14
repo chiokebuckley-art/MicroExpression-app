@@ -1,0 +1,13 @@
+{
+  "level": 1,
+  "id": "L1",
+  "title": "Emotion Literacy",
+  "subtitle": "Vocabulary, the Plutchik wheel and its 3 intensities, dyads, valence-arousal, and the 27-emotion overview",
+  "modes": [
+    "cards",
+    "wheel",
+    "vaGrid"
+  ],
+  "masteryTarget": 0.7,
+  "intro": "Before reading faces at 40 ms, build a precise emotional vocabulary. Explore how emotions vary in intensity (Plutchik wheel), blend into dyads, and map onto continuous dimensions of Valence, Arousal, and Dominance."
+}

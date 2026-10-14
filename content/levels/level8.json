@@ -1,0 +1,13 @@
+{
+  "level": 8,
+  "id": "L8",
+  "title": "Masking and Blends",
+  "subtitle": "Masked flashes, upper-face leakage under a social smile, genuine vs. posed timing, and 2-of-7 blends",
+  "modes": [
+    "maskedFlashes",
+    "upperFaceLeaks",
+    "blends",
+    "smileTiming"
+  ],
+  "masteryTarget": 0.7
+}

@@ -1,0 +1,12 @@
+{
+  "level": 9,
+  "id": "L9",
+  "title": "Full Spectrum (27 Categories & Social Cues)",
+  "subtitle": "The 27-emotion map, social and self-conscious emotions with head pose & posture, and scene interpretation",
+  "modes": [
+    "map27",
+    "socialPose",
+    "scenes"
+  ],
+  "masteryTarget": 0.7
+}

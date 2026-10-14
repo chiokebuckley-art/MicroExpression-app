@@ -1,0 +1,72 @@
+{
+  "framingRule": "A micro-expression tells you an emotion occurred, not why.",
+  "followUpGuideline": "After noticing a brief or subtle expression, always ask an open, non-accusatory follow-up question rather than drawing a conclusion.",
+  "cards": [
+    {
+      "id": "ethics_card_1",
+      "number": 1,
+      "title": "Emotions, Not Intentions or Lies",
+      "summary": "Emotional cues are unreliable predictors of deception.",
+      "body": "A flash of fear, anger, or sadness shows that a feeling occurred — it never tells you why. Someone answering a tough question truthfully may flash fear because they worry they won't be believed, while a practiced fabricator may feel calm. In controlled studies (Zloteanu et al.; Patterson et al.), people trained to spot micro-expressions did not improve at judging lies, and one popular training program scored slightly below chance on veracity judgments."
+    },
+    {
+      "id": "ethics_card_2",
+      "number": 2,
+      "title": "Micro-Expressions Are Rare and Often Partial",
+      "summary": "They appeared in about 2% of expressions in frame-by-frame research.",
+      "body": "In Porter & ten Brinke's (2008) frame-by-frame coding of 697 emotional expressions, true full-face micro-expressions appeared in only about 2% of trials (around 22% of participants showed one), and every single one was confined to either the upper face or the lower face — never the entire face at once. In everyday life, subtle low-intensity expressions and partial leakage are far more common than textbook full-face flashes."
+    },
+    {
+      "id": "ethics_card_3",
+      "number": 3,
+      "title": "Context and Baseline Matter Most",
+      "summary": "Faces are partly social signals shaped by situation, culture, and individual habits.",
+      "body": "As research by Lisa Feldman Barrett and colleagues highlights, facial movements are not context-free readouts. Display rules vary across cultures and families, and many people have resting baselines — such as a habitual brow knit when concentrating (AU4+7) or an asymmetrical mouth posture — that look like emotion cues in isolation. A change from a person's own baseline in context means far more than any single movement."
+    },
+    {
+      "id": "ethics_card_4",
+      "number": 4,
+      "title": "Good Uses: Empathy, Coaching, and Better Questions",
+      "summary": "Use face reading to build rapport and invite honest conversation, never to accuse.",
+      "body": "Recognizing brief or subtle emotional cues is valuable for empathy, active listening, clinical care, coaching, and noticing when someone seems conflicted or hesitant so you can check in supportively ('How are you feeling about the timeline?'). This skill must never be used to accuse anyone, claim 'deception detected', or perform covert assessment of people."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "ethics_q1",
+      "question": "If you spot a 100 ms flash of fear while someone answers a question, what can you validly conclude?",
+      "options": [
+        "An emotion (fear or apprehension) briefly occurred, not why — you should ask a supportive follow-up question.",
+        "They are hiding the truth about what happened.",
+        "They are guilty of what you just asked about.",
+        "Micro-expressions prove intention with scientific certainty."
+      ],
+      "correctIndex": 0,
+      "explanation": "A micro-expression tells you an emotion occurred, not why. Fear can stem from anxiety about being misunderstood, a memory, or discomfort with the topic."
+    },
+    {
+      "id": "ethics_q2",
+      "question": "What did Porter & ten Brinke's (2008) frame-by-frame study find about how often micro-expressions occur?",
+      "options": [
+        "They are rare (about 2% of coded expressions) and were always partial — confined to the upper or lower face.",
+        "They happen in nearly every conversation and always involve the whole face.",
+        "They occur only when someone is being dishonest.",
+        "They last between 2 and 4 seconds."
+      ],
+      "correctIndex": 0,
+      "explanation": "Micro-expressions appeared in only ~2% of coded expressions and were consistently partial (upper or lower face only)."
+    },
+    {
+      "id": "ethics_q3",
+      "question": "Someone knits their brows (AU4+7) while listening to your proposal. What is the best way to interpret and respond?",
+      "options": [
+        "Compare against their baseline and context (it may simply be concentration or confusion), and ask an open question like 'What part of this feels unclear or concerning?'",
+        "Assume they are angry at you and end the meeting.",
+        "Conclude they are trying to deceive you.",
+        "Ignore context and treat every AU4 as hostility."
+      ],
+      "correctIndex": 0,
+      "explanation": "AU4+7 is equally common in concentration or confusion as in anger. Checking baseline, considering context, and asking an open question is the ethical and accurate response."
+    }
+  ]
+}

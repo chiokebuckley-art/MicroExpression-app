@@ -1,0 +1,216 @@
+{
+  "zones": [
+    {
+      "id": "upper",
+      "label": "Upper Face (Forehead, Brows & Eyes)",
+      "color": "#38b6ff",
+      "aus": [1, 2, 4, 5, 6, 7, 43, 45, 46],
+      "description": "Includes the forehead, eyebrows, glabella, upper/lower eyelids, and infraorbital triangle (cheeks). Upper-face micro-expressions are common when someone holds a social smile in the lower face."
+    },
+    {
+      "id": "middle",
+      "label": "Middle Face (Nasal Bridge, Infraorbital Cheeks & Upper Nasolabial)",
+      "color": "#6ecb63",
+      "aus": [6, 9, 10],
+      "description": "Bridges the lower eyelids, cheekbones, nasal bridge, nostrils, and upper lip. Key zone for distinguishing disgust (AU9+10) and Duchenne cheek elevation (AU6)."
+    },
+    {
+      "id": "lower",
+      "label": "Lower Face (Lips, Mouth Corners, Chin & Jaw)",
+      "color": "#ff924c",
+      "aus": [12, 14, 15, 16, 17, 20, 23, 24, 25, 26, 27],
+      "description": "Includes the orbicularis oris ring, lip corners, buccinator, risorius, depressors, mentalis chin boss, and mandible. Easily controlled voluntarily for social masking, yet rich in tension cues."
+    }
+  ],
+  "muscles": [
+    {
+      "id": "frontalis",
+      "name": "Frontalis (Medial & Lateral)",
+      "aus": ["AU1 (Medial)", "AU2 (Lateral)"],
+      "zone": "upper",
+      "vertexGroup": "brow",
+      "hotspot3d": { "x": 0.0, "y": 1.66, "z": 0.095 },
+      "svgRegion": { "front": { "cx": 150, "cy": 72, "rx": 48, "ry": 22 }, "threeQuarter": { "cx": 162, "cy": 72, "rx": 44, "ry": 22 } },
+      "function": "Lifts the eyebrows upward and wrinkles the forehead horizontally. Medial fibers produce AU1 (inner brow raise); lateral fibers produce AU2 (outer brow raise).",
+      "emotions": ["surprise", "fear", "sadness"]
+    },
+    {
+      "id": "corrugator",
+      "name": "Corrugator Supercilii",
+      "aus": ["AU4"],
+      "zone": "upper",
+      "vertexGroup": "brow",
+      "hotspot3d": { "x": 0.022, "y": 1.628, "z": 0.105 },
+      "svgRegion": { "front": { "cx": 128, "cy": 102, "rx": 18, "ry": 10 }, "threeQuarter": { "cx": 145, "cy": 102, "rx": 16, "ry": 10 } },
+      "function": "Draws the eyebrows downward and medially together, creating vertical glabella furrows ('11 lines') between the brows.",
+      "emotions": ["anger", "fear", "sadness"]
+    },
+    {
+      "id": "procerus",
+      "name": "Procerus & Depressor Supercilii",
+      "aus": ["AU4", "AU9 (assist)"],
+      "zone": "upper",
+      "vertexGroup": "brow",
+      "hotspot3d": { "x": 0.0, "y": 1.62, "z": 0.11 },
+      "svgRegion": { "front": { "cx": 150, "cy": 108, "rx": 11, "ry": 12 }, "threeQuarter": { "cx": 168, "cy": 108, "rx": 10, "ry": 12 } },
+      "function": "Pulls the skin between the eyebrows straight down toward the root of the nose, creating horizontal creases across the nasal root.",
+      "emotions": ["anger", "disgust"]
+    },
+    {
+      "id": "orbicularis_oculi",
+      "name": "Orbicularis Oculi (Orbital & Palpebral)",
+      "aus": ["AU6 (Orbital)", "AU7 (Palpebral)", "AU43/45/46"],
+      "zone": "upper",
+      "vertexGroup": "cheek",
+      "hotspot3d": { "x": 0.038, "y": 1.608, "z": 0.092 },
+      "svgRegion": { "front": { "cx": 112, "cy": 126, "rx": 24, "ry": 16 }, "threeQuarter": { "cx": 128, "cy": 126, "rx": 22, "ry": 16 } },
+      "function": "Sphincter muscle encircling the eye. Outer orbital fibers raise the cheek and crinkle crow's feet (AU6); inner palpebral fibers tighten the eyelids (AU7).",
+      "emotions": ["happiness", "anger", "fear", "pain"]
+    },
+    {
+      "id": "levator_labii",
+      "name": "Levator Labii Superioris (& Alaeque Nasi)",
+      "aus": ["AU9 (Alaeque Nasi)", "AU10 (Superioris)"],
+      "zone": "middle",
+      "vertexGroup": "nose",
+      "hotspot3d": { "x": 0.018, "y": 1.575, "z": 0.108 },
+      "svgRegion": { "front": { "cx": 135, "cy": 154, "rx": 12, "ry": 18 }, "threeQuarter": { "cx": 152, "cy": 154, "rx": 12, "ry": 18 } },
+      "function": "Medial slip wrinkles the sides of the nose and flares nostrils (AU9); main belly lifts the upper lip into a squared arch and deepens the upper nasolabial furrow (AU10).",
+      "emotions": ["disgust"]
+    },
+    {
+      "id": "zygomaticus_major",
+      "name": "Zygomaticus Major",
+      "aus": ["AU12"],
+      "zone": "lower",
+      "vertexGroup": "lipCorners",
+      "hotspot3d": { "x": 0.042, "y": 1.56, "z": 0.088 },
+      "svgRegion": { "front": { "cx": 106, "cy": 168, "rx": 20, "ry": 14 }, "threeQuarter": { "cx": 118, "cy": 168, "rx": 22, "ry": 14 } },
+      "function": "Runs from the cheekbone (zygomatic arch) to the mouth corner, pulling the lip corners upward and obliquely back in a smile (AU12).",
+      "emotions": ["happiness"]
+    },
+    {
+      "id": "risorius",
+      "name": "Risorius (& Platysma)",
+      "aus": ["AU20"],
+      "zone": "lower",
+      "vertexGroup": "lipCorners",
+      "hotspot3d": { "x": 0.048, "y": 1.542, "z": 0.082 },
+      "svgRegion": { "front": { "cx": 100, "cy": 192, "rx": 20, "ry": 10 }, "threeQuarter": { "cx": 110, "cy": 192, "rx": 22, "ry": 10 } },
+      "function": "Pulls the mouth corners horizontally backward toward the ears (AU20), stretching and flattening the lips in fear.",
+      "emotions": ["fear"]
+    },
+    {
+      "id": "buccinator",
+      "name": "Buccinator",
+      "aus": ["AU14"],
+      "zone": "lower",
+      "vertexGroup": "lipCorners",
+      "hotspot3d": { "x": 0.036, "y": 1.545, "z": 0.092 },
+      "svgRegion": { "front": { "cx": 194, "cy": 188, "rx": 16, "ry": 11 }, "threeQuarter": { "cx": 198, "cy": 188, "rx": 14, "ry": 11 } },
+      "function": "Compresses the cheek against the teeth and tightens the mouth corner inward (AU14 dimpler). Unilateral contraction defines contempt.",
+      "emotions": ["contempt"]
+    },
+    {
+      "id": "orbicularis_oris",
+      "name": "Orbicularis Oris",
+      "aus": ["AU23 (Marginal)", "AU24 (Labial)"],
+      "zone": "lower",
+      "vertexGroup": "upperLip",
+      "hotspot3d": { "x": 0.0, "y": 1.545, "z": 0.112 },
+      "svgRegion": { "front": { "cx": 150, "cy": 192, "rx": 24, "ry": 11 }, "threeQuarter": { "cx": 166, "cy": 192, "rx": 22, "ry": 11 } },
+      "function": "Encircles the mouth opening. Marginal fibers narrow and roll the red lip inward (AU23); labial fibers press the lips firmly together (AU24).",
+      "emotions": ["anger"]
+    },
+    {
+      "id": "depressors",
+      "name": "Depressor Anguli Oris & Depressor Labii Inferioris",
+      "aus": ["AU15 (Anguli Oris)", "AU16 (Labii Inferioris)"],
+      "zone": "lower",
+      "vertexGroup": "lipCorners",
+      "hotspot3d": { "x": 0.028, "y": 1.525, "z": 0.098 },
+      "svgRegion": { "front": { "cx": 122, "cy": 214, "rx": 16, "ry": 14 }, "threeQuarter": { "cx": 138, "cy": 214, "rx": 16, "ry": 14 } },
+      "function": "Depressor anguli oris pulls the mouth corners down in sadness (AU15); depressor labii inferioris pulls the lower lip down and out (AU16).",
+      "emotions": ["sadness", "disgust"]
+    },
+    {
+      "id": "mentalis",
+      "name": "Mentalis",
+      "aus": ["AU17"],
+      "zone": "lower",
+      "vertexGroup": "chin",
+      "hotspot3d": { "x": 0.0, "y": 1.508, "z": 0.106 },
+      "svgRegion": { "front": { "cx": 150, "cy": 232, "rx": 16, "ry": 12 }, "threeQuarter": { "cx": 166, "cy": 232, "rx": 15, "ry": 12 } },
+      "function": "Elevates and wrinkles the skin of the chin boss, pushing the lower lip upward into an inverted pout (AU17) in sadness or skepticism.",
+      "emotions": ["sadness"]
+    }
+  ],
+  "wrinkles": [
+    {
+      "id": "forehead_lines",
+      "name": "Horizontal Forehead Lines",
+      "aus": [1, 2],
+      "muscle": "Frontalis",
+      "description": "Long curved horizontal furrows across the entire forehead when AU1 + AU2 fire together (surprise), or short central horizontal lines when AU1 fires alone or with AU4 (sadness/fear)."
+    },
+    {
+      "id": "glabella_lines",
+      "name": "Vertical Glabella Lines ('Eleven Lines')",
+      "aus": [4],
+      "muscle": "Corrugator supercilii",
+      "description": "One or two deep vertical furrows between the inner eyebrows caused by medial brow pulling in anger, fear, and sadness."
+    },
+    {
+      "id": "crows_feet",
+      "name": "Crow's Feet (Lateral Orbital Lines)",
+      "aus": [6],
+      "muscle": "Orbicularis oculi, pars orbitalis",
+      "description": "Fan-shaped lines radiating outward from the outer eye corners when the cheek raiser (AU6) contracts in a genuine Duchenne smile or pain."
+    },
+    {
+      "id": "nose_wrinkle",
+      "name": "Nasal Bridge Wrinkles ('Bunny Lines')",
+      "aus": [9],
+      "muscle": "Levator labii superioris alaeque nasi",
+      "description": "Horizontal and diagonal creases across the bridge and sides of the nose characteristic of disgust (AU9)."
+    },
+    {
+      "id": "nasolabial_fold",
+      "name": "Nasolabial Furrow",
+      "aus": [10, 12],
+      "muscle": "Levator labii superioris / Zygomaticus major",
+      "description": "Runs from the nostril wings past the mouth corners. Deepens at the top in disgust (AU10, inverted-U shape) and curves outward/downward in smiling (AU12)."
+    },
+    {
+      "id": "chin_dimpling",
+      "name": "Mentalis Chin Dimpling ('Pebble Chin')",
+      "aus": [17],
+      "muscle": "Mentalis",
+      "description": "Pebbled dimpling on the chin boss accompanied by an arched lower lip when AU17 pushes the chin skin upward in sadness or doubt."
+    }
+  ],
+  "quizItems": [
+    { "id": "anat_q01", "mode": "svg", "targetMuscleId": "frontalis", "prompt": "Tap the muscle that raises the inner and outer eyebrows (AU1 & AU2) and creates horizontal forehead lines." },
+    { "id": "anat_q02", "mode": "svg", "targetMuscleId": "corrugator", "prompt": "Tap the muscle that pulls the eyebrows down and together (AU4), forming vertical glabella lines." },
+    { "id": "anat_q03", "mode": "svg", "targetMuscleId": "procerus", "prompt": "Tap the muscle at the root of the nose that pulls the medial brow skin downward (AU4/AU9)." },
+    { "id": "anat_q04", "mode": "svg", "targetMuscleId": "orbicularis_oculi", "prompt": "Tap the sphincter muscle around the eye responsible for cheek raising (AU6 crow's feet) and lid tightening (AU7)." },
+    { "id": "anat_q05", "mode": "svg", "targetMuscleId": "levator_labii", "prompt": "Tap the muscle beside the nose that wrinkles the nasal bridge (AU9) and lifts the upper lip in disgust (AU10)." },
+    { "id": "anat_q06", "mode": "svg", "targetMuscleId": "zygomaticus_major", "prompt": "Tap the muscle that pulls the mouth corners up and back toward the cheekbones in a smile (AU12)." },
+    { "id": "anat_q07", "mode": "svg", "targetMuscleId": "risorius", "prompt": "Tap the muscle that stretches the lips horizontally toward the ears in fear (AU20)." },
+    { "id": "anat_q08", "mode": "svg", "targetMuscleId": "buccinator", "prompt": "Tap the cheek muscle that tightens one mouth corner inward to create the unilateral dimple of contempt (AU14)." },
+    { "id": "anat_q09", "mode": "svg", "targetMuscleId": "orbicularis_oris", "prompt": "Tap the circular mouth muscle that tightens and presses the lips thin in anger (AU23 & AU24)." },
+    { "id": "anat_q10", "mode": "svg", "targetMuscleId": "depressors", "prompt": "Tap the muscle group that pulls the lip corners downward in sadness (AU15)." },
+    { "id": "anat_q11", "mode": "svg", "targetMuscleId": "mentalis", "prompt": "Tap the chin muscle that pushes the lower lip up and dimples the chin boss (AU17)." },
+    { "id": "anat_q12", "mode": "hotspot3d", "targetMuscleId": "frontalis", "prompt": "On the 3D head, click the Frontalis region (AU1/AU2 forehead brow raisers)." },
+    { "id": "anat_q13", "mode": "hotspot3d", "targetMuscleId": "corrugator", "prompt": "On the 3D head, click the Corrugator Supercilii region (AU4 brow lowerer)." },
+    { "id": "anat_q14", "mode": "hotspot3d", "targetMuscleId": "orbicularis_oculi", "prompt": "On the 3D head, click the Orbicularis Oculi region (AU6 cheek raiser / crow's feet)." },
+    { "id": "anat_q15", "mode": "hotspot3d", "targetMuscleId": "levator_labii", "prompt": "On the 3D head, click the Levator Labii / Nasal Bridge region (AU9/AU10 disgust)." },
+    { "id": "anat_q16", "mode": "hotspot3d", "targetMuscleId": "zygomaticus_major", "prompt": "On the 3D head, click the Zygomaticus Major region (AU12 smile puller)." },
+    { "id": "anat_q17", "mode": "hotspot3d", "targetMuscleId": "risorius", "prompt": "On the 3D head, click the Risorius region (AU20 horizontal lip stretcher)." },
+    { "id": "anat_q18", "mode": "hotspot3d", "targetMuscleId": "orbicularis_oris", "prompt": "On the 3D head, click the Orbicularis Oris region (AU23/AU24 lip tightener & presser)." },
+    { "id": "anat_q19", "mode": "hotspot3d", "targetMuscleId": "mentalis", "prompt": "On the 3D head, click the Mentalis chin region (AU17 chin raiser)." },
+    { "id": "anat_q20", "mode": "mcq", "targetMuscleId": "orbicularis_oculi", "prompt": "Which wrinkle pattern distinguishes a genuine Duchenne smile (AU6 + AU12) from a posed social smile (AU12 alone)?", "options": ["Crow's feet at the outer eye corners (AU6)", "Vertical glabella lines (AU4)", "Horizontal forehead lines (AU1+2)", "Chin dimpling (AU17)"], "answer": "Crow's feet at the outer eye corners (AU6)" },
+    { "id": "anat_q21", "mode": "mcq", "targetMuscleId": "levator_labii", "prompt": "When the nasolabial furrow deepens at its upper wing into an inverted-U arch, which Action Unit is active?", "options": ["AU10 (Upper Lip Raiser in Disgust)", "AU12 (Lip Corner Puller in Happiness)", "AU15 (Lip Corner Depressor in Sadness)", "AU26 (Jaw Drop in Surprise)"], "answer": "AU10 (Upper Lip Raiser in Disgust)" },
+    { "id": "anat_q22", "mode": "mcq", "targetMuscleId": "corrugator", "prompt": "Vertical 'eleven lines' between the eyebrows are produced by which muscle and Action Unit?", "options": ["Corrugator supercilii (AU4)", "Frontalis pars lateralis (AU2)", "Zygomaticus major (AU12)", "Mentalis (AU17)"], "answer": "Corrugator supercilii (AU4)" }
+  ]
+}

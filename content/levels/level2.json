@@ -1,0 +1,14 @@
+{
+  "level": 2,
+  "id": "L2",
+  "title": "Face Anatomy",
+  "subtitle": "Muscles, face zones (upper/middle/lower), and wrinkles and lines",
+  "modes": [
+    "svgQuiz",
+    "hotspot3d",
+    "zones",
+    "wrinkles"
+  ],
+  "masteryTarget": 0.7,
+  "intro": "Every facial expression is produced by specific subcutaneous muscles pulling skin across bone and fascia. Learn the 11 core muscles, the 3 facial zones, and the 6 signature wrinkle patterns."
+}

@@ -1,0 +1,29 @@
+{
+  "level": 4,
+  "id": "L4",
+  "title": "Seven Universals",
+  "subtitle": "Full expressions and key cues for all 7 Ekman emotions across 4+ identities, untimed and 3 s timed",
+  "modes": [
+    "teachingCards",
+    "untimedMcq",
+    "timedMcq"
+  ],
+  "masteryTarget": 0.7,
+  "timedWindowMs": 3000,
+  "skinVariants": [
+    "riya",
+    "female_adult_08",
+    "female_adult_12",
+    "male_adult_01",
+    "male_adult_06"
+  ],
+  "teachingCards": [
+    "happiness",
+    "sadness",
+    "anger",
+    "fear",
+    "surprise",
+    "disgust",
+    "contempt"
+  ]
+}
