@@ -702,6 +702,23 @@
       width: 100%;
       accent-color: var(--accent-blue);
     }
+
+    .journey-actions { margin-top:16px; flex-wrap:wrap; gap:10px; }
+    .journey .answer.active { outline:3px solid #70ddcd; }
+    .journey progress { width:100%; margin-bottom:20px; }
+    @media(max-width:600px) {
+      .rig-stage-card { position:relative; top:0; }
+      .rig-canvas-mount {height:210px;}
+      .rig-stage-toolbar,.rig-stage-footer {display:none;}
+      .brand-tag {display:none;}
+      .app-top-nav {padding:8px;}
+      .level-header h2,.journey h2 {font-size:21px;}
+      .level-header {display:block;}
+      .wheel-main-grid,.atlas-grid-layout,.anatomy-grid-layout,.mirror-grid {grid-template-columns:1fr;}
+      .journey .q-options-grid {grid-template-columns:1fr 1fr;}
+      .journey .answer {font-size:13px;padding:8px;}
+    }
+    @media print { .rig-stage-card,header,.journey-actions,.journey>a {display:none!important;} .certificate {color:black;background:white;} }
   </style>
 </head>
 <body>

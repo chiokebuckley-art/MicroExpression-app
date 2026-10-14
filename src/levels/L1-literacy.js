@@ -10,7 +10,7 @@
 import { PlutchikWheelWidget } from '../ui/wheel.js';
 import { ValenceArousalGridWidget } from '../ui/vaGrid.js';
 import { EmotionMap27Widget } from '../ui/map27.js';
-import { saveLevelProgress, putSRSCard } from '../store/db.js';
+import { logTrial, saveLevelProgress, putSRSCard } from '../store/db.js';
 import { createSRSCard } from '../train/srs.js';
 
 export class Level1LiteracyView {
@@ -185,9 +185,11 @@ export class Level1LiteracyView {
       btn.addEventListener('click', async () => {
         const qIdx = Number(btn.getAttribute('data-qidx'));
         const opt = btn.getAttribute('data-opt');
+        if (this.quizAnswers.has(qIdx)) return;
         this.quizAnswers.set(qIdx, opt);
 
         const q = quizItems[qIdx];
+        await logTrial({level:1,itemId:q.id||String(qIdx),chosenEmotion:opt,correct:opt===q.answer,firstTry:true,hintUsed:false});
         if (q) {
           const card = createSRSCard('vocab', q.id || `l1_q${qIdx}`);
           card.box = opt === q.answer ? 1 : 0;

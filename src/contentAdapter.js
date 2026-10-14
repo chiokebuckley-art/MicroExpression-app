@@ -345,7 +345,7 @@ export function normalizeAllContent(content) {
       const flashKey = (c.keyframes || []).find((k) => k.ease === 'step' && k.recipeId !== 'neutral' && k.recipeId !== 'happiness_social');
       c.flashTimestampMs = flashKey ? flashKey.tMs + 40 : 3150;
       c.signalQuestion = c.signalQuestion || {
-        prompt: 'Which micro-expression briefly leaked during the exchange?',
+        prompt: 'Which expression pattern briefly appeared during the exchange?',
         options: c.emotionOptions || ['fear', 'anger', 'disgust', 'sadness'],
         answer: c.bestEmotion,
         explanation: c.ethicsReflection || ''

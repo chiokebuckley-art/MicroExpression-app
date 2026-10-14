@@ -5,7 +5,7 @@
  */
 
 import { renderSceneCardHTML } from '../ui/scenes.js';
-import { saveLevelProgress, putSRSCard } from '../store/db.js';
+import { logTrial, saveLevelProgress, putSRSCard } from '../store/db.js';
 import { createSRSCard, updateSRSCard } from '../train/srs.js';
 
 export class Level9ContextView {
@@ -107,8 +107,11 @@ export class Level9ContextView {
 
     bodyEl.querySelectorAll('.l9-scene-opt').forEach((btn) => {
       btn.addEventListener('click', async () => {
+        if (this.sceneFeedback) return;
         const chosen = btn.getAttribute('data-opt');
         const correct = chosen === scene.answer;
+        this.sceneFeedback = {correct};
+        await logTrial({level:9,itemId:scene.id,chosenEmotion:chosen,correct,firstTry:true,hintUsed:false});
         this.sceneTotal++;
         if (correct) this.sceneScore++;
         this.sceneFeedback = { correct };
@@ -116,9 +119,9 @@ export class Level9ContextView {
         const card = createSRSCard('scene', scene.id || `scene_${this.sceneIdx}`);
         await putSRSCard(updateSRSCard(card, { correct }));
 
-        if (this.sceneTotal >= 6) {
-          await saveLevelProgress({ levelId: 9, completed: true, bestScore: 85, updatedAt: Date.now() });
-          if (this.onLevelComplete) this.onLevelComplete(9, 85);
+        if (this.sceneTotal >= 6 && this.sceneScore / this.sceneTotal >= .75) {
+          await saveLevelProgress({ levelId: 9, completed: true, bestScore: Math.round(100 * this.sceneScore / this.sceneTotal), updatedAt: Date.now() });
+          if (this.onLevelComplete) this.onLevelComplete(9, Math.round(100 * this.sceneScore / this.sceneTotal));
         }
         this._renderSceneDrill(bodyEl);
       });

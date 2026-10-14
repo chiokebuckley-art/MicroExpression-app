@@ -9,7 +9,7 @@
 import { FACS_INTENSITY_LADDER } from '../face/auMap.js';
 import { CORE_EMOTIONS_7 } from '../train/staircase.js';
 import { TrainingSessionController } from '../train/session.js';
-import { saveLevelProgress } from '../store/db.js';
+import { logTrial, saveLevelProgress } from '../store/db.js';
 
 export class Level5SubtleView {
   constructor(containerEl, { rig, content, onLevelComplete }) {
@@ -304,8 +304,11 @@ export class Level5SubtleView {
 
     bodyEl.querySelectorAll('.l5-spot-opt').forEach((btn) => {
       btn.addEventListener('click', async () => {
+        if (this.spotFeedback) return;
         const chosen = btn.getAttribute('data-opt');
         const correct = chosen === item.answer;
+        this.spotFeedback = {correct};
+        await logTrial({level:5,itemId:item.id,chosenEmotion:chosen,correct,firstTry:true,hintUsed:false});
         this.spotTotal++;
         if (correct) this.spotScore++;
         this.spotFeedback = {
@@ -314,8 +317,8 @@ export class Level5SubtleView {
           explanation: item.explanation
         };
         if (this.spotTotal >= 8 && (this.spotScore / this.spotTotal) >= 0.75) {
-          await saveLevelProgress({ levelId: 5, completed: true, bestScore: 85, updatedAt: Date.now() });
-          if (this.onLevelComplete) this.onLevelComplete(5, 85);
+          await saveLevelProgress({ levelId: 5, completed: true, bestScore: Math.round(100 * this.spotScore / this.spotTotal), updatedAt: Date.now() });
+          if (this.onLevelComplete) this.onLevelComplete(5, Math.round(100 * this.spotScore / this.spotTotal));
         }
         this._renderSpotDiff(bodyEl);
       });

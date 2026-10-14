@@ -21,12 +21,12 @@
 3. **10-Level Progressive Curriculum + Mandatory Ethics Gate**
    - **Level 1 — Emotional Literacy & Foundations**: Interactive 8×3 Plutchik Wheel + Primary/Secondary/Tertiary Dyads (`src/ui/wheel.js`), 2D Valence-Arousal Drag-and-Drop Plane + Dominance slider (`src/ui/vaGrid.js`), Cowen & Keltner (2017) 27-Category Clustered Map (`src/ui/map27.js`), 64-Word Vocabulary Deck, and 12-item Mastery Quiz.
    - **Level 2 — Facial Anatomy, Zones & Muscle Map**: 3 facial zones, 11 core facial muscles with interactive 2D SVG diagram + 3D head mesh raycast hotspots, 6 transient wrinkle guides, and 22-item Anatomy Quiz.
-   - **Level 3 — Action Units (FACS Core 18)**: Interactive 18-AU Encyclopedia with FACS intensity ladder (`A=0.15` to `E=0.95`) and bilateral/unilateral toggles, 36-item AU Flash Drill, and 12-item Build-the-Face sandbox.
+   - **Level 3 — Action Units (FACS Core 22)**: Interactive 22-AU Encyclopedia with FACS intensity ladder (`A=0.15` to `E=0.95`) and bilateral/unilateral toggles, 36-item AU Flash Drill, and 12-item Build-the-Face sandbox.
    - **Level 4 — The 7 Universal Expressions (Full View)**: Interactive Atlas with 1-click Contrast View, 5 camera presets (`front`, `left34`, `right34`, `eyeCloseup`, `mouthCloseup`), and Full-View Recognition Drill (`1–7`, `?`, `Space`).
    - **Level 5 — Subtle & Partial Expressions**: FACS Intensity `A–E` and Zone Isolation (`Full`, `Upper Face Only`, `Lower Face Only`) explorer, Subtle/Partial Recognition Drill, and 22-item Spot-the-Difference A/B challenge.
    - **Scientific & Ethical Framing Gate (`#/ethics`)**: Covers Bond & DePaulo (2006), the Othello Error (Ekman 1985), baseline/cultural calibration, and using expressions as hypotheses for empathy rather than accusation (3/3 comprehension quiz).
    - **Level 6 — Micro-Expression Speed Training & Confusable Pairs**: Adaptive **3-down / 1-up staircase** per emotion (`79.4%` threshold tracking) + 30 targeted drills across the 5 most confusable emotion pairs.
-   - **Level 7 — Compound Blends, Masked Flashes & Timing**: 12 two-tag compound emotion blends, 18 masked micro-flash & upper-face leakage keyframe timelines with an interactive millisecond scrubber, and 4 genuine vs. posed smile onset/offset timing comparisons.
+   - **Level 7 — Compound Blends, Masked Flashes & Timing**: 12 two-tag compound emotion blends, 12 masked + 6 leakage micro-flash & upper-face leakage keyframe timelines with an interactive millisecond scrubber, and 4 genuine vs. posed smile onset/offset timing comparisons.
    - **Level 8 — Beyond the 7 (Extended & Self-Conscious States)**: 12 multi-modal states (*Embarrassment*, *Shame*, *Pride*, *Amusement*, *Interest*, *Relief*, *Sympathy*, *Pain*, *Concentration*, *Skepticism*, *Coyness*, *Triumph*) pairing 3D head pitch/yaw/roll + gaze with bespoke SVG body posture silhouettes (`src/ui/scenes.js`).
    - **Level 9 — Expressions in Context & Common Misreads**: 15 multi-cue situational vignettes + Common Misreads Workshop (*Concentration ≠ Anger*, *Pain ≠ Disgust*, *Polite Smile ≠ Genuine Joy*).
    - **Level 10 — Real-World Calibration & Conversation Simulations**: 8 multi-second scripted dialogue timelines with embedded micro-flashes and two-part questions (observation + non-accusatory calibrated follow-up question), plus 10 Context-Swap pairs (20 scenes).
@@ -59,3 +59,8 @@ python3 tests/copylint.py
 # 2. Full Playwright headless Chrome verification + screenshot generation
 .venv/bin/python tests/selftest.py
 ```
+
+## Beginner journey (October 2026)
+Start at `#/home`. Eight stages use explicit first-answer Checks. Hints/replays earn supported practice credit; they cannot unlock mastery. Benchmark baseline, final (75% at 200 ms; 60% at 100 ms), printable recognition certificate and an in-app 30-day recheck are included. Reduced-motion speed checks are practice only. Breaks never erase practice-day rewards. Old fixed-score completions are not accepted as new-path evidence.
+
+The region stage assesses observable movement, not an unidentifiable emotion from a partial face. Original lessons remain optional reference material. The five existing adult 3D identities remain: no licensed real-person clips or additional age/accessory models were supplied. A certificate does not establish real-world transfer. Recheck reminders appear in-app; no external notifications are scheduled.

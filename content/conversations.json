@@ -1,5 +1,5 @@
 {
-  "framingRule": "A micro-expression tells you an emotion occurred, not why.",
+  "framingRule": "A brief facial movement is an observation, not proof of an emotion, cause, or dishonesty.",
   "conversations": [
     {
       "id": "conv_01",
@@ -8,37 +8,100 @@
       "durationSec": 24,
       "context": "You ask Alex whether the Q4 migration date still feels realistic after the database schema changed.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Alex, with the new schema changes added this morning, how are you feeling about Friday's launch window?" },
-        { "tMs": 1200, "speaker": "Alex", "text": "We're on track. I already updated the migration scripts, so Friday should be totally fine." },
-        { "tMs": 3200, "speaker": "You", "text": "Even the rollback verification on staging?" },
-        { "tMs": 4500, "speaker": "Alex", "text": "Yeah, I'll run that tonight. No problem at all." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Alex, with the new schema changes added this morning, how are you feeling about Friday's launch window?"
+        },
+        {
+          "tMs": 1200,
+          "speaker": "Alex",
+          "text": "We're on track. I already updated the migration scripts, so Friday should be totally fine."
+        },
+        {
+          "tMs": 3200,
+          "speaker": "You",
+          "text": "Even the rollback verification on staging?"
+        },
+        {
+          "tMs": 4500,
+          "speaker": "Alex",
+          "text": "Yeah, I'll run that tonight. No problem at all."
+        }
       ],
       "timeline": {
         "id": "tl_conv_01",
-        "targetState": { "hidden": "fear", "shown": "happiness" },
-        "highlightAUs": [1, 2, 4, 5, 20],
+        "targetState": {
+          "hidden": "fear",
+          "shown": "happiness"
+        },
+        "highlightAUs": [
+          1,
+          2,
+          4,
+          5,
+          20
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 1100, "recipeId": "happiness_social", "scale": 0.75, "ease": "easeInOut" },
-          { "tMs": 3300, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 3600, "recipeId": "fear", "scale": 0.9, "ease": "step" },
-          { "tMs": 3760, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
-          { "tMs": 5200, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 1100,
+            "recipeId": "happiness_social",
+            "scale": 0.75,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 3300,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 3600,
+            "recipeId": "fear",
+            "scale": 0.9,
+            "ease": "step"
+          },
+          {
+            "tMs": 3760,
+            "recipeId": "happiness_social",
+            "scale": 0.85,
+            "ease": "step"
+          },
+          {
+            "tMs": 5200,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "easeInOut"
+          }
         ]
       },
-      "emotionOptions": ["fear", "anger", "disgust", "contempt", "sadness", "surprise", "happiness"],
+      "emotionOptions": [
+        "fear",
+        "anger",
+        "disgust",
+        "contempt",
+        "sadness",
+        "surprise",
+        "happiness"
+      ],
       "bestEmotion": "fear",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
-          "The rollback verification is a heavy lift after a schema change — would pairing up or moving launch to Monday give us a safer margin?",
+          "The rollback verification is a heavy lift after a schema change \u2014 would pairing up or moving launch to Monday give us a safer margin?",
           "Why did you just flash fear when I mentioned staging?",
           "You're hiding a bug on staging, aren't you?",
           "Great, I'll tell leadership there is zero risk."
         ],
-        "best": "The rollback verification is a heavy lift after a schema change — would pairing up or moving launch to Monday give us a safer margin?"
+        "best": "The rollback verification is a heavy lift after a schema change \u2014 would pairing up or moving launch to Monday give us a safer margin?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Alex's brief flash of fear when staging rollback was mentioned signals apprehension or concern — not malice. Asking a supportive question about resources or timeline opens the door for honest problem-solving."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_02",
@@ -47,36 +110,93 @@
       "durationSec": 22,
       "context": "Sam's largest client account is being split with a newly hired director to balance regional territories.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Sam, to balance the regional workload, we're moving the West Coast half of Meridian over to Devon's pod." },
-        { "tMs": 1500, "speaker": "Sam", "text": "Makes sense. The territory has grown a lot this year." },
-        { "tMs": 3000, "speaker": "You", "text": "Devon will take the lead on the renewal presentation next month." },
-        { "tMs": 4200, "speaker": "Sam", "text": "Sure. Happy to send over my notes." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Sam, to balance the regional workload, we're moving the West Coast half of Meridian over to Devon's pod."
+        },
+        {
+          "tMs": 1500,
+          "speaker": "Sam",
+          "text": "Makes sense. The territory has grown a lot this year."
+        },
+        {
+          "tMs": 3000,
+          "speaker": "You",
+          "text": "Devon will take the lead on the renewal presentation next month."
+        },
+        {
+          "tMs": 4200,
+          "speaker": "Sam",
+          "text": "Sure. Happy to send over my notes."
+        }
       ],
       "timeline": {
         "id": "tl_conv_02",
-        "targetState": { "hidden": "anger", "shown": "happiness" },
-        "highlightAUs": [4, 5, 7, 23],
+        "targetState": {
+          "hidden": "anger",
+          "shown": "happiness"
+        },
+        "highlightAUs": [
+          4,
+          5,
+          7,
+          23
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 1400, "recipeId": "happiness_social", "scale": 0.6, "ease": "easeInOut" },
-          { "tMs": 3100, "recipeId": "anger", "scale": 0.9, "ease": "step" },
-          { "tMs": 3260, "recipeId": "happiness_social", "scale": 0.85, "ease": "step" },
-          { "tMs": 5000, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 1400,
+            "recipeId": "happiness_social",
+            "scale": 0.6,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 3100,
+            "recipeId": "anger",
+            "scale": 0.9,
+            "ease": "step"
+          },
+          {
+            "tMs": 3260,
+            "recipeId": "happiness_social",
+            "scale": 0.85,
+            "ease": "step"
+          },
+          {
+            "tMs": 5000,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "easeInOut"
+          }
         ]
       },
-      "emotionOptions": ["anger", "fear", "surprise", "sadness", "disgust", "contempt", "happiness"],
+      "emotionOptions": [
+        "anger",
+        "fear",
+        "surprise",
+        "sadness",
+        "disgust",
+        "contempt",
+        "happiness"
+      ],
       "bestEmotion": "anger",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
-          "You've invested a lot in building Meridian from scratch — how would you feel about co-leading the renewal so your relationship stays front and center?",
+          "You've invested a lot in building Meridian from scratch \u2014 how would you feel about co-leading the renewal so your relationship stays front and center?",
           "Why are you glaring at me about Devon?",
           "Don't be angry, it's just business.",
           "If you have a problem with Devon, say it now."
         ],
-        "best": "You've invested a lot in building Meridian from scratch — how would you feel about co-leading the renewal so your relationship stays front and center?"
+        "best": "You've invested a lot in building Meridian from scratch \u2014 how would you feel about co-leading the renewal so your relationship stays front and center?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Sam's brief flash of anger (AU4+5+7+23) when the renewal presentation was handed off likely reflects feeling sidelined after months of hard work. Acknowledging that investment invites constructive dialogue."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_03",
@@ -85,35 +205,85 @@
       "durationSec": 24,
       "context": "You show Priya a last-minute marketing banner that replaced her custom typography with neon stock clip-art.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Priya, the ad agency sent back their revision of the launch header." },
-        { "tMs": 1400, "speaker": "Priya", "text": "Oh, let's take a look at what they changed." },
-        { "tMs": 2800, "speaker": "You", "text": "They swapped the serif layout for this flashing neon badge." },
-        { "tMs": 4000, "speaker": "Priya", "text": "Well... it certainly stands out on the page." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Priya, the ad agency sent back their revision of the launch header."
+        },
+        {
+          "tMs": 1400,
+          "speaker": "Priya",
+          "text": "Oh, let's take a look at what they changed."
+        },
+        {
+          "tMs": 2800,
+          "speaker": "You",
+          "text": "They swapped the serif layout for this flashing neon badge."
+        },
+        {
+          "tMs": 4000,
+          "speaker": "Priya",
+          "text": "Well... it certainly stands out on the page."
+        }
       ],
       "timeline": {
         "id": "tl_conv_03",
-        "targetState": { "hidden": "disgust", "shown": "neutral" },
-        "highlightAUs": [9, 10],
+        "targetState": {
+          "hidden": "disgust",
+          "shown": "neutral"
+        },
+        "highlightAUs": [
+          9,
+          10
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 2900, "recipeId": "disgust", "scale": 0.9, "ease": "step" },
-          { "tMs": 3050, "recipeId": "happiness_social", "scale": 0.7, "ease": "step" },
-          { "tMs": 4800, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 2900,
+            "recipeId": "disgust",
+            "scale": 0.9,
+            "ease": "step"
+          },
+          {
+            "tMs": 3050,
+            "recipeId": "happiness_social",
+            "scale": 0.7,
+            "ease": "step"
+          },
+          {
+            "tMs": 4800,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "easeInOut"
+          }
         ]
       },
-      "emotionOptions": ["disgust", "fear", "sadness", "surprise", "anger", "contempt", "happiness"],
+      "emotionOptions": [
+        "disgust",
+        "fear",
+        "sadness",
+        "surprise",
+        "anger",
+        "contempt",
+        "happiness"
+      ],
       "bestEmotion": "disgust",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
-          "Give me your candid design take — what would you change so it stays true to our brand system?",
+          "Give me your candid design take \u2014 what would you change so it stays true to our brand system?",
           "Why did you wrinkle your nose at the agency's work?",
           "Fine, we'll just use it since you said it stands out.",
           "Why do you hate everything the agency sends?"
         ],
-        "best": "Give me your candid design take — what would you change so it stays true to our brand system?"
+        "best": "Give me your candid design take \u2014 what would you change so it stays true to our brand system?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Priya's brief nose wrinkle and upper-lip lift (AU9+10) suggest strong aesthetic distaste that she politely softened. Inviting her candid professional critique gives her permission to speak openly."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_04",
@@ -122,35 +292,87 @@
       "durationSec": 25,
       "context": "Elena learns that the senior fellowship was awarded to an external candidate this cycle.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Elena, the committee finalized the senior fellowship today, and they went with the external applicant from Boston." },
-        { "tMs": 1800, "speaker": "Elena", "text": "I understand. It was a very competitive pool this fall." },
-        { "tMs": 3400, "speaker": "You", "text": "They praised your research portfolio and encouraged you to apply again in the spring." },
-        { "tMs": 4600, "speaker": "Elena", "text": "Thank you for letting me know directly." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Elena, the committee finalized the senior fellowship today, and they went with the external applicant from Boston."
+        },
+        {
+          "tMs": 1800,
+          "speaker": "Elena",
+          "text": "I understand. It was a very competitive pool this fall."
+        },
+        {
+          "tMs": 3400,
+          "speaker": "You",
+          "text": "They praised your research portfolio and encouraged you to apply again in the spring."
+        },
+        {
+          "tMs": 4600,
+          "speaker": "Elena",
+          "text": "Thank you for letting me know directly."
+        }
       ],
       "timeline": {
         "id": "tl_conv_04",
-        "targetState": { "hidden": "sadness", "shown": "happiness" },
-        "highlightAUs": [1, 4, 15, 17],
+        "targetState": {
+          "hidden": "sadness",
+          "shown": "happiness"
+        },
+        "highlightAUs": [
+          1,
+          4,
+          15,
+          17
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 1500, "recipeId": "sadness", "scale": 0.9, "ease": "step" },
-          { "tMs": 1680, "recipeId": "happiness_social", "scale": 0.75, "ease": "step" },
-          { "tMs": 4800, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 1500,
+            "recipeId": "sadness",
+            "scale": 0.9,
+            "ease": "step"
+          },
+          {
+            "tMs": 1680,
+            "recipeId": "happiness_social",
+            "scale": 0.75,
+            "ease": "step"
+          },
+          {
+            "tMs": 4800,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "easeInOut"
+          }
         ]
       },
-      "emotionOptions": ["sadness", "anger", "disgust", "surprise", "fear", "contempt", "happiness"],
+      "emotionOptions": [
+        "sadness",
+        "anger",
+        "disgust",
+        "surprise",
+        "fear",
+        "contempt",
+        "happiness"
+      ],
       "bestEmotion": "sadness",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
-          "I know how much heart you put into this application — whenever you're ready, would you like to take a day and then talk about how we can support your goals?",
+          "I know how much heart you put into this application \u2014 whenever you're ready, would you like to take a day and then talk about how we can support your goals?",
           "Why are you faking a smile right now?",
           "At least you aren't upset about it!",
           "Don't take it personally."
         ],
-        "best": "I know how much heart you put into this application — whenever you're ready, would you like to take a day and then talk about how we can support your goals?"
+        "best": "I know how much heart you put into this application \u2014 whenever you're ready, would you like to take a day and then talk about how we can support your goals?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Elena's brief flash of sadness (AU1+4+15+17) followed by a composed social smile shows she is maintaining professional poise while feeling disappointed. Responding with warmth and space respects her dignity."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_05",
@@ -159,35 +381,84 @@
       "durationSec": 22,
       "context": "During a cross-team review, Marcus listens to a proposal to rewrite the tested C++ audio engine in an unmaintained script plugin.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Marcus, what if we replace the native audio mixer with this browser macro wrapper?" },
-        { "tMs": 1600, "speaker": "Marcus", "text": "That's... certainly an interesting approach to real-time latency." },
-        { "tMs": 3200, "speaker": "You", "text": "It only adds about 90 milliseconds per buffer." },
-        { "tMs": 4300, "speaker": "Marcus", "text": "Right. Ninety milliseconds." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Marcus, what if we replace the native audio mixer with this browser macro wrapper?"
+        },
+        {
+          "tMs": 1600,
+          "speaker": "Marcus",
+          "text": "That's... certainly an interesting approach to real-time latency."
+        },
+        {
+          "tMs": 3200,
+          "speaker": "You",
+          "text": "It only adds about 90 milliseconds per buffer."
+        },
+        {
+          "tMs": 4300,
+          "speaker": "Marcus",
+          "text": "Right. Ninety milliseconds."
+        }
       ],
       "timeline": {
         "id": "tl_conv_05",
-        "targetState": { "hidden": "contempt", "shown": "neutral" },
-        "highlightAUs": [14],
+        "targetState": {
+          "hidden": "contempt",
+          "shown": "neutral"
+        },
+        "highlightAUs": [
+          14
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 1500, "recipeId": "contempt", "scale": 1.0, "ease": "step" },
-          { "tMs": 1660, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
-          { "tMs": 4800, "recipeId": "neutral", "scale": 1.0, "ease": "linear" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 1500,
+            "recipeId": "contempt",
+            "scale": 1.0,
+            "ease": "step"
+          },
+          {
+            "tMs": 1660,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "step"
+          },
+          {
+            "tMs": 4800,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          }
         ]
       },
-      "emotionOptions": ["contempt", "fear", "sadness", "surprise", "disgust", "anger", "happiness"],
+      "emotionOptions": [
+        "contempt",
+        "fear",
+        "sadness",
+        "surprise",
+        "disgust",
+        "anger",
+        "happiness"
+      ],
       "bestEmotion": "contempt",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
-          "90 ms is probably a dealbreaker for live monitoring — can you walk us through the latency budget the native mixer hits?",
+          "90 ms is probably a dealbreaker for live monitoring \u2014 can you walk us through the latency budget the native mixer hits?",
           "Why did you just smirk at my idea?",
           "Stop being arrogant.",
           "So you agree the wrapper is fine?"
         ],
-        "best": "90 ms is probably a dealbreaker for live monitoring — can you walk us through the latency budget the native mixer hits?"
+        "best": "90 ms is probably a dealbreaker for live monitoring \u2014 can you walk us through the latency budget the native mixer hits?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Marcus's unilateral AU14 dimpler tightening signals dismissal or skepticism toward the technical claim. Channeling his domain expertise into a concrete technical question keeps the meeting productive."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_06",
@@ -196,35 +467,87 @@
       "durationSec": 21,
       "context": "Mateo expects a routine status meeting, but you inform him his prototype was selected for full lab funding.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Mateo, before we go through the weekly backlog, the board reviewed your sensor prototype." },
-        { "tMs": 1500, "speaker": "Mateo", "text": "Oh — did they have questions about the power draw?" },
-        { "tMs": 2800, "speaker": "You", "text": "They approved the full two-year lab grant starting next Monday." },
-        { "tMs": 4100, "speaker": "Mateo", "text": "Wait — the entire two-year grant?!" }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Mateo, before we go through the weekly backlog, the board reviewed your sensor prototype."
+        },
+        {
+          "tMs": 1500,
+          "speaker": "Mateo",
+          "text": "Oh \u2014 did they have questions about the power draw?"
+        },
+        {
+          "tMs": 2800,
+          "speaker": "You",
+          "text": "They approved the full two-year lab grant starting next Monday."
+        },
+        {
+          "tMs": 4100,
+          "speaker": "Mateo",
+          "text": "Wait \u2014 the entire two-year grant?!"
+        }
       ],
       "timeline": {
         "id": "tl_conv_06",
-        "targetState": { "hidden": "surprise", "shown": "happiness" },
-        "highlightAUs": [1, 2, 5, 26],
+        "targetState": {
+          "hidden": "surprise",
+          "shown": "happiness"
+        },
+        "highlightAUs": [
+          1,
+          2,
+          5,
+          26
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 2900, "recipeId": "surprise", "scale": 0.95, "ease": "step" },
-          { "tMs": 3100, "recipeId": "happiness", "scale": 0.95, "ease": "easeInOut" },
-          { "tMs": 4900, "recipeId": "happiness", "scale": 0.85, "ease": "linear" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 2900,
+            "recipeId": "surprise",
+            "scale": 0.95,
+            "ease": "step"
+          },
+          {
+            "tMs": 3100,
+            "recipeId": "happiness",
+            "scale": 0.95,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 4900,
+            "recipeId": "happiness",
+            "scale": 0.85,
+            "ease": "linear"
+          }
         ]
       },
-      "emotionOptions": ["surprise", "anger", "disgust", "contempt", "sadness", "fear", "happiness"],
+      "emotionOptions": [
+        "surprise",
+        "anger",
+        "disgust",
+        "contempt",
+        "sadness",
+        "fear",
+        "happiness"
+      ],
       "bestEmotion": "surprise",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
           "Congratulations! What's the first piece of lab hardware you're most excited to order?",
-          "Why were you shocked — didn't you think it was good?",
+          "Why were you shocked \u2014 didn't you think it was good?",
           "Are you afraid of leading the lab?",
           "Let's get back to the backlog."
         ],
         "best": "Congratulations! What's the first piece of lab hardware you're most excited to order?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Mateo's rapid surprise onset (AU1+2+5+26) transitioning smoothly into a genuine Duchenne smile (AU6+12) reflects delighted astonishment."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_07",
@@ -233,36 +556,94 @@
       "durationSec": 26,
       "context": "A patient's family member listens as you explain the home physical-therapy exercises required after knee surgery.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "For the first week at home, we'll need someone to help stabilize the brace three times a day during flex exercises." },
-        { "tMs": 1800, "speaker": "Family Member", "text": "Okay... three times a day with the brace." },
-        { "tMs": 3300, "speaker": "You", "text": "Does that schedule feel manageable with your work hours?" },
-        { "tMs": 4400, "speaker": "Family Member", "text": "We'll figure it out. We want the recovery to go well." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "For the first week at home, we'll need someone to help stabilize the brace three times a day during flex exercises."
+        },
+        {
+          "tMs": 1800,
+          "speaker": "Family Member",
+          "text": "Okay... three times a day with the brace."
+        },
+        {
+          "tMs": 3300,
+          "speaker": "You",
+          "text": "Does that schedule feel manageable with your work hours?"
+        },
+        {
+          "tMs": 4400,
+          "speaker": "Family Member",
+          "text": "We'll figure it out. We want the recovery to go well."
+        }
       ],
       "timeline": {
         "id": "tl_conv_07",
-        "targetState": { "hidden": "fear", "shown": "neutral" },
-        "highlightAUs": [1, 2, 4, 5, 20],
+        "targetState": {
+          "hidden": "fear",
+          "shown": "neutral"
+        },
+        "highlightAUs": [
+          1,
+          2,
+          4,
+          5,
+          20
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 1650, "recipeId": "fear", "scale": 0.8, "ease": "step" },
-          { "tMs": 1820, "recipeId": "neutral", "scale": 1.0, "ease": "step" },
-          { "tMs": 4200, "recipeId": "happiness_social", "scale": 0.65, "ease": "easeInOut" },
-          { "tMs": 5200, "recipeId": "neutral", "scale": 1.0, "ease": "easeInOut" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 1650,
+            "recipeId": "fear",
+            "scale": 0.8,
+            "ease": "step"
+          },
+          {
+            "tMs": 1820,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "step"
+          },
+          {
+            "tMs": 4200,
+            "recipeId": "happiness_social",
+            "scale": 0.65,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 5200,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "easeInOut"
+          }
         ]
       },
-      "emotionOptions": ["fear", "contempt", "disgust", "anger", "happiness", "surprise", "sadness"],
+      "emotionOptions": [
+        "fear",
+        "contempt",
+        "disgust",
+        "anger",
+        "happiness",
+        "surprise",
+        "sadness"
+      ],
       "bestEmotion": "fear",
       "followUp": {
         "prompt": "What would you ask next?",
         "options": [
-          "Adjusting the brace at home can feel intimidating at first — would it help to practice putting it on together right now, or arrange a visiting PT for the first few days?",
+          "Adjusting the brace at home can feel intimidating at first \u2014 would it help to practice putting it on together right now, or arrange a visiting PT for the first few days?",
           "Why did you look scared when I mentioned the brace?",
           "Are you refusing to help with the exercises?",
           "It's very simple, there's nothing to worry about."
         ],
-        "best": "Adjusting the brace at home can feel intimidating at first — would it help to practice putting it on together right now, or arrange a visiting PT for the first few days?"
+        "best": "Adjusting the brace at home can feel intimidating at first \u2014 would it help to practice putting it on together right now, or arrange a visiting PT for the first few days?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. In clinical and caregiving settings, a brief flash of fear often signals anxiety about hurting a loved one or managing complex care alone. Offering hands-on practice and support directly addresses the underlying concern."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     },
     {
       "id": "conv_08",
@@ -271,24 +652,79 @@
       "durationSec": 24,
       "context": "You and Amara are wrapping up a joint product launch that succeeded despite tense moments between two departments.",
       "script": [
-        { "tMs": 0, "speaker": "You", "text": "Amara, the customer adoption numbers just crossed ten thousand active teams." },
-        { "tMs": 1500, "speaker": "Amara", "text": "That's wonderful to hear after how intense October was." },
-        { "tMs": 3100, "speaker": "You", "text": "How are you feeling now that the dust has settled?" },
-        { "tMs": 4200, "speaker": "Amara", "text": "Honestly, proud of what the team built — and ready for a quiet weekend." }
+        {
+          "tMs": 0,
+          "speaker": "You",
+          "text": "Amara, the customer adoption numbers just crossed ten thousand active teams."
+        },
+        {
+          "tMs": 1500,
+          "speaker": "Amara",
+          "text": "That's wonderful to hear after how intense October was."
+        },
+        {
+          "tMs": 3100,
+          "speaker": "You",
+          "text": "How are you feeling now that the dust has settled?"
+        },
+        {
+          "tMs": 4200,
+          "speaker": "Amara",
+          "text": "Honestly, proud of what the team built \u2014 and ready for a quiet weekend."
+        }
       ],
       "timeline": {
         "id": "tl_conv_08",
-        "targetState": { "hidden": "happiness", "shown": "happiness" },
-        "highlightAUs": [6, 12],
+        "targetState": {
+          "hidden": "happiness",
+          "shown": "happiness"
+        },
+        "highlightAUs": [
+          6,
+          12
+        ],
         "keys": [
-          { "tMs": 0, "recipeId": "neutral", "scale": 1.0, "ease": "linear" },
-          { "tMs": 1400, "recipeId": "happiness", "scale": 0.9, "ease": "easeInOut" },
-          { "tMs": 3500, "recipeId": "blend_bittersweet", "scale": 0.85, "ease": "easeInOut" },
-          { "tMs": 4300, "recipeId": "happiness", "scale": 0.95, "ease": "easeInOut" },
-          { "tMs": 5200, "recipeId": "happiness_amusement_low", "scale": 0.8, "ease": "easeInOut" }
+          {
+            "tMs": 0,
+            "recipeId": "neutral",
+            "scale": 1.0,
+            "ease": "linear"
+          },
+          {
+            "tMs": 1400,
+            "recipeId": "happiness",
+            "scale": 0.9,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 3500,
+            "recipeId": "blend_bittersweet",
+            "scale": 0.85,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 4300,
+            "recipeId": "happiness",
+            "scale": 0.95,
+            "ease": "easeInOut"
+          },
+          {
+            "tMs": 5200,
+            "recipeId": "happiness_amusement_low",
+            "scale": 0.8,
+            "ease": "easeInOut"
+          }
         ]
       },
-      "emotionOptions": ["happiness", "anger", "disgust", "fear", "contempt", "surprise", "sadness"],
+      "emotionOptions": [
+        "happiness",
+        "anger",
+        "disgust",
+        "fear",
+        "contempt",
+        "surprise",
+        "sadness"
+      ],
       "bestEmotion": "happiness",
       "followUp": {
         "prompt": "What would you ask next?",
@@ -300,7 +736,7 @@
         ],
         "best": "Well-deserved! After you get some rest this weekend, what part of the collaboration worked best that we should keep for next time?"
       },
-      "ethicsReflection": "A micro-expression tells you an emotion occurred, not why. Amara's smooth Duchenne smile (AU6+12) with a brief bittersweet reflection shows genuine warmth and relief after a demanding launch."
+      "ethicsReflection": "This scripted face demonstrates a pattern, not access to a person\u2019s feelings. Consider their words and circumstances, and ask a supportive, open-ended question."
     }
   ]
 }

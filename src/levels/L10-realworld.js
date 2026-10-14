@@ -9,7 +9,7 @@
 
 import { TimelinePlayer } from '../face/timeline.js';
 import { renderSceneCardHTML } from '../ui/scenes.js';
-import { saveLevelProgress } from '../store/db.js';
+import { saveLevelProgress, logTrial } from '../store/db.js';
 
 export class Level10RealWorldView {
   constructor(containerEl, { rig, content, onLevelComplete }) {
@@ -93,7 +93,7 @@ export class Level10RealWorldView {
 
         <div class="btn-row" style="margin:12px 0;">
           <button type="button" class="btn btn-primary" id="l10PlayConvBtn">▶ Play Conversation Clip (${this.activePlayer.totalDurationMs} ms)</button>
-          <button type="button" class="btn btn-secondary" id="l10JumpLeakBtn">Inspect Leaked Moment (${conv.flashTimestampMs || 1400} ms) + AU Overlay</button>
+          <button type="button" class="btn btn-secondary" id="l10JumpLeakBtn">Inspect Brief Expression (${conv.flashTimestampMs || 1400} ms) + AU Overlay</button>
         </div>
 
         <!-- Two-Part Questions -->
@@ -140,6 +140,7 @@ export class Level10RealWorldView {
 
     bodyEl.querySelectorAll('.l10-q1-opt').forEach((btn) => {
       btn.addEventListener('click', () => {
+        if (this.convQ1Ans) return;
         this.convQ1Ans = btn.getAttribute('data-opt');
         this._renderConversations(bodyEl);
       });
@@ -147,10 +148,19 @@ export class Level10RealWorldView {
 
     bodyEl.querySelectorAll('.l10-q2-opt').forEach((btn) => {
       btn.addEventListener('click', async () => {
+        if (this.convQ2Ans || !this.convQ1Ans) return;
         this.convQ2Ans = btn.getAttribute('data-opt');
-        if (this.convQ1Ans && this.convQ2Ans) {
-          await saveLevelProgress({ levelId: 10, completed: true, bestScore: 90, updatedAt: Date.now() });
-          if (this.onLevelComplete) this.onLevelComplete(10, 90);
+        this.convResults ||= new Map();
+        const key = conv.id || String(this.convIdx % convs.length);
+        if (!this.convResults.has(key)) {
+          const correct = Number(this.convQ1Ans === conv.signalQuestion.answer) + Number(this.convQ2Ans === conv.responseQuestion.answer);
+          this.convResults.set(key, correct);
+          await logTrial({level:10, itemId:key, firstTry:true, hintUsed:false, correct:correct===2, correctCount:correct, total:2});
+          const score = Math.round(100 * [...this.convResults.values()].reduce((a,b)=>a+b,0) / (2*this.convResults.size));
+          if(this.convResults.size >= 6 && score >=75) {
+            await saveLevelProgress({levelId:10, completed:true, bestScore:score});
+            this.onLevelComplete?.(10,score);
+          }
         }
         this._renderConversations(bodyEl);
       });
@@ -196,7 +206,7 @@ export class Level10RealWorldView {
         </div>
 
         ${renderSceneCardHTML(activeScene, {
-          extraHTML: `<div class="quiz-feedback pass" style="margin-top:10px;"><strong>Inferred State in Context ${this.swapActiveSide}:</strong> ${activeScene?.inferredState}</div>`
+          extraHTML: `<div class="quiz-feedback pass" style="margin-top:10px;"><strong>Possible Interpretation in Context ${this.swapActiveSide}:</strong> ${activeScene?.inferredState}</div>`
         })}
 
         <div class="quiz-feedback pass" style="margin-top:14px;">

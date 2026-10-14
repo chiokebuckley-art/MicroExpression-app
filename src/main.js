@@ -1,3 +1,4 @@
+import { BeginnerJourney, stagePassed } from './train/journey.js';
 /**
  * Reading Faces — Main Application Router & Orchestrator.
  * Connects the realistic Three.js 3D FaceRig, 10-Level Curriculum, Ethics Gate,
@@ -10,6 +11,7 @@ import { CANONICAL_ARKIT_52 } from './face/auMap.js';
 import { normalizeAllContent } from './contentAdapter.js';
 import { runStartupMigrations } from './store/migrate.js';
 import {
+  getRecord,
   getAllSettings,
   saveSetting,
   getLevelProgressMap,
@@ -40,7 +42,7 @@ import { MirrorModeController } from './ui/mirror.js';
 const LEVEL_TITLES = [
   { id: 1, short: 'L1: Literacy', title: 'Emotional Literacy & Dimensional Foundations' },
   { id: 2, short: 'L2: Anatomy', title: 'Facial Anatomy, 3 Zones & 11 Muscles' },
-  { id: 3, short: 'L3: 18 AUs', title: 'Action Units (FACS Core 18)' },
+  { id: 3, short: 'L3: 22 AUs', title: 'Action Units (FACS Core 22)' },
   { id: 4, short: 'L4: Core 7', title: 'The 7 Universal Expressions (Full View)' },
   { id: 5, short: 'L5: Subtle A-E', title: 'Subtle & Partial Expressions' },
   { id: 6, short: 'L6: Speed & Pairs', title: 'Micro-Expression Speed & Confusable Pairs' },
@@ -132,7 +134,7 @@ export class ReadingFacesApp {
     this._renderTopNav();
 
     window.addEventListener('hashchange', () => this.handleRoute(window.location.hash));
-    const initialHash = window.location.hash || '#/level/4';
+    const initialHash = window.location.hash || '#/home';
     this.handleRoute(initialHash);
 
     // Register offline service worker cleanly
@@ -142,68 +144,20 @@ export class ReadingFacesApp {
   }
 
   isLevelUnlocked(levelId) {
-    if (this.settings.unlockAll) return true;
-    if (levelId === 1) return true;
-    // Level 6+ requires Ethics Gate completion unless Unlock All is enabled
     if (levelId >= 6 && !this.settings.ethicsCompleted) return false;
-    const prev = this.levelProgress.get(levelId - 1);
-    return Boolean(prev?.completed);
+    if (this.settings.unlockAll || this.referenceUnlocked || levelId === 1) return true;
+    return Boolean(this.levelProgress.get(levelId - 1)?.completed);
   }
 
   _renderTopNav() {
     const navBar = document.getElementById('appTopNav');
     if (!navBar) return;
 
-    const unlockAll = Boolean(this.settings.unlockAll);
-    const ethicsDone = Boolean(this.settings.ethicsCompleted);
-
-    navBar.innerHTML = `
-      <div class="brand-cluster">
-        <a href="#/level/4" class="brand-logo-link">
-          <span class="brand-dot"></span>
-          <strong>Reading Faces</strong>
-          <span class="brand-tag">FACS &amp; Emotion Science Trainer</span>
-        </a>
-      </div>
-
-      <nav class="level-pills-bar" aria-label="Curriculum Levels">
-        ${LEVEL_TITLES.map((lvl) => {
-          const unlocked = this.isLevelUnlocked(lvl.id);
-          const done = Boolean(this.levelProgress.get(lvl.id)?.completed);
-          const active = this.currentRoute === `#/level/${lvl.id}`;
-          return `
-            <a href="#/level/${lvl.id}"
-               class="level-nav-pill ${active ? 'active' : ''} ${done ? 'completed' : ''} ${!unlocked ? 'locked' : ''}"
-               data-level-nav="${lvl.id}"
-               title="${lvl.title}${!unlocked ? ' (Locked — complete prior level or toggle Unlock All)' : ''}">
-              ${lvl.short} ${done ? '✓' : (!unlocked ? '🔒' : '')}
-            </a>
-          `;
-        }).join('')}
-      </nav>
-
-      <div class="utility-nav-cluster">
-        <label class="unlock-all-toggle" title="Bypass sequential gating and explore all 10 levels freely">
-          <input type="checkbox" id="globalUnlockAllToggle" ${unlockAll ? 'checked' : ''} />
-          <span>Unlock All</span>
-        </label>
-        <a href="#/ethics" class="util-link ${this.currentRoute === '#/ethics' ? 'active' : ''}">
-          Ethics ${ethicsDone ? '✓' : ''}
-        </a>
-        <a href="#/assessment" class="util-link ${this.currentRoute === '#/assessment' ? 'active' : ''}">Benchmark</a>
-        <a href="#/dashboard" class="util-link ${this.currentRoute === '#/dashboard' ? 'active' : ''}">Analytics</a>
-        <a href="#/mirror" class="util-link ${this.currentRoute === '#/mirror' ? 'active' : ''}">Mirror</a>
-        <a href="#/au-lab" class="util-link ${this.currentRoute === '#/au-lab' ? 'active' : ''}">AU Lab</a>
-        <a href="#/settings" class="util-link ${this.currentRoute === '#/settings' ? 'active' : ''}">Settings &amp; About</a>
-      </div>
-    `;
-
-    navBar.querySelector('#globalUnlockAllToggle')?.addEventListener('change', async (e) => {
-      this.settings.unlockAll = e.target.checked;
-      await saveSetting('unlockAll', this.settings.unlockAll);
-      this._renderTopNav();
-      this.handleRoute(this.currentRoute);
-    });
+    navBar.innerHTML = `<div class="brand-cluster"><a href="#/home"><strong>Reading Faces</strong></a></div>
+      <nav class="utility-nav-cluster" aria-label="Main navigation">
+      <a class="util-link" href="#/home">Path</a><a class="util-link" href="#/review">Review</a>
+      <a class="util-link" href="#/finish">Finish</a><a class="util-link" href="#/dashboard">Progress</a>
+      <a class="util-link" href="#/settings">Settings</a></nav>`;
   }
 
   _renderRigToolbar() {
@@ -251,8 +205,10 @@ export class ReadingFacesApp {
   }
 
   async handleRoute(hash) {
-    const cleanHash = hash || '#/level/4';
+    const cleanHash = hash || '#/home';
     this.currentRoute = cleanHash;
+    const journey = await getRecord('progress', 'beginnerJourneyV2');
+    this.referenceUnlocked = Boolean(journey && stagePassed(journey, 1));
 
     if (this.activeViewInstance && typeof this.activeViewInstance.dispose === 'function') {
       this.activeViewInstance.dispose();
@@ -276,26 +232,30 @@ export class ReadingFacesApp {
       this._renderTopNav();
     };
 
+    if (['#/home','#/review','#/finish'].includes(cleanHash) || cleanHash.startsWith('#/stage/')) {
+      this.activeViewInstance = new BeginnerJourney(workspaceEl, this, cleanHash); return;
+    }
+    if (cleanHash === '#/library' && !this.referenceUnlocked && !this.settings.unlockAll) {
+      workspaceEl.innerHTML = '<h2>Go deeper</h2><p>Finish Meet the 7 to open the reference library.</p><a href="#/home">Return to your path</a>'; return;
+    }
+    if (cleanHash === '#/library') {
+      workspaceEl.innerHTML = `<h2>Go deeper</h2><p>Optional reference lessons. These do not replace beginner-path checks.</p><div class="vocab-cards-grid">${LEVEL_TITLES.map(l=>`<a class="vocab-card" href="#/level/${l.id}">${l.title}</a>`).join('')}</div><a href="#/mirror">Mirror</a> · <a href="#/au-lab">AU Lab</a>`; return;
+    }
     if (cleanHash.startsWith('#/level/')) {
       const levelNum = Number(cleanHash.replace('#/level/', '')) || 1;
 
       // Check Ethics Gate before Level 6+
-      if (levelNum >= 6 && !this.settings.unlockAll && !this.settings.ethicsCompleted) {
+      if (levelNum >= 6 && !this.settings.ethicsCompleted) {
         workspaceEl.innerHTML = `
           <div class="gate-notice-card">
             <h3>Scientific &amp; Ethical Framing Required Before Level ${levelNum}</h3>
-            <p>Before beginning sub-200 ms micro-expression speed training, please complete the brief 4-card Scientific &amp; Ethical Framing module (or toggle <strong>Unlock All</strong> in the header).</p>
+            <p>Before beginning sub-200 ms micro-expression speed training, please complete the brief 4-card Scientific &amp; Ethical Framing module.</p>
             <div class="btn-row">
               <a href="#/ethics" class="btn btn-primary">Open Ethics &amp; Science Module (3/3 Quiz)</a>
-              <button type="button" class="btn btn-secondary" id="gateQuickUnlockBtn">Enable Unlock All Levels</button>
+
             </div>
           </div>
         `;
-        workspaceEl.querySelector('#gateQuickUnlockBtn')?.addEventListener('click', async () => {
-          this.settings.unlockAll = true;
-          await saveSetting('unlockAll', true);
-          this.handleRoute(cleanHash);
-        });
         return;
       }
 
@@ -303,18 +263,13 @@ export class ReadingFacesApp {
         workspaceEl.innerHTML = `
           <div class="gate-notice-card">
             <h3>Level ${levelNum} is Currently Locked</h3>
-            <p>Complete Level ${levelNum - 1} to unlock sequentially, or enable <strong>Unlock All</strong> in the top bar to jump directly to any module.</p>
+            <p>Complete Level ${levelNum - 1} to unlock sequentially, or enable <strong>Unlock All</strong> in Settings to jump directly to any module.</p>
             <div class="btn-row">
               <a href="#/level/${levelNum - 1}" class="btn btn-primary">Go to Level ${levelNum - 1}</a>
-              <button type="button" class="btn btn-secondary" id="gateUnlockNowBtn">Unlock All Levels Now</button>
+              <a class="btn btn-secondary" href="#/settings">Settings</a>
             </div>
           </div>
         `;
-        workspaceEl.querySelector('#gateUnlockNowBtn')?.addEventListener('click', async () => {
-          this.settings.unlockAll = true;
-          await saveSetting('unlockAll', true);
-          this.handleRoute(cleanHash);
-        });
         return;
       }
 
@@ -710,6 +665,10 @@ export class ReadingFacesApp {
       </div>
     `;
 
+    const testing = document.createElement('details');
+    testing.innerHTML = `<summary>Testing settings</summary><label><input id="settingsUnlockAll" type="checkbox" ${this.settings.unlockAll?'checked':''}> Unlock reference lessons (ethics remains required; no journey credit)</label>`;
+    containerEl.append(testing);
+    testing.querySelector('input').onchange = async e => {this.settings.unlockAll=e.target.checked;await saveSetting('unlockAll',e.target.checked);};
     containerEl.querySelector('#settingsRecalibrateHzBtn')?.addEventListener('click', async () => {
       if (!this.rig?.scheduler) return;
       const res = await this.rig.scheduler.calibrateRefreshRate(45);

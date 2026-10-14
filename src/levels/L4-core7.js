@@ -266,7 +266,8 @@ export class Level4Core7View {
   }
 
   async _submitDrillAnswer(chosenEmotion) {
-    if (this.feedback) return;
+    if (this.feedback || this.submitting) return;
+    this.submitting=true;
     const item = this.drillQueue[this.drillIdx % this.drillQueue.length];
     const rtMs = Math.max(50, Math.round(performance.now() - (this.trialStartTime || performance.now())));
 
@@ -284,6 +285,7 @@ export class Level4Core7View {
       updateStaircase: false
     });
 
+    this.submitting=false;
     this.drillTotal++;
     if (this.feedback.correct) this.drillScore++;
 

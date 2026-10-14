@@ -7,7 +7,7 @@
  * - 22-Item Anatomy Mastery Quiz.
  */
 
-import { saveLevelProgress, putSRSCard } from '../store/db.js';
+import { logTrial, saveLevelProgress, putSRSCard } from '../store/db.js';
 import { createSRSCard } from '../train/srs.js';
 
 export class Level2AnatomyView {
@@ -247,9 +247,11 @@ export class Level2AnatomyView {
       btn.addEventListener('click', async () => {
         const qIdx = Number(btn.getAttribute('data-qidx'));
         const opt = btn.getAttribute('data-opt');
+        if (this.quizAnswers.has(qIdx)) return;
         this.quizAnswers.set(qIdx, opt);
 
         const q = quizItems[qIdx];
+        await logTrial({level:2,itemId:q.id||String(qIdx),chosenEmotion:opt,correct:opt===q.answer,firstTry:true,hintUsed:false});
         if (q) {
           const card = createSRSCard('au', q.id || `l2_q${qIdx}`);
           card.box = opt === q.answer ? 1 : 0;

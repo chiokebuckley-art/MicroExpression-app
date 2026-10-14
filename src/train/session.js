@@ -33,7 +33,7 @@ export class TrainingSessionController {
 
   getStaircaseForEmotion(emotion) {
     if (!this.staircases.has(emotion)) {
-      const st = createStaircaseState(emotion, 2);
+      const st = createStaircaseState(emotion, 1);
       this.staircases.set(emotion, st);
     }
     return this.staircases.get(emotion);

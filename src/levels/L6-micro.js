@@ -142,7 +142,8 @@ export class Level6MicroView {
   }
 
   async _submitStaircaseAnswer(chosenEmotion) {
-    if (this.feedback) return;
+    if (this.feedback || this.submitting || !this.lastFlashTelemetry) return;
+    this.submitting = true;
     const st = this.sessionCtrl.getStaircaseForEmotion(this.currentEmotion);
     const nominalMs = this.manualSpeedOverrideMs || st.currentMs || 200;
     const rtMs = Math.max(40, Math.round(performance.now() - (this.trialStartTime || performance.now())));
@@ -161,9 +162,13 @@ export class Level6MicroView {
       updateStaircase: !this.manualSpeedOverrideMs
     });
 
-    if (this.trialIndex >= 14) {
-      await saveLevelProgress({ levelId: 6, completed: true, bestScore: 80, updatedAt: Date.now() });
-      if (this.onLevelComplete) this.onLevelComplete(6, 80);
+    this.submitting = false;
+    this.answeredCount = (this.answeredCount || 0) + 1;
+    this.correctCount = (this.correctCount || 0) + Number(this.feedback.correct);
+    const score = Math.round(100 * this.correctCount / this.answeredCount);
+    if (this.answeredCount >= 15 && score >= 75) {
+      await saveLevelProgress({ levelId: 6, completed: true, bestScore: score, updatedAt: Date.now() });
+      if (this.onLevelComplete) this.onLevelComplete(6, score);
     }
 
     const bodyEl = this.containerEl.querySelector('#l6SubtabBody');

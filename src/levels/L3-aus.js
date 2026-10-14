@@ -6,7 +6,7 @@
  */
 
 import { FACS_INTENSITY_LADDER } from '../face/auMap.js';
-import { saveLevelProgress, putSRSCard } from '../store/db.js';
+import { logTrial, saveLevelProgress, putSRSCard } from '../store/db.js';
 import { createSRSCard, updateSRSCard } from '../train/srs.js';
 
 export class Level3AUsView {
@@ -235,8 +235,11 @@ export class Level3AUsView {
 
     bodyEl.querySelectorAll('.l3-drill-opt').forEach((btn) => {
       btn.addEventListener('click', async () => {
+        if (this.drillFeedback) return;
         const chosen = btn.getAttribute('data-opt');
         const correct = chosen === item.answer;
+        this.drillFeedback = {correct};
+        await logTrial({level:3,itemId:item.id,chosenEmotion:chosen,correct,firstTry:true,hintUsed:false});
         this.drillTotal++;
         if (correct) this.drillScore++;
         this.drillFeedback = {

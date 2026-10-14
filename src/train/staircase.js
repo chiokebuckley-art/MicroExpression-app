@@ -1,12 +1,12 @@
 /**
  * Adaptive 3-Down / 1-Up Exposure Staircase (Section 6.1).
- * - Separate staircase per emotion over [500, 333, 200, 133, 100, 67, 50, 40] ms.
+ * - Separate staircase per emotion over [3000, 1000, 500, 333, 200, 133, 100, 67, 50, 40] ms.
  * - 3 consecutive correct answers at the current step -> 1 step shorter (harder).
  * - 1 wrong answer -> 1 step longer (easier).
  * - Estimated 79.4% threshold = mean of the last 6 reversals.
  */
 
-export const EXPOSURE_LADDER_MS = [500, 333, 200, 133, 100, 67, 50, 40];
+export const EXPOSURE_LADDER_MS = [3000, 1000, 500, 333, 200, 133, 100, 67, 50, 40];
 
 export const CORE_EMOTIONS_7 = [
   'happiness',
@@ -18,7 +18,7 @@ export const CORE_EMOTIONS_7 = [
   'contempt'
 ];
 
-export function createStaircaseState(emotion, initialStepIndex = 2) {
+export function createStaircaseState(emotion, initialStepIndex = 1) {
   const stepIndex = Math.max(0, Math.min(EXPOSURE_LADDER_MS.length - 1, initialStepIndex));
   return {
     emotion,
@@ -36,6 +36,7 @@ export function createStaircaseState(emotion, initialStepIndex = 2) {
 export function stepStaircase(prevState, correct) {
   const state = {
     ...prevState,
+    stepIndex: Math.max(0, EXPOSURE_LADDER_MS.indexOf(prevState.currentMs)),
     reversals: [...(prevState.reversals || [])],
     trials: (prevState.trials || 0) + 1,
     correctCount: (prevState.correctCount || 0) + (correct ? 1 : 0)

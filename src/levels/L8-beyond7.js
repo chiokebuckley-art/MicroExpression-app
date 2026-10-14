@@ -6,7 +6,7 @@
  */
 
 import { renderPostureSVG } from '../ui/scenes.js';
-import { saveLevelProgress } from '../store/db.js';
+import { logTrial, saveLevelProgress } from '../store/db.js';
 
 export class Level8Beyond7View {
   constructor(containerEl, { rig, content, onLevelComplete }) {
@@ -155,14 +155,17 @@ export class Level8Beyond7View {
 
     bodyEl.querySelectorAll('.l8-drill-opt').forEach((btn) => {
       btn.addEventListener('click', async () => {
+        if (this.drillFeedback) return;
         const chosen = btn.getAttribute('data-opt');
         const correct = chosen === item.name;
+        this.drillFeedback = {correct};
+        await logTrial({level:8,itemId:item.id,chosenEmotion:chosen,correct,firstTry:true,hintUsed:false});
         this.drillTotal++;
         if (correct) this.drillScore++;
         this.drillFeedback = { correct };
-        if (this.drillTotal >= 6) {
-          await saveLevelProgress({ levelId: 8, completed: true, bestScore: 85, updatedAt: Date.now() });
-          if (this.onLevelComplete) this.onLevelComplete(8, 85);
+        if (this.drillTotal >= 6 && this.drillScore / this.drillTotal >= .75) {
+          await saveLevelProgress({ levelId: 8, completed: true, bestScore: Math.round(100 * this.drillScore / this.drillTotal), updatedAt: Date.now() });
+          if (this.onLevelComplete) this.onLevelComplete(8, Math.round(100 * this.drillScore / this.drillTotal));
         }
         this._renderDrill(bodyEl);
       });

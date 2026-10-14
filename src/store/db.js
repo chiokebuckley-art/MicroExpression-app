@@ -155,7 +155,7 @@ export async function recordLevelScore(levelNum, accuracy) {
 export async function isLevelUnlocked(levelNum) {
   const p = await getProgress();
   if (levelNum >= 6) {
-    const ethicsOk = Boolean(p.ethicsPassedAt) || Boolean(p.ethicsCompleted) || Boolean(p.bypassEthicsGateForTest) || Boolean(p.unlockAll);
+    const ethicsOk = Boolean(p.ethicsPassedAt) || Boolean(p.ethicsCompleted);
     if (!ethicsOk) return false;
   }
   if (p.unlockAll) return true;
@@ -171,6 +171,8 @@ export async function logTrial(record) {
   const ts = record.timestamp || record.ts || Date.now();
   const id = record.id || `trial_${ts}_${++trialSeq}`;
   return putRecord('trials', {
+    firstTry: record.firstTry ?? true,
+    hintUsed: record.hintUsed ?? false,
     ...record,
     id,
     ts,
@@ -240,7 +242,7 @@ export async function getLevelProgressMap() {
     const score = p.levelMastery?.[i] || 0;
     list.push({
       levelId: i,
-      completed: score >= 70,
+      completed: Boolean(p.levelCompleted?.[i]),
       bestScore: score
     });
   }
@@ -248,6 +250,8 @@ export async function getLevelProgressMap() {
 }
 
 export async function saveLevelProgress({ levelId, completed, bestScore }) {
-  const score = bestScore ?? (completed ? 85 : 0);
-  return recordLevelScore(levelId, score);
+  const score = Number(bestScore) || 0;
+  await recordLevelScore(levelId, score);
+  const p = await getProgress();
+  return updateProgress({levelCompleted: {...(p.levelCompleted||{}), [levelId]: Boolean(p.levelCompleted?.[levelId] || completed)}});
 }

@@ -166,9 +166,9 @@ export class Level7BlendsView {
         nominalMs: 333,
         correct
       });
-      if (this.blendTotal >= 6) {
-        await saveLevelProgress({ levelId: 7, completed: true, bestScore: 85, updatedAt: Date.now() });
-        if (this.onLevelComplete) this.onLevelComplete(7, 85);
+      if (this.blendTotal >= 6 && this.blendScore / this.blendTotal >= .75) {
+        await saveLevelProgress({ levelId: 7, completed: true, bestScore: Math.round(100 * this.blendScore / this.blendTotal), updatedAt: Date.now() });
+        if (this.onLevelComplete) this.onLevelComplete(7, Math.round(100 * this.blendScore / this.blendTotal));
       }
       this._renderBlends(bodyEl);
     });

@@ -1,7 +1,7 @@
 {
   "level": 10,
   "id": "L10",
-  "title": "Real-World Application",
+  "title": "Conversations & Context",
   "subtitle": "Context-swap pairs, scripted conversation scenes with embedded flashes, and ethical follow-up questions",
   "modes": [
     "contextSwaps",
