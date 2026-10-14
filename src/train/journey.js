@@ -100,8 +100,8 @@ export class BeginnerJourney {
   dispose() {
     this.dead = true;
     if (this.player) this.player.isPlaying = false;
-    this.rig.scheduler.cancelFlash();
-    this.rig.resetToNeutral();
+    this.rig?.scheduler.cancelFlash();
+    this.rig?.resetToNeutral();
   }
   async init() {
     this.state =
@@ -149,6 +149,42 @@ export class BeginnerJourney {
     this.body(
       `<p>${done}/8 stages · ${this.state.rounds.reduce((n, r) => n + (r.passed ? (r.supported ? 0.5 : 1) : 0), 0)} stars · ${this.state.days.length} practice days (breaks never erase progress)</p><progress max="8" value="${done}"></progress><div class="vocab-cards-grid">${NAMES.map((n, i) => `<a class="vocab-card" href="#/stage/${i}">${stagePassed(this.state, i) ? "★" : "○"} ${i} · ${n}</a>`).join("")}</div>${this.state.final ? `<p>30-day recheck: ${new Date(this.state.final.timestamp + 30 * DAY).toLocaleDateString()}.</p>` : ""}`,
     );
+    const collected = [
+      ...new Set(this.state.rounds.flatMap((r) => r.cards || [])),
+    ];
+    if (collected.length)
+      this.el
+        .querySelector(".journey-body")
+        .insertAdjacentHTML(
+          "beforeend",
+          `<p>Face cards (${collected.length}/7): ${collected.map(esc).join(" · ")}</p>`,
+        );
+    const medals = [
+      ...new Set(
+        this.state.rounds
+          .filter((r) => r.stage === 5 && r.passed && !r.supported)
+          .map((r) => r.group),
+      ),
+    ];
+    if (medals.length)
+      this.el
+        .querySelector(".journey-body")
+        .insertAdjacentHTML(
+          "beforeend",
+          `<p>Speed medals: ${medals.map(esc).join(" ms · ")} ms</p>`,
+        );
+    if (stagePassed(this.state, 2))
+      this.button("Clue book", () => {
+        this.shell(
+          "Your clue book",
+          "Patterns suggest possibilities. Ask before drawing conclusions.",
+        );
+        this.body(
+          CORE.map(
+            (e) => `<p><strong>${esc(e)}</strong>: ${esc(CUES[e])}</p>`,
+          ).join(""),
+        );
+      });
     this.button(
       due ? `Review (${due} due)` : "Practice review",
       () => (location.hash = "#/review"),
@@ -166,6 +202,13 @@ export class BeginnerJourney {
       return;
     }
     if (n === 7) return this.finish();
+    if (n > 0 && !this.rig) {
+      this.shell(
+        "3D display unavailable",
+        "Face checks require a working 3D display. Enable hardware acceleration or open this app in a WebGL-capable browser.",
+      );
+      return;
+    }
     if (n === 1 && !this.state.baseline) {
       this.shell(
         "Your starting point",
@@ -261,7 +304,7 @@ export class BeginnerJourney {
           this.body(
             `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">${previews.join("")}</div>`,
           );
-          this.rig.resetToNeutral();
+          this.rig?.resetToNeutral();
         });
         this.button(`Check ${pair.join(" / ")}`, () =>
           this.round(
@@ -580,6 +623,12 @@ export class BeginnerJourney {
       passed: pass,
       supported,
       timestamp: Date.now(),
+      cards:
+        r.stage === 1
+          ? r.results
+              .filter((x) => x.correct && !x.hintUsed)
+              .map((x) => x.emotion)
+          : [],
     });
     const day = new Date().toLocaleDateString("en-CA");
     if (!this.state.days.includes(day)) this.state.days.push(day);
@@ -622,6 +671,13 @@ export class BeginnerJourney {
     return this.round(7, kind, items, kind);
   }
   async review() {
+    if (!this.rig) {
+      this.shell(
+        "3D display unavailable",
+        "Face review requires a WebGL-capable browser.",
+      );
+      return;
+    }
     if (!stagePassed(this.state, 0)) return this.stage(0);
     const cards = await getAllSRSCards(),
       trials = await getTrials();

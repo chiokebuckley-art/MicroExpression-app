@@ -123,11 +123,17 @@ export class ReadingFacesApp {
 
     // Initialize 3D FaceRig inside #rigCanvasMount
     const rigMount = document.getElementById('rigCanvasMount');
-    this.rig = new FaceRig(rigMount, {
-      quality: this.settings.quality || 'high',
-      reducedMotion: Boolean(this.settings.reducedMotion)
-    });
-    await this.rig.init();
+    try {
+      this.rig = new FaceRig(rigMount, {
+        quality: this.settings.quality || 'high',
+        reducedMotion: Boolean(this.settings.reducedMotion)
+      });
+      await this.rig.init();
+    } catch (error) {
+      console.warn('3D face unavailable:', error.message);
+      this.rig = null;
+      rigMount.innerHTML = '<p style="padding:20px">3D faces could not load. Enable hardware acceleration or try a WebGL-capable browser. Your saved progress is safe; face checks require a working display.</p>';
+    }
     window.__rig = this.rig;
 
     this._renderRigToolbar();
@@ -234,6 +240,9 @@ export class ReadingFacesApp {
 
     if (['#/home','#/review','#/finish'].includes(cleanHash) || cleanHash.startsWith('#/stage/')) {
       this.activeViewInstance = new BeginnerJourney(workspaceEl, this, cleanHash); return;
+    }
+    if (!this.rig && (cleanHash.startsWith('#/level/') || ['#/assessment','#/au-lab','#/mirror'].includes(cleanHash))) {
+      workspaceEl.innerHTML = '<h2>3D display unavailable</h2><p>Try a WebGL-capable browser to use face lessons. You can still view your path, ethics, progress, and settings.</p><a href="#/home">Your path</a>'; return;
     }
     if (cleanHash === '#/library' && !this.referenceUnlocked && !this.settings.unlockAll) {
       workspaceEl.innerHTML = '<h2>Go deeper</h2><p>Finish Meet the 7 to open the reference library.</p><a href="#/home">Return to your path</a>'; return;
