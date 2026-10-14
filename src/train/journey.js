@@ -99,6 +99,7 @@ export class BeginnerJourney {
   }
   dispose() {
     this.dead = true;
+    document.querySelector(".flash-cue")?.remove();
     if (this.player) this.player.isPlaying = false;
     this.rig?.scheduler.cancelFlash();
     this.rig?.resetToNeutral();
@@ -430,8 +431,43 @@ export class BeginnerJourney {
     };
     return this.item();
   }
+  async prepareFace() {
+    const mount = document.getElementById("rigCanvasMount");
+    if (!mount) return !this.dead;
+    mount.scrollIntoView({ block: "center", behavior: "instant" });
+    this.rig.resetToNeutral();
+    let cue = mount.querySelector(".flash-cue");
+    if (!cue) {
+      cue = document.createElement("div");
+      cue.className = "flash-cue";
+      cue.setAttribute("role", "status");
+      mount.append(cue);
+    }
+    return new Promise((resolve) => {
+      let start;
+      const ready = (now) => {
+        if (this.dead || document.visibilityState === "hidden") {
+          cue.textContent = "Paused — tap Show again when ready.";
+          resolve(false);
+          return;
+        }
+        start ??= now;
+        const elapsed = now - start;
+        cue.textContent =
+          elapsed < 750
+            ? "Look at the face · 2"
+            : elapsed < 1500
+              ? "Get ready · 1"
+              : "Watch now";
+        if (elapsed >= 1500) resolve(true);
+        else requestAnimationFrame(ready);
+      };
+      requestAnimationFrame(ready);
+    });
+  }
   async item() {
     if (this.dead) return;
+    document.querySelector(".flash-cue")?.remove();
     const run = this.run;
     if (run.index >= run.items.length) return this.end();
     const x = run.items[run.index];
@@ -439,7 +475,9 @@ export class BeginnerJourney {
       checked = false,
       hint = false,
       shown = false,
-      busy = false;
+      busy = false,
+      replayCount = 0,
+      slowPreviewUsed = false;
     this.shell(
       run.assessment
         ? `${run.assessment} · ${run.index + 1}/42`
@@ -452,7 +490,7 @@ export class BeginnerJourney {
           (o, i) =>
             `<button class="btn btn-secondary answer" data-value="${esc(o)}">${esc(o)}</button>`,
         )
-        .join("")}</div><p id="item-feedback" role="status"></p>`,
+        .join("")}</div>${run.assessment ? "<p>Replay or slow down if needed. These attempts are marked supported practice.</p>" : ""}<p id="item-feedback" role="status"></p>`,
     );
     const feedback = this.el.querySelector("#item-feedback");
     const choices = [...this.el.querySelectorAll(".answer")];
@@ -465,49 +503,89 @@ export class BeginnerJourney {
         check.disabled = !shown;
       };
     });
-    const present = async () => {
+    const present = async (slow = false) => {
       if (busy || checked || this.dead) return;
       busy = true;
       show.disabled = true;
       check.disabled = true;
       choices.forEach((b) => (b.disabled = true));
-      if (shown) hint = true;
-      if (x.rigId && this.rig.currentRigId !== x.rigId)
-        await this.rig.loadRig(x.rigId);
-      if (this.dead) return;
-      this.rig.setOverlaysEnabled(false);
-      let recipe = x.recipe;
-      if (x.region)
-        recipe = {
-          ...recipe,
-          aus: recipe.aus.filter((a) =>
-            x.region === "upper" ? Number(a.au) <= 7 : Number(a.au) > 7,
-          ),
-        };
-      if (x.timeline) {
-        const { TimelinePlayer } = await import("../face/timeline.js");
-        this.player = new TimelinePlayer({
-          keyframes: x.timeline,
-          auCatalog: this.app.content.aus,
-          expressionsCatalog: this.app.content.expressions,
-        });
-        await this.rig.playTimeline(this.player);
-      } else if (x.ms) {
-        x.telemetry = await this.rig.flashExpression(recipe, x.ms, {
-          scale: x.scale || 1,
-        });
-        if (x.mask && !this.dead)
-          this.rig.setExpressionFromRecipe(this.expr("happiness_social"));
-      } else if (recipe)
-        this.rig.setExpressionFromRecipe(recipe, { scale: x.scale || 1 });
-      if (this.dead) return;
-      shown = true;
-      busy = false;
-      choices.forEach((b) => (b.disabled = false));
-      check.disabled = !selected;
-      show.disabled = Boolean(run.assessment);
+      if (shown) {
+        hint = true;
+        replayCount++;
+      }
+      if (slow) {
+        hint = true;
+        slowPreviewUsed = true;
+      }
+      try {
+        if (x.rigId && this.rig.currentRigId !== x.rigId)
+          await this.rig.loadRig(x.rigId);
+        if (this.dead) return;
+        this.rig.setOverlaysEnabled(false);
+        if ((x.ms || x.timeline) && !(await this.prepareFace())) {
+          shown = false;
+          return;
+        }
+        let recipe = x.recipe;
+        if (x.region)
+          recipe = {
+            ...recipe,
+            aus: recipe.aus.filter((a) =>
+              x.region === "upper" ? Number(a.au) <= 7 : Number(a.au) > 7,
+            ),
+          };
+        if (x.timeline) {
+          const { TimelinePlayer } = await import("../face/timeline.js");
+          this.player = new TimelinePlayer({
+            keyframes: x.timeline,
+            auCatalog: this.app.content.aus,
+            expressionsCatalog: this.app.content.expressions,
+          });
+          await this.rig.playTimeline(this.player);
+        } else if (x.ms) {
+          x.telemetry = await this.rig.flashExpression(
+            recipe,
+            slow ? Math.max(1500, x.ms) : x.ms,
+            {
+              scale: x.scale || 1,
+            },
+          );
+          if (x.mask && !this.dead)
+            this.rig.setExpressionFromRecipe(this.expr("happiness_social"));
+        } else if (recipe)
+          this.rig.setExpressionFromRecipe(recipe, { scale: x.scale || 1 });
+        if (this.dead) return;
+        if (x.telemetry?.cancelled || document.visibilityState === "hidden") {
+          shown = false;
+          return;
+        }
+        shown = true;
+        const cue = document.querySelector(".flash-cue");
+        if (cue)
+          cue.textContent = slow
+            ? "Slow preview complete — replay or choose an answer."
+            : "Flash complete — replay if you missed it.";
+        feedback.textContent = slow
+          ? "Slow preview: supported practice."
+          : "Missed it? Tap Show again, or try Slow preview.";
+      } catch (error) {
+        shown = false;
+        feedback.textContent =
+          "The face could not be shown. Please try Show again.";
+        console.warn("Face presentation failed", error);
+      } finally {
+        if (this.dead) return;
+        busy = false;
+        choices.forEach((b) => (b.disabled = !shown));
+        check.disabled = !shown || !selected;
+        show.disabled = false;
+        show.textContent = x.ms ? `Show again (${x.ms} ms)` : "Show again";
+      }
     };
-    const show = this.button(x.ms ? `Show (${x.ms} ms)` : "Show face", present);
+    const show = this.button(x.ms ? `Show (${x.ms} ms)` : "Show face", () =>
+      present(false),
+    );
+    if (x.ms) this.button("Slow preview (1.5 s)", () => present(true));
     if (!x.recipe && !x.timeline) {
       shown = true;
       show.hidden = true;
@@ -531,6 +609,8 @@ export class BeginnerJourney {
         correct: selected === x.answer,
         firstTry: true,
         hintUsed: hint,
+        replayCount,
+        slowPreviewUsed,
         shownEmotion: x.emotion,
         nominalMs: x.ms || 0,
         actualMs: x.telemetry?.actualMs,
@@ -572,7 +652,13 @@ export class BeginnerJourney {
         r.results.map((x) => ({ ...x, emotion: x.emotion, nominalMs: x.ms })),
       );
       score.kind = r.assessment;
-      score.supported = this.app.settings.reducedMotion;
+      score.supported = Boolean(
+        this.app.settings.reducedMotion || r.results.some((x) => x.hintUsed),
+      );
+      score.replayCount = r.results.reduce(
+        (n, x) => n + (x.replayCount || 0),
+        0,
+      );
       await saveAssessment(score);
       if (r.assessment === "baseline") this.state.baseline = score;
       else if (!score.supported && finalPass(score)) {
@@ -591,7 +677,7 @@ export class BeginnerJourney {
       await this.save();
       this.shell(
         "Check complete",
-        `200 ms: ${score.bySpeed[200].accuracy}% · 100 ms: ${score.bySpeed[100].accuracy}%${score.supported ? " · Reduced-motion practice; not a speed qualification." : ""}`,
+        `200 ms: ${score.bySpeed[200].accuracy}% · 100 ms: ${score.bySpeed[100].accuracy}%${score.supported ? " · Supported practice (replay, slow preview, or reduced motion); not a speed qualification." : ""}`,
       );
       this.button("Continue", () => {
         const next = r.assessment === "baseline" ? "#/stage/1" : "#/finish";

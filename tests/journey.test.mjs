@@ -175,6 +175,34 @@ await db.recordLevelScore(6, 90);
 assert.equal((await db.getLevelProgressMap())[5].completed, false);
 await db.saveLevelProgress({ levelId: 6, bestScore: 80, completed: true });
 assert.equal((await db.getLevelProgressMap())[5].completed, true);
+// A phone user can replay the same assessment face and use a slow preview.
+const mount=document.createElement('div');mount.id='rigCanvasMount';document.body.append(mount);
+let scrolled=0, clock=0;const durations=[];mount.scrollIntoView=()=>scrolled++;
+Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});
+globalThis.requestAnimationFrame=cb=>{queueMicrotask(()=>cb(clock+=750));return clock;};
+const originalFlash=app.rig.flashExpression;
+app.rig.flashExpression=async (recipe,ms)=>{assert.equal(mount.querySelector('.flash-cue').textContent,'Watch now');durations.push(ms);return {actualMs:ms};};
+await view.round(7,'baseline',[{...view.faceItem('fear'),ms:100}],'baseline');
+await button('Show (100 ms)').onclick();
+assert.equal(button('Show again (100 ms)').disabled,false);
+await button('Show again (100 ms)').onclick();
+await button('Slow preview (1.5 s)').onclick();
+assert.deepEqual(durations,[100,100,1500]);assert.equal(scrolled,3);
+assert.equal(view.run.results.length,0);
+const chosen=[...el.querySelectorAll('.answer')].find(b=>b.dataset.value==='fear');chosen.onclick();
+await button('Check').onclick();assert.equal(view.run.results.length,1);
+assert.equal(view.run.results[0].replayCount,2);assert.equal(view.run.results[0].slowPreviewUsed,true);
+// Failure or a background tab must not enable answers; retry remains available.
+await view.round(7,'baseline',[{...view.faceItem('fear'),ms:100}],'baseline');
+Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});
+await button('Show (100 ms)').onclick();assert([...el.querySelectorAll('.answer')].every(b=>b.disabled));assert(!button('Show again (100 ms)').disabled);
+Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});
+await button('Show again (100 ms)').onclick();assert([...el.querySelectorAll('.answer')].every(b=>!b.disabled));
+mount.remove();app.rig.flashExpression=originalFlash;
+// Supported final attempts never issue a speed certificate.
+app.settings.reducedMotion=false;
+view.run={assessment:'final',results:all.map((x,i)=>({...x,ms:x.nominalMs,hintUsed:i===0})),items:all};
+await view.end();assert(!view.state.final);
 // Baseline completion returns to Meet the 7 even when the URL is unchanged.
 view.state.rounds.push({stage:0,passed:true,supported:false});
 view.route='#/stage/1'; location.hash='#/stage/1';

@@ -4,7 +4,7 @@
  * and 3D head models for full offline execution after initial load.
  */
 
-const CACHE_NAME = 'reading-faces-cache-v4-beginner';
+const CACHE_NAME = 'reading-faces-cache-v5-replay';
 const CORE_ASSETS = [
   './',
   './index.html',
