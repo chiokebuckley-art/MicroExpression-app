@@ -730,6 +730,12 @@
     .journey-actions { margin-top:16px; flex-wrap:wrap; gap:10px; }
     .journey .answer.active { outline:3px solid #70ddcd; }
     .journey progress { width:100%; margin-bottom:20px; }
+    @media(min-width:601px) and (max-width:1024px) {
+      .lesson-active .rig-stage-card {position:sticky;top:48px;z-index:15;}
+      .lesson-active .rig-canvas-mount {height:260px;}
+      .lesson-active .rig-stage-footer {display:none;}
+      .lesson-active .rig-stage-toolbar .rig-select-label:nth-of-type(2), .lesson-active #rigToolbarNeutralBtn {display:none;}
+    }
     @media(max-width:600px) {
       .rig-stage-card { position:relative; top:0; }
       .rig-canvas-mount {height:210px;}

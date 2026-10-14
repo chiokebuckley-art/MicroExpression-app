@@ -188,6 +188,12 @@ def run_updates(page, context, base_url, root):
     page.locator('#lookForSlider').fill('100');settle(page)
     page.screenshot(path=str(lesson/'phone.png'),full_page=True)
     page.goto(base_url+'/#/settings');page.locator('#settingsBeginnerMinimum').wait_for();assert page.locator('#settingsBeginnerMinimum').is_checked()
+    page.set_viewport_size({'width':611,'height':724})
+    page.goto(base_url+'/#/lesson/look-for');page.locator('#lookForSlider').wait_for()
+    page.locator('#lookForSlider').evaluate("e=>e.scrollIntoView({block:'end'})")
+    face=canvas.bounding_box();slider=page.locator('#lookForSlider').bounding_box()
+    assert face['height']==260 and face['y']+face['height']<slider['y']
+    page.screenshot(path=str(lesson/'narrow-panel.png'))
     page.set_viewport_size({'width':1280,'height':800})
     # Restore the expected state for the original reference-library smoke tests.
     page.evaluate("async()=>{const db=await import('./src/store/db.js');await db.saveSetting('unlockAll',true);await db.saveSetting('ethicsCompleted',true);window.__app.settings.unlockAll=true;window.__app.settings.ethicsCompleted=true;}")
