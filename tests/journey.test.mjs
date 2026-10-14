@@ -175,6 +175,11 @@ await db.recordLevelScore(6, 90);
 assert.equal((await db.getLevelProgressMap())[5].completed, false);
 await db.saveLevelProgress({ levelId: 6, bestScore: 80, completed: true });
 assert.equal((await db.getLevelProgressMap())[5].completed, true);
+// Baseline completion returns to Meet the 7 even when the URL is unchanged.
+view.state.rounds.push({stage:0,passed:true,supported:false});
+view.route='#/stage/1'; location.hash='#/stage/1';
+view.run={assessment:'baseline',results:all.map(x=>({...x,ms:x.nominalMs})),items:all};
+await view.end();button('Continue').onclick();await wait();assert.match(el.textContent,/Meet the 7/);
 // Completing a final produces a certificate only after real 42-item evidence.
 app.settings.reducedMotion=false;
 view.state.baseline=scoreAssessment(all);

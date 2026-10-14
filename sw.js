@@ -4,7 +4,7 @@
  * and 3D head models for full offline execution after initial load.
  */
 
-const CACHE_NAME = 'reading-faces-cache-v3-beginner';
+const CACHE_NAME = 'reading-faces-cache-v4-beginner';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -39,6 +39,16 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  // Refresh code/content online; preserve offline fallback and cached large models.
+  const url = new URL(event.request.url);
+  if (url.origin === self.location.origin && (event.request.mode === 'navigate' || /\.(js|json|html)$/.test(url.pathname))) {
+    event.respondWith(fetch(event.request, {cache:'no-cache'}).then(response => {
+      if(response.ok) { const copy=response.clone(); caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy)); }
+      return response;
+    }).catch(()=>caches.match(event.request)));
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;

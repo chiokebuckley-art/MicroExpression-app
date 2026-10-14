@@ -594,8 +594,11 @@ export class BeginnerJourney {
         `200 ms: ${score.bySpeed[200].accuracy}% · 100 ms: ${score.bySpeed[100].accuracy}%${score.supported ? " · Reduced-motion practice; not a speed qualification." : ""}`,
       );
       this.button("Continue", () => {
-        location.hash = r.assessment === "baseline" ? "#/stage/1" : "#/finish";
-        if (location.hash === this.route) this.finish();
+        const next = r.assessment === "baseline" ? "#/stage/1" : "#/finish";
+        if (location.hash === next) {
+          if (r.assessment === "baseline") this.stage(1);
+          else this.finish();
+        } else location.hash = next;
       });
       return;
     }

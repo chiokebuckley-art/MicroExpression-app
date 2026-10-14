@@ -1,4 +1,4 @@
-import { BeginnerJourney, stagePassed } from './train/journey.js';
+import { BeginnerJourney, stagePassed } from './train/journey.js?v=4';
 /**
  * Reading Faces — Main Application Router & Orchestrator.
  * Connects the realistic Three.js 3D FaceRig, 10-Level Curriculum, Ethics Gate,
